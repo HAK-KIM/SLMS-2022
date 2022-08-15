@@ -1,0 +1,14 @@
+VC Part1:
+Component Diagram
+
++ Students:(view)
+1. Leave History (card)
+2. New Request(form)
+3. Accept (card)
+
++ Social affair:(view)
+1. Students List(card)
+2. Check Leave (card)
+3. Notification ( accept or not)(send to leave card)
+
++ 
