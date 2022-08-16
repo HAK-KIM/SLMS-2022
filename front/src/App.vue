@@ -1,30 +1,47 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <v-app id="inspire">
+        <v-navigation-drawer
+      v-model="drawer"
+    > 
+      <Sidebar />
+    </v-navigation-drawer>
+    <v-app-bar>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>SLMS</v-toolbar-title>
+      <Menubar />
+    </v-app-bar>
+
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import Menubar from './components/Navigation/MenuComponent.vue';
+import Sidebar from './components/Navigation/SideMenu.vue';
+export default {
+  components: {
+    Menubar,
+    Sidebar,
 
-nav {
-  padding: 30px;
+  },
+  data: () => ({ 
+    drawer: null ,
+    classes: [
+      { title: '2022 WEB A', to: '/2022a', icon: 'mdi-google-classroom' },
+      { title: '2022 WEB B', to:'/2022b', icon: 'mdi-google-classroom' },
+      { title: '2022 SNA', to:'/2022sna', icon: 'mdi-google-classroom' },
+    ],
+    menuItem: [
+      { title: 'Check leaves', icon: 'mdi-check-circle-outline', to:'/checkleave'},
+      { title: 'Logout',icon: 'mdi-logout', to: '/logout' },
+    ],
+    userInfo: {image: "https://p.kindpng.com/picc/s/366-3666562_passerelles-numeriques-cambodia-hd-png-download.png", username: 'vibol khan'},
+    right: null,  
+  }),
+  provide() {
+    return {menuItem: this.menuItem, userInfo: this.userInfo, classes: this.classes}
+  }
 }
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
