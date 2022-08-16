@@ -29,7 +29,10 @@ class StudentController extends Controller
         $student = new Student();
         $student->leave_type = $request->leave_type;
         $student->date_start = $request->date_start;
-        $student->end_start = $request->end_start;
+        $student->end_date = $request->end_date;
+        $student->start_time = $request->start_time;
+        $student->end_time = $request->end_time;
+        $student->reason = $request->reason;
         $student->status = $request->status;
       
 
@@ -37,13 +40,17 @@ class StudentController extends Controller
             [
             'leave_type' => 'string|required',
             'date_start' => 'string|required',
-            'end_start' => 'string|required',
+            'end_date' => 'string|required',
+            'start_time' => 'string|required',
+            'end_time' => 'string|required',
             'status' => 'boolean|required',
             ],
             [                
                     'leave_type.required' => 'leave_type is required',                 
                     'date_start.required' => 'date_start is required',                  
-                    'end_start.required' => 'end_start is required', 
+                    'end_date.required' => 'end_date is required', 
+                    'start_time.required' => 'start_time is required', 
+                    'end_time.required' => 'end_time is required', 
                     'status.required' => 'status is required', 
             ]
     );
