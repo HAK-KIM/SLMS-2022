@@ -88,6 +88,7 @@
         style="background-color: #04f"
         color="#fff"
         text
+        @click="createLeave"
       >
         Request
       </v-btn>
@@ -105,6 +106,18 @@
       type: '',
       reason: '',
     }),
+    emits:['leave'],
+    methods: {
+      createLeave() {
+        this.$emit('leave', {leave_type: this.type, date_start: this.startDate, end_start: this.endDate, status: false});
+        this.type = '';
+        this.startDate = "";
+        this.endDate = "";
+        this.timeStart = "";
+        this.endDate = "";
+        this.reason = "";
+      }
+    }
   }
 </script>
 
