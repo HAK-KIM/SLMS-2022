@@ -16,7 +16,10 @@ class Student extends Model
     protected $fillable = [
         'leave_type',
         'date_start',
-        'end_start',
+        'end_date',
+        'start_time',
+        'end_time',
+        'reason',
         'status',
     ];
 
