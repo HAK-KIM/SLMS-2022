@@ -3,7 +3,7 @@
     <form @submit.prevent="getData">
       <label for="leaveType">Leaves type</label>
       <div class="leaveType">
-        <select name="" id="leaveType" v-model="leaveType">
+        <select name="" id="leaveType" required v-model="leaveType">
           <option value="sick leave">Sick leave</option>
           <option value="family event">Family event</option>
           <option value="other">Other</option>
@@ -12,7 +12,7 @@
       <!-- @start date -->
       <label for="date">Start date</label>
       <div class="startDate">
-        <input type="date" placeholder="Start from" v-model="startDate"/>
+        <input type="date" placeholder="Start from" required v-model="startDate"/>
         <select name="" id="" v-model="startTime">
           <option value="morning">Morning</option>
           <option value="afternoon">Afternoon</option>
@@ -21,7 +21,7 @@
       <!-- @end date; -->
       <label for="date">End date</label>
       <div class="endDate">
-        <input type="date" placeholder="Until" v-model="endDate"/>
+        <input type="date" placeholder="Until" required v-model="endDate"/>
         <select name="" id="" v-model="endTime">
           <option value="morning" >Morning</option>
           <option value="afternoon">Afternoon</option>
@@ -36,6 +36,7 @@
           cols="30"
           rows="10"
           placeholder="What is your reasons?"
+          required
           v-model="reason"
         ></textarea>
       </div>
