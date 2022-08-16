@@ -1,9 +1,9 @@
 <template>
   <v-card class="pa-6" 
-  style="width:600px; 
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-  border-top: 5px solid #04e;
-  border-radius: 10px;
+    style="width:500px; 
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    border-top: 5px solid #04e;
+    border-radius: 10px;
   ">
     <v-card-title class="text-center">
       <span class="text-h4">Create Request</span>
@@ -18,7 +18,8 @@
           >
             <v-select
               :items="['Sick', 'Go to home town', 'family event']"
-              label="Leaves Type *"
+              label="Leaves Type"
+              v-model="type"
             ></v-select>
           </v-col>
           <v-col
@@ -34,7 +35,7 @@
           >
             <label for="">Time</label>
             <v-select
-              v-model="items[0]"
+              v-model="timeStart"
               :items="['Afternoon', 'Morning']"
             ></v-select>
           </v-col>  
@@ -43,7 +44,7 @@
             sm="6"
           >
             <label for="">End Date</label>
-            <input type="date" placeholder="Start from" class="date" v-model="startDate"/>
+            <input type="date" placeholder="Start from" class="date" v-model="endDate"/>
           </v-col>
           <v-col
             cols="12"
@@ -51,7 +52,7 @@
           >
             <label for="">Time</label>
             <v-select
-              v-model="items[0]"
+              v-model="timeEnd"
               :items="['Afternoon', 'Morning']"
             ></v-select>
           </v-col>  
@@ -69,6 +70,7 @@
           >
             <v-textarea
               label="Reason"
+              v-model="reason"
             ></v-textarea>
           </v-col>
         </v-row>
@@ -97,7 +99,11 @@
   export default {
     data: () => ({
       startDate: "",
-      items:['Afternoon', 'Morning']
+      endDate: '',
+      timeStart: '',
+      timeEnd: '',
+      type: '',
+      reason: '',
     }),
   }
 </script>

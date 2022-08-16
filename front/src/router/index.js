@@ -4,28 +4,28 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('../views/HomeView.vue')
+    component: () => import('../views/SocialOffairView.vue')
 
   },
   {
     path: '/all',
     name: 'all',
-    component: () => import('../views/HomeView.vue')
+    component: () => import('../views/SocialOffairView.vue')
   },
   {
     path: '/accepted',
     name: 'accepted',
-    component: () => import('../views/HomeView.vue')
+    component: () => import('../views/SocialOffairView.vue')
   },
   {
     path: '/rejected',
     name: 'rejected',
-    component: () => import('../views/HomeView.vue')
+    component: () => import('../views/SocialOffairView.vue')
   }, 
   {
     path: '/checkleave',
     name: 'check leave',
-    component: () => import('../views/HomeView.vue')
+    component: () => import('../views/SocialOffairView.vue')
   }, 
   {
     path: '/logout',
