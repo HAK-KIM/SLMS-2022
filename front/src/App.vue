@@ -10,7 +10,6 @@
       <v-toolbar-title>SLMS</v-toolbar-title>
       <Menubar />
     </v-app-bar>
-
     <v-main>
       <router-view />
     </v-main>
@@ -24,14 +23,13 @@ export default {
   components: {
     Menubar,
     Sidebar,
-
   },
   data: () => ({ 
     drawer: null ,
     classes: [
-      { title: '2022 WEB A', to: '/2022a', icon: 'mdi-google-classroom' },
-      { title: '2022 WEB B', to:'/2022b', icon: 'mdi-google-classroom' },
-      { title: '2022 SNA', to:'/2022sna', icon: 'mdi-google-classroom' },
+      { title: 'All leaves', to: '/all'},
+      { title: 'Accepted only', to:'/accepted'},
+      { title: 'Rejected only', to:'/rejected'},
     ],
     menuItem: [
       { title: 'Check leaves', icon: 'mdi-check-circle-outline', to:'/checkleave'},

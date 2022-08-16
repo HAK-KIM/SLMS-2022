@@ -8,29 +8,29 @@ const routes = [
 
   },
   {
-    path: '/2022a',
-    name: 'weba',
-    component: () => import('../views/AboutView.vue')
+    path: '/all',
+    name: 'all',
+    component: () => import('../views/HomeView.vue')
   },
   {
-    path: '/2022b',
-    name: 'webb',
-    component: () => import('../views/AboutView.vue')
+    path: '/accepted',
+    name: 'accepted',
+    component: () => import('../views/HomeView.vue')
   },
   {
-    path: '/2022sna',
-    name: 'sna',
-    component: () => import('../views/AboutView.vue')
+    path: '/rejected',
+    name: 'rejected',
+    component: () => import('../views/HomeView.vue')
   }, 
   {
     path: '/checkleave',
     name: 'check leave',
-    component: () => import('../views/AboutView.vue')
+    component: () => import('../views/HomeView.vue')
   }, 
   {
     path: '/logout',
     name: 'logout',
-    component: () => import('../views/AboutView.vue')
+    component: () => import('../views/StudentView.vue')
   }, 
 ]
 

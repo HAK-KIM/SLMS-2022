@@ -16,7 +16,6 @@
       :to="classMenu.to"
     >
       <v-list-item-content class="d-flex align-center">
-        <v-icon color="primary" class="mr-3">{{classMenu.icon}}</v-icon>
         <v-list-item-title>{{ classMenu.title }}</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
