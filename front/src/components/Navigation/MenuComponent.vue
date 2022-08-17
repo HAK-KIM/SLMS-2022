@@ -7,9 +7,19 @@
             :key="item.title"
             :to="item.to"
             >
-            <v-list-item-content class="d-flex">
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-                <v-icon color="primary" class="ml-1">{{ item.icon }}</v-icon>
+            <v-list-item-content class="d-flex pa-3">
+                <v-badge
+                    color="primary"
+                    :content="menuItem.length"
+                    v-if="item.title=='Check leaves'"
+                >
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    <v-icon color="primary" class="ml-1">{{ item.icon }}</v-icon>
+                </v-badge>
+                <div v-else class="d-flex">
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    <v-icon color="primary" class="ml-1">{{ item.icon }}</v-icon>
+                </div>
             </v-list-item-content>
             </v-list-item>
             <v-list-item>
