@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class StudentController extends Controller
 {
+    
+
    /**
      * Display a listing of the resource.
      *
@@ -16,6 +19,19 @@ class StudentController extends Controller
     {
         return Student::get();
 
+    }
+
+    public function duration(Request $request)
+    {
+       $start_date = Carbon::parse($request->start_date)
+                             ->toDateTimeString();
+
+       $end_date = Carbon::parse($request->end_date)
+                             ->toDateTimeString();
+
+       return Student::whereBetween('created_at', [
+         $start_date, $end_date
+       ])->get();
     }
     
     /**

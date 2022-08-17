@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('end_time');
             $table->string('reason');
        
-            $table->boolean('status');
+            $table->boolean('status')->nullable();
             $table->timestamps();
         });
     }
