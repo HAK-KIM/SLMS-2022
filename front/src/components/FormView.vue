@@ -5,6 +5,24 @@
     border-top: 5px solid #04e;
     border-radius: 10px;
   ">
+    <v-alert
+      v-if = "successed == true"
+      type="success"
+      variant="tonal"
+      class="mx-auto mt-3"
+      border="start"
+    >
+      Request leave createed successfully!
+    </v-alert>
+    <v-alert
+      v-if = "successed == false"
+      type="error"
+      variant="tonal"
+      class="mx-auto mt-3"
+      border="start"
+    >
+      You need to fill all input!
+    </v-alert>
     <v-card-title class="text-center">
       <span class="text-h4">Create Request</span>
     </v-card-title>
@@ -78,7 +96,7 @@
     </v-card-text>
     <v-card-actions class="ml-6">
       <v-btn
-        style="background-color: #f40"
+        style="background-color: #f04"
         color="#fff"
         text
       >
@@ -105,17 +123,23 @@
       timeEnd: '',
       type: '',
       reason: '',
+      successed: null,
     }),
     emits:['leave'],
     methods: {
       createLeave() {
-        this.$emit('leave', {leave_type: this.type, date_start: this.startDate, end_start: this.endDate, status: false});
-        this.type = '';
-        this.startDate = "";
-        this.endDate = "";
-        this.timeStart = "";
-        this.endDate = "";
-        this.reason = "";
+        if (this.type != '' && this.endDate != '' && this.timeStart != '' && this.timeEnd != '' && this.startDate != '' & this.reason != '') {
+          this.$emit('leave', {leave_type: this.type, date_start: this.startDate, end_date: this.endDate, status: null, end_time: this.timeEnd, start_time: this.timeStart, reason: this.reason});
+          this.type = '';
+          this.startDate = "";
+          this.endDate = "";
+          this.timeStart = "";
+          this.endDate = "";
+          this.reason = "";
+          this.successed = true;
+        } else {
+          this.successed = false;
+        }
       }
     }
   }

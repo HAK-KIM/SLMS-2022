@@ -16,7 +16,8 @@ export default ({
   },
   data: () => ({
     leaves: [],
-    url: "http://127.0.0.1:8000/api/requests"
+    url: "http://127.0.0.1:8000/api/requests",
+    successed: false
   }),
   methods: {
     createLeave(item) {

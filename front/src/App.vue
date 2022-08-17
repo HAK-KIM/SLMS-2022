@@ -26,20 +26,27 @@ export default {
   },
   data: () => ({ 
     drawer: null ,
-    classes: [
+    statuses: [
       { title: 'All leaves', to: '/all'},
       { title: 'Accepted only', to:'/accepted'},
       { title: 'Rejected only', to:'/rejected'},
     ],
+    type: [
+      {title: 'Sick', to: '/sick'},
+      {title: 'Go to home town', to: '/hometown'},
+      {title: 'Family event', to: '/event'},
+      {title: 'All', to: '/all'},
+    ],
     menuItem: [
-      { title: 'Check leaves', icon: 'mdi-check-circle-outline', to:'/checkleave'},
+      { title: 'Check leaves', icon: 'mdi-bell', to:'/checkleave'},
+      { title: 'New Request', icon: 'mdi-creation', to:'/create'},
       { title: 'Logout',icon: 'mdi-logout', to: '/logout' },
     ],
     userInfo: {image: "https://p.kindpng.com/picc/s/366-3666562_passerelles-numeriques-cambodia-hd-png-download.png", username: 'vibol khan'},
     right: null,  
   }),
   provide() {
-    return {menuItem: this.menuItem, userInfo: this.userInfo, classes: this.classes}
+    return {menuItem: this.menuItem, userInfo: this.userInfo, statuses: this.statuses, type: this.type,}
   }
 }
 </script>
