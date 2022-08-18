@@ -16,7 +16,6 @@
             </strong>
             <span style="color: #000;">{{leave.leave_type}}</span>
             <span style="color: #000;">{{leave.created_at}}</span>
-            <v-icon color="#f04" style="cursor: pointer;">{{'mdi-delete'}}</v-icon>
         </div>
         
     </v-alert>

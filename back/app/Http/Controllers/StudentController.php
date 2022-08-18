@@ -20,8 +20,6 @@ class StudentController extends Controller
         return Student::get();
 
     }
-
-   
     
     /**
      * Store a newly created resource in storage.
