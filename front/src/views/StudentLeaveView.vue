@@ -24,7 +24,7 @@
     </v-col>
   </section>
   <section>
-    <card v-for="leave in filterData" :key="leave" :leave='leave'/>
+    <card v-for="leave in filterData" :key="leave" :leave='leave' @update="updateRequest"/>
   </section>
 </template>
 
@@ -34,7 +34,7 @@ import card from '@/components/CardComponent.vue';
 export default ({
   data() {
     return {
-      items: ['All', 'Check Accepted Only', 'Check Rejected Only'],
+      items: ['All', 'Check Approve Only', 'Check Rejected Only'],
       type: ['All', 'Go to Home Town', 'Sick', 'Family Event'],
       leaves: [],
       filter: 'All',
@@ -49,8 +49,8 @@ export default ({
   computed: {
     filterData() {
       let items = this.leaves;
-      if (this.filter == "Check Accepted Only") {
-        items = this.getAccepted();
+      if (this.filter == "Check Approve Only") {
+        items = this.getApprove();
       } else if (this.filter == "Check Rejected Only"){
         items = this.getRejected();
       } else if (this.filter == 'Go to Home Town') {
@@ -70,7 +70,7 @@ export default ({
         this.leaves = response.data;
       })
     },
-    getAccepted() {
+    getApprove() {
       let items = [];
       for (let leave of this.leaves) {
           if (leave.status == true) {
@@ -114,6 +114,18 @@ export default ({
           }
       }
       return items;
+    },
+    updateRequest(status, id) {
+      axios.put('requests/'+id, {status: status})
+      .then((response)=> {
+        for (let leave of this.leaves) {
+          if (leave.id == id) {
+            leave.status = status;
+          }
+        }
+        console.log(response.data);
+      })
+
     }
   }
 });

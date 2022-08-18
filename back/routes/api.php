@@ -10,3 +10,4 @@ use App\Http\Controllers\StudentController;
 
 Route::get('/requests', [StudentController::class, 'index']);
 Route::post('/requests', [StudentController::class, 'store']);
+Route::put('/requests/{id}', [StudentController::class, 'update']);

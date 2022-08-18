@@ -136,12 +136,13 @@
           this.timeStart = "";
           this.endDate = "";
           this.reason = "";
+          this.timeEnd = '';
           this.successed = true;
         } else {
           this.successed = false;
         }
       }
-    }
+    },
   }
 </script>
 
