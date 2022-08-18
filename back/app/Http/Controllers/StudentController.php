@@ -21,18 +21,18 @@ class StudentController extends Controller
 
     }
 
-    public function duration(Request $request)
-    {
-       $start_date = Carbon::parse($request->start_date)
-                             ->toDateTimeString();
+    // public function duration(Request $request)
+    // {
+    //    $start_date = Carbon::parse($request->start_date)
+    //                          ->toDateTimeString();
 
-       $end_date = Carbon::parse($request->end_date)
-                             ->toDateTimeString();
+    //    $end_date = Carbon::parse($request->end_date)
+    //                          ->toDateTimeString();
 
-       return Student::whereBetween('created_at', [
-         $start_date, $end_date
-       ])->get();
-    }
+    //    return Student::whereBetween('created_at', [
+    //      $start_date, $end_date
+    //    ])->get();
+    // }
     
     /**
      * Store a newly created resource in storage.
@@ -59,7 +59,6 @@ class StudentController extends Controller
             'end_date' => 'string|required',
             'start_time' => 'string|required',
             'end_time' => 'string|required',
-            'status' => 'boolean|required',
             ],
             [                
                     'leave_type.required' => 'leave_type is required',                 
@@ -67,7 +66,6 @@ class StudentController extends Controller
                     'end_date.required' => 'end_date is required', 
                     'start_time.required' => 'start_time is required', 
                     'end_time.required' => 'end_time is required', 
-                    'status.required' => 'status is required', 
             ]
     );
       

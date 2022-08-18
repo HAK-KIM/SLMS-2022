@@ -24,7 +24,6 @@ class Student extends Model
     ];
 
     protected $casts =  [
-        'status' => 'boolean',
         'created_at'  => 'datetime:d D M Y H:i:s A',
         'updated_at' => 'datetime:d D M Y H:i:s A'
     ];
