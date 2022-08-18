@@ -20,8 +20,8 @@
                     </v-card-text>
                 </v-card-content>
             <v-card-actions v-if="leave.status == null">
-                <v-icon style="cursor: pointer; font-size: 32px" color="success">{{'mdi-checkbox-marked'}}</v-icon>
-                <v-icon style="cursor: pointer; font-size: 32px" color="red">{{'mdi-close-box'}}</v-icon>
+                <v-icon @click="update(true, leave.id)" style="cursor: pointer; font-size: 32px" color="success">{{'mdi-checkbox-marked'}}</v-icon>
+                <v-icon @click="update(false, leave.id)" style="cursor: pointer; font-size: 32px" color="red">{{'mdi-close-box'}}</v-icon>
             </v-card-actions>
             </v-card-content>
             <v-card-actions class="pa-0">
@@ -59,7 +59,13 @@
         data: () => ({
             show: false,
         }),
-        props: ['leave']
+        props: ['leave'],
+        emits: ['update'],
+        methods: {
+            update(status, id) {
+                this.$emit('update', status, id)
+            }
+        }
     }
 </script>
 

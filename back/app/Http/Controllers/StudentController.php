@@ -20,19 +20,6 @@ class StudentController extends Controller
         return Student::get();
 
     }
-
-    public function duration(Request $request)
-    {
-       $start_date = Carbon::parse($request->start_date)
-                             ->toDateTimeString();
-
-       $end_date = Carbon::parse($request->end_date)
-                             ->toDateTimeString();
-
-       return Student::whereBetween('created_at', [
-         $start_date, $end_date
-       ])->get();
-    }
     
     /**
      * Store a newly created resource in storage.
@@ -59,7 +46,6 @@ class StudentController extends Controller
             'end_date' => 'string|required',
             'start_time' => 'string|required',
             'end_time' => 'string|required',
-            'status' => 'boolean|required',
             ],
             [                
                     'leave_type.required' => 'leave_type is required',                 
@@ -67,7 +53,6 @@ class StudentController extends Controller
                     'end_date.required' => 'end_date is required', 
                     'start_time.required' => 'start_time is required', 
                     'end_time.required' => 'end_time is required', 
-                    'status.required' => 'status is required', 
             ]
     );
       
@@ -75,5 +60,22 @@ class StudentController extends Controller
         $student->save();
 
         return response()->json(['message' => "Student saved successfully"]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $student = Student::findOrFail($id);
+        $student->status = $request->status;
+
+        $student->save();
+
+        return response()->json(['message' => "Student update successfully"]);
     }
 }
