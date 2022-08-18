@@ -20,6 +20,7 @@ class Student extends Model
         'start_time',
         'end_time',
         'reason',
+        'duration',
         'status',
     ];
 

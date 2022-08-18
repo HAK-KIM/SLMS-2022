@@ -38,6 +38,7 @@ class StudentController extends Controller
         $student->start_time = $request->start_time;
         $student->end_time = $request->end_time;
         $student->reason = $request->reason;
+        $student->duration = $request->duration;
         $student->status = $request->status;
       
 
