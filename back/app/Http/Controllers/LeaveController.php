@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
-use App\Models\LeaveRequest;
+use App\Models\Leave;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-class LeaveRequestController extends Controller
+class LeaveController extends Controller
 {
     
 
@@ -17,7 +17,7 @@ class LeaveRequestController extends Controller
      */
     public function index()
     {
-        return LeaveRequest::get();
+        return Leave::get();
 
     }
     
@@ -29,15 +29,15 @@ class LeaveRequestController extends Controller
      */
     public function store(Request $request)
     {
-        $LeaveRequest = new LeaveRequest();
-        $LeaveRequest->leave_type = $request->leave_type;
-        $LeaveRequest->date_start = $request->date_start;
-        $LeaveRequest->end_date = $request->end_date;
-        $LeaveRequest->start_time = $request->start_time;
-        $LeaveRequest->end_time = $request->end_time;
-        $LeaveRequest->reason = $request->reason;
-        $LeaveRequest->duration = $request->duration;
-        $LeaveRequest->status = $request->status;
+        $Leave = new Leave();
+        $Leave->leave_type = $request->leave_type;
+        $Leave->date_start = $request->date_start;
+        $Leave->end_date = $request->end_date;
+        $Leave->start_time = $request->start_time;
+        $Leave->end_time = $request->end_time;
+        $Leave->reason = $request->reason;
+        $Leave->duration = $request->duration;
+        $Leave->status = $request->status;
       
 
         $validated = $request->validate(
@@ -58,9 +58,9 @@ class LeaveRequestController extends Controller
     );
       
 
-        $LeaveRequest->save();
+        $Leave->save();
 
-        return response()->json(['message' => "LeaveRequest saved successfully"]);
+        return response()->json(['message' => "Leave saved successfully"]);
     }
 
     /**
@@ -72,11 +72,11 @@ class LeaveRequestController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $LeaveRequest = LeaveRequest::findOrFail($id);
-        $LeaveRequest->status = $request->status;
+        $Leave = Leave::findOrFail($id);
+        $Leave->status = $request->status;
 
-        $LeaveRequest->save();
+        $Leave->save();
 
-        return response()->json(['message' => "LeaveRequest update successfully"]);
+        return response()->json(['message' => "Leave update successfully"]);
     }
 }

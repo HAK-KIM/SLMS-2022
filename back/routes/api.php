@@ -3,11 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\StudentController;
+use App\Http\Controllers\LeaveController;
 
 
 
 
-Route::get('/requests', [StudentController::class, 'index']);
-Route::post('/requests', [StudentController::class, 'store']);
-Route::put('/requests/{id}', [StudentController::class, 'update']);
+Route::get('/requests', [LeaveController::class, 'index']);
+Route::post('/requests', [LeaveController::class, 'store']);
+Route::put('/requests/{id}', [LeaveController::class, 'update']);
