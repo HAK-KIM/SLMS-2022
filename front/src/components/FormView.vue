@@ -127,10 +127,10 @@ export default {
     createLeave() {
       if (
         this.type != "" &&
-        this.endDate != "" &&
+        this.endDate != "invalidDate" &&
         this.timeStart != "" &&
         this.timeEnd != "" &&
-        (this.startDate != "") & (this.reason != "")
+        (this.startDate != "invalidDate") & (this.reason != "")
       ) {
         this.$emit("leave", {
           leave_type: this.type,
@@ -144,11 +144,10 @@ export default {
         });
 
         this.type = "";
-        this.startDate = "";
-        this.endDate = "";
+        this.startDate = "invalidDate";
+        this.endDate = "invalidDate";
         this.timeStart = "";
-        this.endDate = "";
-        this.reason = "";
+        (this.timeEnd = ""), (this.reason = "");
         this.successed = true;
         this.isValid = false;
       } else {
@@ -157,9 +156,13 @@ export default {
       }
     },
     calculateDuration(start, end) {
-      this.duration = Math.abs(
-        moment(start, "YYYY.MM.DD").diff(moment(end, "YYYY.MM.DD"), "days")
-      );
+      if (start == "invalidDate" || end == "invalidDate") {
+        this.duration = 0;
+      } else {
+        this.duration = Math.abs(
+          moment(start, "YYYY.MM.DD").diff(moment(end, "YYYY.MM.DD"), "days")
+        );
+      }
     },
     getCurrentDate() {
       this.currentDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
