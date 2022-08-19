@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Student;
+use App\Models\LeaveRequest;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-class StudentController extends Controller
+class LeaveRequestController extends Controller
 {
     
 
@@ -17,7 +17,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return Student::get();
+        return LeaveRequest::get();
 
     }
     
@@ -29,15 +29,15 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $student = new Student();
-        $student->leave_type = $request->leave_type;
-        $student->date_start = $request->date_start;
-        $student->end_date = $request->end_date;
-        $student->start_time = $request->start_time;
-        $student->end_time = $request->end_time;
-        $student->reason = $request->reason;
-        $student->duration = $request->duration;
-        $student->status = $request->status;
+        $LeaveRequest = new LeaveRequest();
+        $LeaveRequest->leave_type = $request->leave_type;
+        $LeaveRequest->date_start = $request->date_start;
+        $LeaveRequest->end_date = $request->end_date;
+        $LeaveRequest->start_time = $request->start_time;
+        $LeaveRequest->end_time = $request->end_time;
+        $LeaveRequest->reason = $request->reason;
+        $LeaveRequest->duration = $request->duration;
+        $LeaveRequest->status = $request->status;
       
 
         $validated = $request->validate(
@@ -58,9 +58,9 @@ class StudentController extends Controller
     );
       
 
-        $student->save();
+        $LeaveRequest->save();
 
-        return response()->json(['message' => "Student saved successfully"]);
+        return response()->json(['message' => "LeaveRequest saved successfully"]);
     }
 
     /**
@@ -72,11 +72,11 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $student = Student::findOrFail($id);
-        $student->status = $request->status;
+        $LeaveRequest = LeaveRequest::findOrFail($id);
+        $LeaveRequest->status = $request->status;
 
-        $student->save();
+        $LeaveRequest->save();
 
-        return response()->json(['message' => "Student update successfully"]);
+        return response()->json(['message' => "LeaveRequest update successfully"]);
     }
 }
