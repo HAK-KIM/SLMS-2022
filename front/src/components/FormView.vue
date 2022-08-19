@@ -18,15 +18,6 @@
     >
       Request leave createed successfully!
     </v-alert>
-    <v-alert
-      v-if="successed == false"
-      type="error"
-      variant="tonal"
-      class="mx-auto mt-3"
-      border="start"
-    >
-      You need to fill all input!
-    </v-alert>
     <v-card-title class="text-center">
       <span class="text-h4">Create Request</span>
     </v-card-title>
@@ -37,17 +28,25 @@
             <v-select
               :items="['Sick', 'Go to home town', 'family event']"
               label="Leaves Type"
+              required
               v-model="type"
             ></v-select>
+            <p v-if="type.length <= 0 && isValid" style="color: red">
+              !Select leave type🙏
+            </p>
           </v-col>
           <v-col cols="12" sm="6">
             <label for="">Start Date</label>
+
             <input
               type="date"
-              placeholder="Start from"
               class="date"
+              :min="currentDate"
               v-model="startDate"
             />
+            <p v-if="startDate == 'invalidDate' && isValid" style="color: red">
+              !Start date is require☺
+            </p>
           </v-col>
           <v-col cols="12" sm="6">
             <label for="">Time</label>
@@ -55,15 +54,21 @@
               v-model="timeStart"
               :items="['Afternoon', 'Morning']"
             ></v-select>
+            <p v-if="timeStart.length <= 0 && isValid" style="color: red">
+              !Detail time🙏
+            </p>
           </v-col>
           <v-col cols="12" sm="6">
             <label for="">End Date</label>
             <input
               type="date"
-              placeholder="Start from"
+              :min="currentDate"
               class="date"
               v-model="endDate"
             />
+            <p v-if="endDate == 'invalidDate' && isValid" style="color: red">
+              !End date is require☺
+            </p>
           </v-col>
           <v-col cols="12" sm="6">
             <label for="">Time</label>
@@ -71,6 +76,9 @@
               v-model="timeEnd"
               :items="['Afternoon', 'Morning']"
             ></v-select>
+            <p v-if="timeEnd.length <= 0 && isValid" style="color: red">
+              !Detail time🙏
+            </p>
           </v-col>
           <v-col cols="12" md="12" sm="12">
             <span for=""
@@ -78,7 +86,10 @@
             >
           </v-col>
           <v-col cols="12" md="12" sm="12">
-            <v-textarea label="Reason" v-model="reason"></v-textarea>
+            <v-textarea label="Reason" v-model="reason" required></v-textarea>
+            <p v-if="reason.length <= 0 && isValid" style="color: red">
+              !Reason is require☺
+            </p>
           </v-col>
         </v-row>
       </v-container>
@@ -96,20 +107,20 @@
     </v-card-actions>
   </v-card>
 </template>
-
 <script>
-
 import moment from "moment";
 export default {
   data: () => ({
-    startDate: Date,
-    endDate: Date,
+    startDate: "invalidDate",
+    endDate: "invalidDate",
     timeStart: "",
     timeEnd: "",
     type: "",
     reason: "",
     successed: null,
     duration: 0,
+    isValid: false,
+    currentDate: "",
   }),
   emits: ["leave"],
   methods: {
@@ -129,7 +140,9 @@ export default {
           end_time: this.timeEnd,
           start_time: this.timeStart,
           reason: this.reason,
+          duration: this.duration,
         });
+
         this.type = "";
         this.startDate = "";
         this.endDate = "";
@@ -137,20 +150,33 @@ export default {
         this.endDate = "";
         this.reason = "";
         this.successed = true;
+        this.isValid = false;
       } else {
         this.successed = false;
+        this.isValid = true;
       }
-      this.calculateDuration(this.startDate,this.endDate)
     },
-    calculateDuration(start,end) {
+    calculateDuration(start, end) {
       this.duration = Math.abs(
-        moment(start, "YYYY.MM.DD").diff(moment(end, "YYYY.MM.DD"),"days")
+        moment(start, "YYYY.MM.DD").diff(moment(end, "YYYY.MM.DD"), "days")
       );
     },
+    getCurrentDate() {
+      this.currentDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
+    },
+  },
+  watch: {
+    startDate() {
+      this.calculateDuration(this.startDate, this.endDate);
+    },
+    endDate() {
+      this.calculateDuration(this.startDate, this.endDate);
+    },
+  },
+  mounted() {
+    this.getCurrentDate();
   },
 };
-
-
 </script>
 
 <style scoped>
