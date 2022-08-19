@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('leaves', function (Blueprint $table) {
             $table->id();
             $table->string('leave_type');
             $table->string('date_start');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('start_time');
             $table->string('end_time');
             $table->string('reason');
-       
+            $table->integer('duration');
             $table->boolean('status')->nullable();
             $table->timestamps();
         });
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('students');
+        Schema::dropIfExists('leaves');
     }
 };
