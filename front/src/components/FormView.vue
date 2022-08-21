@@ -1,114 +1,123 @@
 <template>
-  <v-card
-    class="pa-6"
-    style="
-      width: 500px;
-      box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
-        rgba(0, 0, 0, 0.23) 0px 3px 6px;
-      border-top: 5px solid #04e;
-      border-radius: 10px;
-    "
-  >
-    <v-alert
-      v-if="successed == true"
-      type="success"
-      variant="tonal"
-      class="mx-auto mt-3"
-      border="start"
+  <v-row justify="start" class="ml-1">
+    <v-dialog
+      v-model="dialog"
+      max-width="600px"
+      persistent
+      min-height="650px"
     >
-      Request leave createed successfully!
-    </v-alert>
-    <v-card-title class="text-center">
-      <span class="text-h4">Create Request</span>
-    </v-card-title>
-    <v-card-text>
-      <v-container>
-        <v-row>
-          <v-col cols="12" sm="12" md="12">
-            <v-select
-              :items="['Sick', 'Go to home town', 'family event']"
-              label="Leaves Type"
-              required
-              v-model="type"
-            ></v-select>
-            <p v-if="type.length <= 0 && isValid" style="color: red">
-              !Select leave type🙏
-            </p>
-          </v-col>
-          <v-col cols="12" sm="6">
-            <label for="">Start Date</label>
-
-            <input
-              type="date"
-              class="date"
-              :min="currentDate"
-              v-model="startDate"
-            />
-            <p v-if="startDate == 'invalidDate' && isValid" style="color: red">
-              !Start date is require☺
-            </p>
-          </v-col>
-          <v-col cols="12" sm="6">
-            <label for="">Time</label>
-            <v-select
-              v-model="timeStart"
-              :items="['Afternoon', 'Morning']"
-            ></v-select>
-            <p v-if="timeStart.length <= 0 && isValid" style="color: red">
-              !Detail time🙏
-            </p>
-          </v-col>
-          <v-col cols="12" sm="6">
-            <label for="">End Date</label>
-            <input
-              type="date"
-              :min="currentDate"
-              class="date"
-              v-model="endDate"
-            />
-            <p v-if="endDate == 'invalidDate' && isValid" style="color: red">
-              !End date is require☺
-            </p>
-          </v-col>
-          <v-col cols="12" sm="6">
-            <label for="">Time</label>
-            <v-select
-              v-model="timeEnd"
-              :items="['Afternoon', 'Morning']"
-            ></v-select>
-            <p v-if="timeEnd.length <= 0 && isValid" style="color: red">
-              !Detail time🙏
-            </p>
-          </v-col>
-          <v-col cols="12" md="12" sm="12">
-            <span for=""
-              >Duration: <span>{{ duration }} day/days</span></span
-            >
-          </v-col>
-          <v-col cols="12" md="12" sm="12">
-            <v-textarea label="Reason" v-model="reason" required></v-textarea>
-            <p v-if="reason.length <= 0 && isValid" style="color: red">
-              !Reason is require☺
-            </p>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-card-text>
-    <v-card-actions class="ml-6">
-      <v-btn style="background-color: #f04" color="#fff" text> Cancel </v-btn>
-      <v-btn
-        style="background-color: #04f"
-        color="#fff"
-        text
-        @click="createLeave"
+      <template v-slot:activator="{ attrs }">
+        <v-btn
+          color="primary"
+          dark
+          v-bind="attrs"
+          @click="dialog=true"
+        >
+          SEND
+        </v-btn>
+      </template>
+      <v-card
+        class="pa-3"
       >
-        Request
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+        <v-card-title class="text-center">
+          <span class="text-h5">Create Request</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="12" md="12">
+              <label for="">Leave Type</label>
+              <select
+                v-model="type"
+                class="input"
+              >
+                <option 
+                  v-for:="item in ['Sick', 'Go to home town', 'family event']" :value="item"
+                >{{item}}</option>
+              </select>
+                <small v-if="type.length <= 0 && isValid" style="color: red">
+                  leave type cannot be empty!
+                </small>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <label for="">Start Date</label>
+                <input type="date" placeholder="Start from" class="input" :min="currentDate" v-model="startDate"/>
+                <small v-if="startDate == 'invalidDate' && isValid" style="color: red">
+                  start date cannot be empty!
+                </small>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <label for="">Time</label>
+                <select
+                  v-model="timeStart"
+                  class="input"
+                >
+                  <option 
+                    v-for:="item in ['Afternoon', 'Morning']" :value="item"
+                  >{{item}}</option>
+                </select>
+                <small v-if="timeStart.length <= 0 && isValid" style="color: red">
+                  start time cannot be empty!
+                </small>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <label for="">End Date</label>
+                <input
+                  type="date"
+                  :min="currentDate"
+                  class="input"
+                  v-model="endDate"
+                />
+                <small v-if="endDate == 'invalidDate' && isValid" style="color: red">
+                  end date cannot be empty!
+                </small>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <label for="">Time</label>
+                <select
+                  v-model="timeEnd"
+                  class="input"
+                >
+                  <option 
+                    v-for:="item in ['Afternoon', 'Morning']" :value="item"
+                  >{{item}}</option>
+                </select>
+                <small v-if="timeEnd.length <= 0 && isValid" style="color: red">
+                  end time cannot be empty!
+                </small>
+              </v-col>
+              <v-col cols="12" md="12" sm="12">
+                <span>Duration: {{ duration }} <span v-if="duration<=1"> day</span> <span v-else> days</span></span
+                >
+              </v-col>
+              <v-col cols="12" md="12" sm="12">
+                <v-textarea label="Reason" v-model="reason" required rows="1"></v-textarea>
+                <small v-if="reason.length <= 0 && isValid" style="color: red">
+                  Reason cannot be empty!
+                </small>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions class="ml-6">
+          <v-btn 
+            style="background-color: #f04" 
+            color="#fff" text
+            @click="dialog=false"
+          > Cancel </v-btn>
+          <v-btn
+            style="background-color: #04f"
+            @click="createLeave"
+            class="text-white"
+          >Create</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-row>
 </template>
 <script>
 import moment from "moment";
+import axios from '../axios-http'
 export default {
   data: () => ({
     startDate: "invalidDate",
@@ -121,6 +130,7 @@ export default {
     duration: 0,
     isValid: false,
     currentDate: "",
+    dialog: false,
   }),
   emits: ["leave"],
   methods: {
@@ -130,26 +140,25 @@ export default {
         this.endDate != "invalidDate" &&
         this.timeStart != "" &&
         this.timeEnd != "" &&
-        (this.startDate != "invalidDate") & (this.reason != "")
+        this.startDate != "invalidDate" && 
+        this.reason != ""
       ) {
-        this.$emit("leave", {
-          leave_type: this.type,
-          date_start: this.startDate,
-          end_date: this.endDate,
-          status: null,
-          end_time: this.timeEnd,
-          start_time: this.timeStart,
-          reason: this.reason,
-          duration: this.duration,
-        });
-
-        this.type = "";
-        this.startDate = "invalidDate";
-        this.endDate = "invalidDate";
-        this.timeStart = "";
-        (this.timeEnd = ""), (this.reason = "");
-        this.successed = true;
-        this.isValid = false;
+          let body = {leave_type: this.type, date_start: this.startDate, end_date: this.endDate, status: null, end_time: this.timeEnd, start_time: this.timeStart, reason: this.reason, duration: this.duration};
+          this.sentMail();
+          axios.post('requests', body)
+          .then((response) => {
+            console.log(response.data);
+            return this.$router.push({name: "home"});
+          })
+          this.type = "";
+          this.startDate = "invalidDate";
+          this.endDate = "invalidDate";
+          this.timeStart = "";
+          this.timeEnd = "";
+          this.reason = "";
+          this.successed = true;
+          this.isValid = false;
+          this.dialog = false;
       } else {
         this.successed = false;
         this.isValid = true;
@@ -167,6 +176,13 @@ export default {
     getCurrentDate() {
       this.currentDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
     },
+    sentMail() {
+      let body = {greeting: 'Request for leave', body: 'Dear teacher, I hope you are doing well. I am writting this email to let you know I want to ask premession to leave', actiontext: 'Go to System', actionurl: 'http://localhost:8080/', endtext: 'I looking forward to heaing from you.'}
+      axios.post('admin/email/'+this.$route.params.id, body)
+        .then((response=> {{
+          console.log(response.data);
+      }}))
+    }
   },
   watch: {
     startDate() {
@@ -178,20 +194,21 @@ export default {
   },
   mounted() {
     this.getCurrentDate();
-  },
-};
+  }
+}
 </script>
 
 <style scoped>
-.date {
-  width: 100%;
-  outline: none;
-  padding: 16px;
-  background-color: #eee;
-  border-bottom: 1px solid #999;
-  font-size: 16px;
-  color: #000;
-  border-radius: 3px 3px 0 0;
-  font-weight: 300;
-}
+  .input {
+    width: 100%;
+    outline: none;
+    padding: 10px;
+    background-color: #eee;
+    border-bottom: 1px solid #999;
+    font-size: 16px;
+    color: #000;
+    border-radius: 3px 3px 0 0;
+    font-weight: 300;
+    cursor: pointer;
+  }
 </style>

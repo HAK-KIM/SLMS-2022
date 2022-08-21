@@ -4,23 +4,28 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('../views/StudentLeaveView.vue')
+    component: () => import('../views/LeaveView.vue')
 
   },
   {
     path: '/checkleave',
     name: 'check leave',
-    component: () => import('../views/NotificationView.vue')
+    component: () => import('../views/StudentView.vue')
   },
   {
-    path: '/create',
+    path: '/create/',
     name: 'create',
-    component: () => import('../views/StudentView.vue')
+    component: () => import('../views/CreateView.vue')
+  }, 
+  {
+    path: '/create/:id',
+    name: 'email',
+    component: () => import('../views/CreateView.vue')
   }, 
   {
     path: '/logout',
     name: 'logout',
-    component: () => import('../views/StudentView.vue')
+    component: () => import('../views/CreateView.vue')
   }, 
 ]
 

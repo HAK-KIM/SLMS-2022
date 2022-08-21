@@ -19,7 +19,7 @@ export default {
   data: () => ({ 
     menuItem: [
       { title: 'Home', icon: 'mdi-home', to:'/'},
-      { title: 'Check leaves', icon: 'mdi-bell', to:'/checkleave'},
+      { title: 'Students', icon: 'mdi-account-group', to:'/checkleave'},
       { title: 'New Request', icon: 'mdi-creation', to:'/create'},
       { title: 'Logout',icon: 'mdi-logout', to: '/logout' },
     ],

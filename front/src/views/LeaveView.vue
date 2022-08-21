@@ -1,5 +1,5 @@
 <template>
-  <section class="d-flex justify-center mt-6">
+  <section class="d-flex justify-center mt-3 pa-0 mb-0">
     <v-col
       cols="6"
       sm="3"
@@ -23,14 +23,12 @@
       ></v-select>
     </v-col>
   </section>
-  <section>
-    <card v-for="leave in filterData" :key="leave" :leave='leave' @update="updateRequest"/>
-  </section>
+  <card :leaves='filterData' @update="updateRequest" class="mb-3 mr-3 ml-3"/>
 </template>
 
 <script>
 import axios from '../axios-http.js'
-import card from '@/components/CardComponent.vue';
+import card from '@/components/TableComponent.vue';
 export default ({
   data() {
     return {
@@ -115,17 +113,31 @@ export default ({
       }
       return items;
     },
-    updateRequest(status, id) {
+    updateRequest(id, status) {
       axios.put('requests/'+id, {status: status})
       .then((response)=> {
         for (let leave of this.leaves) {
           if (leave.id == id) {
             leave.status = status;
+            this.sentMailToStudent(1, status);
           }
         }
         console.log(response.data);
       })
 
+    },
+    sentMailToStudent(id, status) {
+      let body = {
+        greeting: 'Replay for request', 
+        body: status ? "Dear student, I hope you are doing well. I am writting this email to let you know you are allow to leave.": "Dear student, I hope you are doing well. I am writting this email to let you know you are not allow to leave.", 
+        actiontext: 'Go to System', 
+        actionurl: 'http://localhost:8080/', 
+        endtext: 'I looking forward to heaing from you.'
+      }
+      axios.post('user/email/'+id, body)
+        .then((response=> {{
+          console.log(response.data);
+      }}))
     }
   }
 });

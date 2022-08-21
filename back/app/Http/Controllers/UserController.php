@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\SendEmailNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class UserController extends Controller
 {
+    public function index() {
+        return User::get();
+    }
     //sign up
     public function signUp(Request $request){
         $user=new User();
@@ -37,5 +42,24 @@ class UserController extends Controller
         return $user->createToken($request->email)->plainTextToken;
         return redirect()->intended('myPassword');
 
+    }
+
+    public function storeSingleEmail(Request $request, $id)
+    {
+
+        $admin = User::find($id);
+        
+        $details = array();
+        
+        $details['greeting'] = $request->greeting;
+        $details['body'] = $request->body;
+        $details['actiontext'] = $request->actiontext;
+        $details['actionurl'] = $request->actionurl;
+        $details['endtext'] = $request->endtext;
+        
+        Notification::send($admin, new SendEmailNotification($details));
+
+        // return redirect()->to('/users');
+        return [$details];
     }
 }

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('start_time');
             $table->string('end_time');
             $table->string('reason');
-            $table->integer('duration');
+            $table->integer('duration')->nullable();
             $table->boolean('status')->nullable();
             $table->timestamps();
         });
