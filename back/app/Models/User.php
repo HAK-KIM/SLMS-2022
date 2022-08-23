@@ -18,9 +18,16 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'firstName',
+        'lastName',
         'email',
+        'email_verified_at',
         'password',
+        'Role',
+        'bitch',
+        'gender',
+        'phone',
+        'personal_id',
     ];
 
     /**
@@ -41,4 +48,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function leaves()
+    {
+        return $this->hasMany(Leave::class,'user_id');
+    }
 }

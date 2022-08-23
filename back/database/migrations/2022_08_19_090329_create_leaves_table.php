@@ -18,13 +18,12 @@ return new class extends Migration
             $table->string('leave_type');
             $table->string('date_start');
             $table->string('end_date');
-            // $table->dateTimeTz('date_start', $precision = 0);
-            // $table->dateTimeTz('end_date', $precision = 0);
             $table->string('start_time');
             $table->string('end_time');
             $table->string('reason');
             $table->integer('duration')->nullable();
             $table->boolean('status')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('CASCADE');
             $table->timestamps();
         });
     }
