@@ -18,7 +18,12 @@ Route::post('/signin',[UserController::class,'logIn']);
 Route::post('admin/email/{id}', [AdminController::class, 'storeSingleEmail'])->name('store.user.email');
 Route::post('user/email/{id}', [UserController::class, 'storeSingleEmail'])->name('store.user.email');
 
+<<<<<<< HEAD
 // Private Routes
+=======
+Route::post('/signup',[UserController::class,'signUp']);
+Route::post('/signin',[UserController::class,'signIn']);
+>>>>>>> cecf5b6f1ee956e6121fa764ca850cae5a70bd30
 Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::post('signout',[UserController::class,'lognOut']);
     Route::get('/requests', [LeaveController::class, 'index']);
