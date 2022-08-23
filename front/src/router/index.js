@@ -4,7 +4,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('../views/LeaveView.vue')
+    component: () => import('../views/HomeView.vue')
 
   },
   {
@@ -26,7 +26,7 @@ const routes = [
     path: '/logout',
     name: 'logout',
     component: () => import('../views/CreateView.vue')
-  }, 
+  },  
 ]
 
 const router = createRouter({
