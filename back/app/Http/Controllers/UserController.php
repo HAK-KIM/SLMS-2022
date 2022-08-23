@@ -7,6 +7,7 @@ use App\Notifications\SendEmailNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 
+
 class UserController extends Controller
 {
     public function index() {
@@ -18,6 +19,7 @@ class UserController extends Controller
         $user->name=$request->name;
         $user->email=$request->email;
         $user->password=bcrypt($request->password);
+        $user->role=$request->role;
         $user->save();
         $token=$user->createToken('userToken')->plainTextToken;
         $response=[
@@ -25,6 +27,7 @@ class UserController extends Controller
             'token'=>$token
         ];
         return response()->json($response);
+        return $token;
 
     }
     //sign out
@@ -35,9 +38,8 @@ class UserController extends Controller
     // sign in
     public function signIn(Request $request){
         $request->validate([
-            'email'=>'required|email',
-            'password'=>'required',
-            'role'=>'required'
+            'email'=> ['required','email', 'regex:/(.*)@(student.passerellesnumeriques|passerellesnumeriques)\.org/i'],
+            'password'=>'required|min:8',
         ]);
         $user=User::where('email',$request->email)->first();
         return $user->createToken($request->email)->plainTextToken;
