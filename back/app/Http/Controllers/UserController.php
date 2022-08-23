@@ -37,6 +37,7 @@ class UserController extends Controller
         $request->validate([
             'email'=>'required|email',
             'password'=>'required',
+            'role'=>'required'
         ]);
         $user=User::where('email',$request->email)->first();
         return $user->createToken($request->email)->plainTextToken;
