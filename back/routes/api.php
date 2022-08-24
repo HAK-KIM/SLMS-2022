@@ -12,6 +12,7 @@ Route::post('/requests', [LeaveController::class, 'store']);
 Route::put('/requests/{id}', [LeaveController::class, 'update']);
 
 Route::get('/users', [AdminController::class, 'index']);
+Route::apiResource('/students', UserController::class);
 
 // single users
 Route::post('admin/email/{id}', [AdminController::class, 'storeSingleEmail'])->name('store.user.email');

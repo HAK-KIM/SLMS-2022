@@ -12,6 +12,32 @@ class UserController extends Controller
     public function index() {
         return User::get();
     }
+
+    public function destroy($id) {
+        return User::destroy($id);
+    }
+
+    public function store(Request $request) {
+        $student = new User();
+        $student->firstname=$request->firstname;
+        $student->lastname=$request->lastname;
+        $student->gender=$request->gender;
+        $student->batch=$request->batch;
+        $student->email=$request->email;
+        $student->password=bcrypt($request->password);
+        $student->save();
+        return response()->json(["message"=>$student]);
+    }
+    public function update(Request $request, $id) {
+        $student = User::find($id);
+        $student->firstname=$request->firstname;
+        $student->lastname=$request->lastname;
+        $student->gender=$request->gender;
+        $student->batch=$request->batch;
+        $student->email=$request->email;
+        $student->save();
+        return response()->json(["message"=>$student]);
+    }
     //sign up
     public function signUp(Request $request){
         $user=new User();

@@ -23,12 +23,14 @@
       ></v-select>
     </v-col>
   </section>
-  <card :leaves='filterData' @update="updateRequest" class="mb-3 mr-3 ml-3"/>
+  <section class="px-2 pb-3">
+    <card :leaves='filterData' @update="updateRequest" />
+  </section>
 </template>
 
 <script>
 import axios from '../axios-http.js'
-import card from '@/components/TableComponent.vue';
+import card from '@/components/TableLeaveComponent.vue';
 export default ({
   data() {
     return {
@@ -65,7 +67,7 @@ export default ({
     getData() {
       axios.get('requests')
       .then((response) => {
-        this.leaves = response.data;
+        this.leaves = response.data.reverse();
       })
     },
     getApprove() {
@@ -119,7 +121,7 @@ export default ({
         for (let leave of this.leaves) {
           if (leave.id == id) {
             leave.status = status;
-            this.sentMailToStudent(1, status);
+            this.sentMailToStudent(41, status);
           }
         }
         console.log(response.data);
@@ -128,11 +130,11 @@ export default ({
     },
     sentMailToStudent(id, status) {
       let body = {
-        greeting: 'Replay for request', 
+        greeting: status ? 'Approve for leave request' : 'Reject for leave request', 
         body: status ? "Dear student, I hope you are doing well. I am writting this email to let you know you are allow to leave.": "Dear student, I hope you are doing well. I am writting this email to let you know you are not allow to leave.", 
-        actiontext: 'Go to System', 
+        actiontext: 'Go to Website', 
         actionurl: 'http://localhost:8080/', 
-        endtext: 'I looking forward to heaing from you.'
+        endtext: 'I am looking forward to heaing from you.'
       }
       axios.post('user/email/'+id, body)
         .then((response=> {{

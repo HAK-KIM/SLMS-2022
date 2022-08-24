@@ -18,12 +18,12 @@ export default {
   },
   data: () => ({ 
     menuItem: [
-      { title: 'Home', icon: 'mdi-home', to:'/'},
+      { title: 'List Leaves', icon: 'mdi-home', to:'/'},
       { title: 'Students', icon: 'mdi-account-group', to:'/checkleave'},
       { title: 'New Request', icon: 'mdi-creation', to:'/create'},
       { title: 'Logout',icon: 'mdi-logout', to: '/logout' },
     ],
-    userInfo: {image: "https://p.kindpng.com/picc/s/366-3666562_passerelles-numeriques-cambodia-hd-png-download.png", username: 'vibol khan'},
+    userInfo: {image: "https://thumbs.dreamstime.com/b/cute-cat-portrait-square-photo-beautiful-white-closeup-105311158.jpg", username: 'vibol khan'},
   }),
   provide() {
     return {menuItem: this.menuItem, userInfo: this.userInfo, statuses: this.statuses, type: this.type,}

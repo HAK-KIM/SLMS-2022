@@ -132,8 +132,11 @@ export default {
     currentDate: "",
     dialog: false,
   }),
-  emits: ["leave"],
+  emits: ["progress"],
   methods: {
+    emitProgress() {
+      this.$emit('progress', true)
+    },
     createLeave() {
       if (
         this.type != "" &&
@@ -143,6 +146,7 @@ export default {
         this.startDate != "invalidDate" && 
         this.reason != ""
       ) {
+          this.emitProgress();
           let body = {leave_type: this.type, date_start: this.startDate, end_date: this.endDate, status: null, end_time: this.timeEnd, start_time: this.timeStart, reason: this.reason, duration: this.duration};
           this.sentMail();
           axios.post('requests', body)

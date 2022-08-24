@@ -1,25 +1,73 @@
 <template>
     <section class="pa-4">
-        <notiCard :students='students'/>
+        <create @create='createStudent' :type="true" />
+         <v-alert
+            v-model="alert"
+            density="comfortable"
+            type="success"
+            variant="tonal"
+            closable
+            border="start"
+            class="mt-4"
+        >
+            Student have been <strong v-if="status=='create'">created </strong> <strong v-else-if="status=='delete'">deleted </strong> <strong v-else-if="status=='update'">updated </strong>successfully.
+        </v-alert>
+        <card :students='students' @delete='deleteStudent' @update='updateStudent' class="mt-4"/>
     </section>
 </template> 
 
 <script>
-import notiCard from '@/components/CardComponent.vue'
+import card from '@/components/StudentTableComponent.vue';
+import create from '@/components/FormCreateStudent.vue';
 import axios from '../axios-http';
 export default {
     components: {
-        notiCard,
+        card,
+        create,
     },
     data: ()=>({
         students: [],
+        alert: false,
+        status: '',
     }),
     methods: {
         getData() {
-            axios.get('/users')
+            axios.get('/students')
             .then((response)=>{
                 this.students = response.data;
                 console.log(response.data);
+            })
+        },
+        createStudent(student) {
+            axios.post('/students', student)
+            .then((response)=>{
+                console.log(response.data);
+                this.getData();
+                this.alert = true;
+                this.status = 'create';
+            })
+            console.log('hi');
+        },
+        deleteStudent(id) {
+            axios.delete('/students/'+id)
+            .then((response)=>{
+                for (let i = 0; i < this.students.length; i++) {
+                    if (this.students[i].id == id) {
+                        this.students.splice(i, 1);
+                        this.status = 'delete';
+                        this.alert = true;
+                    }
+                }
+                console.log(response.data);
+            })
+        },
+        updateStudent(id, student) {
+            axios.put('/students/'+id, student)
+            .then((response)=>{
+                this.getData()
+                this.status = 'update';
+                console.log(response.data);
+                this.alert = true;
             })
         }
     },

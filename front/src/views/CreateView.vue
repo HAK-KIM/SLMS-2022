@@ -1,4 +1,14 @@
 <template>
+  <v-rows class="d-flex justify-center  ">
+    <v-col cols="4" class="d-flex justify-center flex-column align-center" v-if="progress">
+      Loading
+      <v-progress-linear
+        rounded
+        indeterminate
+        color="#04e"
+      ></v-progress-linear>
+    </v-col>
+  </v-rows>
   <section class="px-3 mt-3">
     <v-table
       class="rounded mx-auto"
@@ -14,7 +24,7 @@
           <td >{{ item.name }}</td>
           <td>{{ item.email }}</td>
           <td>
-            <router-link :to="'/create/'+item.id" class="text-decoration-none"><FormView /></router-link>
+            <router-link :to="'/create/'+item.id" class="text-decoration-none"><FormView @progress="emitProgress"/></router-link>
           </td>
         </tr>
       </tbody>
@@ -26,13 +36,14 @@
 
 // Components
 import axios from '../axios-http';
-import FormView from '../components/FormView.vue';
+import FormView from '../components/FormLeave.vue';
 
 export default ({
   components: {
     FormView,
   },
   data: () => ({
+    progress: false,
     leaves: [],
     successed: false,
     items: ['Username', 'Email', 'Request To'],
@@ -52,6 +63,9 @@ export default ({
       .then((response) => {
         this.users = response.data
       })
+    },
+    emitProgress(status) {
+      this.progress = status;
     }
   },
   mounted() {
