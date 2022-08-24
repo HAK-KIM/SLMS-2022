@@ -11,12 +11,12 @@
         <p class="text-h6 text-error pa-3" v-if="students.length==0">No students!</p>
         <tr v-for:="student in students">
             <td >{{ student.id }}</td>
-            <td >{{ student.firstname }}</td>
-            <td >{{ student.lastname }}</td>
+            <td >{{ student.firstName }}</td>
+            <td >{{ student.lastName }}</td>
             <td>{{ student.email }}</td>         
             <td>{{ student.batch }}</td>         
             <td>{{ student.gender }}</td>    
-            <!-- <td>{{ student.phone }}</td>     -->
+            <td>{{ student.phone }}</td>    
             <td class="d-flex text-center pa-3">
                 <modal :type="false" :student="student" :id="student.id" @update='updateStudent'/>
                 <v-actions @click="deleteStudent(student.id)" style="background-color: #e04;" class="ml-1">
@@ -39,7 +39,7 @@ import Swal from 'sweetalert2'
         emits: ['delete', 'update'],
         data() {
             return {
-                headers: ['student Id', 'firstname', 'lastname', 'email', 'batch', 'gender', 'action'],
+                headers: ['student Id', 'firstname', 'lastname', 'email', 'batch', 'gender', 'phone', 'action'],
             }
         },
         methods: {

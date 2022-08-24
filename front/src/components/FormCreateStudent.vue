@@ -31,17 +31,17 @@
           <v-row>
             <v-col cols="12" sm="6" md="6">
               <v-text-field
-                  label="Firstname"
-                  v-model="firstname"
+                  label="firstName"
+                  v-model="firstName"
               ></v-text-field>
-              <small class="text-error">{{error.firstname}}</small>
+              <small class="text-error">{{error.firstName}}</small>
             </v-col>
             <v-col cols="12" sm="6" md="6">
               <v-text-field
-                  label="Lastname"
-                  v-model="lastname"
+                  label="lastName"
+                  v-model="lastName"
               ></v-text-field>
-              <small class="text-error">{{error.lastname}}</small>
+              <small class="text-error">{{error.lastName}}</small>
             </v-col>
             <v-col cols="12" sm="12">
               <v-text-field
@@ -103,8 +103,8 @@ export default {
   props: ['type', 'student', 'id'],
     data: () => ({
       dialog: false,
-      firstname: '',
-      lastname: '',
+      firstName: '',
+      lastName: '',
       gender: '',
       batch: '',
       email: '',
@@ -115,8 +115,8 @@ export default {
     emits: ["create", 'update'],
     methods: {
       clearForm() {
-        this.firstname = '';
-        this.lastname = '';
+        this.firstName = '';
+        this.lastName = '';
         this.email = '';
         this.gender = '';
         this.batch = '';
@@ -126,8 +126,8 @@ export default {
         this.checkForm();
         if (this.isValid) {
           this.$emit('create', {
-            firstname: this.firstname, 
-            lastname: this.lastname,
+            firstName: this.firstName, 
+            lastName: this.lastName,
             email: this.email,
             gender: this.gender,
             batch: this.batch,
@@ -141,15 +141,15 @@ export default {
       },
       checkForm() {
         const pattern  = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (this.firstname == '') {
-          this.error.firstname = 'firstname is required'
-        } else if (this.firstname != '') {
-          this.error.firstname = ''
+        if (this.firstName == '') {
+          this.error.firstName = 'firstName is required'
+        } else if (this.firstName != '') {
+          this.error.firstName = ''
         }
-        if (this.lastname == '') {
-          this.error.lastname = 'lastname is required'
-        } else if (this.lastname != '') {
-          this.error.lastname = ''
+        if (this.lastName == '') {
+          this.error.lastName = 'lastName is required'
+        } else if (this.lastName != '') {
+          this.error.lastName = ''
         } if (this.gender == '') {
           this.error.gender = 'gender is required'
         } else if (this.gender != '') {
@@ -167,7 +167,7 @@ export default {
         }else if (this.email != '') {
           this.error.email = ''
         } if (
-          this.firstname != '' && this.lastname != '' && this.email != '' && 
+          this.firstName != '' && this.lastName != '' && this.email != '' && 
           this.batch != '' && pattern.test(this.email) && this.phone.length > 8
         ){
           this.isValid = true;
@@ -175,10 +175,11 @@ export default {
       },
       getDataUpdate() {
         if (!this.type) {
-          this.firstname = this.student.firstname;
-          this.lastname = this.student.lastname;
+          this.firstName = this.student.firstName;
+          this.lastName = this.student.lastName;
           this.email = this.student.email;
           this.batch = this.student.batch;
+          this.phone = this.student.phone;
           this.gender = this.student.gender;
         }
       },
@@ -186,8 +187,8 @@ export default {
         this.checkForm();
         if (this.isValid) {
           this.$emit('update', this.id, {
-            firstname: this.firstname,
-            lastname: this.lastname,
+            firstName: this.firstName,
+            lastName: this.lastName,
             email: this.email,
             batch: this.batch,
             gender: this.gender,

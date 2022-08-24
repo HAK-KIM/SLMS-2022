@@ -33,7 +33,6 @@
 
 export default {
   data: () => ({
-      
   }),
   inject: ['menuItem', 'userInfo']
 }

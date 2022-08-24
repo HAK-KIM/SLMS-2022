@@ -141,6 +141,9 @@ export default ({
           console.log(response.data);
       }}))
     }
+  },
+  mounted() {
+    localStorage.clear();
   }
 });
 </script>
