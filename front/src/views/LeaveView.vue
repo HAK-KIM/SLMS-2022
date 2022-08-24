@@ -121,7 +121,7 @@ export default ({
         for (let leave of this.leaves) {
           if (leave.id == id) {
             leave.status = status;
-            this.sentMailToStudent(41, status);
+            this.sentMailToStudent(2, status);
           }
         }
         console.log(response.data);
@@ -142,8 +142,5 @@ export default ({
       }}))
     }
   },
-  mounted() {
-    localStorage.clear();
-  }
 });
 </script>

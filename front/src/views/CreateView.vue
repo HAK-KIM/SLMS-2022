@@ -10,25 +10,7 @@
     </v-col>
   </v-rows>
   <section class="px-3 mt-3">
-    <v-table
-      class="rounded mx-auto"
-      style="width: 900px; box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;"
-    >
-      <thead>
-        <tr style="background-color: #04e;">
-          <th v-for:="item in items" class="text-left text-h6 text-white">{{item}}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for:="item in users">
-          <td >{{ item.name }}</td>
-          <td>{{ item.email }}</td>
-          <td>
-            <router-link :to="'/create/'+item.id" class="text-decoration-none"><FormView @progress="emitProgress"/></router-link>
-          </td>
-        </tr>
-      </tbody>
-    </v-table>
+      <FormLeave/>
   </section>
 </template>
 
@@ -36,11 +18,11 @@
 
 // Components
 import axios from '../axios-http';
-import FormView from '../components/FormLeave.vue';
+import FormLeave from '../components/FormLeave.vue';
 
 export default ({
   components: {
-    FormView,
+    FormLeave,
   },
   data: () => ({
     progress: false,
