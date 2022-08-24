@@ -23,7 +23,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->role = $request->role;
-        $user->bitch = $request->bitch;
+        $user->batch = $request->batch;
         $user->gender = $request->gender;
         $user->phone = $request->phone;
         $user->personal_id = $request->personal_id;
