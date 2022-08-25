@@ -41,7 +41,8 @@ export default {
             this.loginNow.password = this.passwordEnter
             this.$emit('emit-login', this.loginNow)
         }
-    }
+    },
+
 }
 </script>
 <style scoped>

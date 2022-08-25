@@ -32,14 +32,14 @@ export default {
     }),
     methods: {
         getData() {
-            axios.get('/students')
+            axios.get('/students',  { withCredentials: true })
             .then((response)=>{
                 this.students = response.data;
                 console.log(response.data);
             })
         },
         createStudent(student) {
-            axios.post('/students', student)
+            axios.post('/students', student, { withCredentials: true })
             .then((response)=>{
                 console.log(response.data);
                 this.getData();
@@ -49,7 +49,7 @@ export default {
             console.log('hi');
         },
         deleteStudent(id) {
-            axios.delete('/students/'+id)
+            axios.delete('/students/'+id, { withCredentials: true })
             .then((response)=>{
                 for (let i = 0; i < this.students.length; i++) {
                     if (this.students[i].id == id) {
@@ -62,7 +62,7 @@ export default {
             })
         },
         updateStudent(id, student) {
-            axios.put('/students/'+id, student)
+            axios.put('/students/'+id, student, { withCredentials: true })
             .then((response)=>{
                 this.getData()
                 this.status = 'update';

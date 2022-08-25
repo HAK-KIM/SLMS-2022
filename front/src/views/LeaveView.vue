@@ -65,7 +65,7 @@ export default ({
   },
   methods: {
     getData() {
-      axios.get('requests')
+      axios.get('requests', { withCredentials: true })
       .then((response) => {
         this.leaves = response.data.reverse();
       })
@@ -116,12 +116,13 @@ export default ({
       return items;
     },
     updateRequest(id, status) {
-      axios.put('requests/'+id, {status: status})
+      axios.put('requests/'+id, {status: status}, { withCredentials: true })
       .then((response)=> {
         for (let leave of this.leaves) {
           if (leave.id == id) {
             leave.status = status;
-            this.sentMailToStudent(2, status);
+            let user_id = JSON.parse(localStorage.getItem('id'));
+            this.sentMailToStudent(user_id, status);
           }
         }
         console.log(response.data);
@@ -136,7 +137,7 @@ export default ({
         actionurl: 'http://localhost:8080/', 
         endtext: 'I am looking forward to heaing from you.'
       }
-      axios.post('user/email/'+id, body)
+      axios.post('user/email/'+id, body, { withCredentials: true })
         .then((response=> {{
           console.log(response.data);
       }}))

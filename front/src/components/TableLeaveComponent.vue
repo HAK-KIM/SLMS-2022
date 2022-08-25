@@ -6,7 +6,7 @@
     variant="tonal"
     closable
     border="start"
-    class="mx-3 my-3"
+    class="mb-3"
   >
       Leave request have been <strong v-if="status==true">approved</strong> <strong v-else-if="status==false">rejected</strong> successfully.
   </v-alert>

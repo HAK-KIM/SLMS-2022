@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar>
+    <v-app-bar v-if="!$route.meta.hideNavbar">
       <v-toolbar-title style="padding: 10px;margin-left: 30px;"><img :src="logos" alt="" width="50" height="50"> </v-toolbar-title>
       <Menubar />
     </v-app-bar>
@@ -19,10 +19,10 @@ export default {
   },
   data: () => ({ 
     menuItem: [
-      { title: 'List Leaves', icon: 'mdi-home', to:'/'},
-      { title: 'Students', icon: 'mdi-account-group', to:'/checkleave'},
+      { title: 'List Leaves', icon: 'mdi-home', to:'/leave'},
+      { title: 'Students', icon: 'mdi-account-group', to:'/students'},
       { title: 'New Request', icon: 'mdi-creation', to:'/create'},
-      { title: 'Logout',icon: 'mdi-logout', to: '/signup' },
+      { title: 'Logout',icon: 'mdi-logout', to: '/logout' },
     ],
 
     userInfo: {image: "https://p.kindpng.com/picc/s/366-3666562_passerelles-numeriques-cambodia-hd-png-download.png", username: 'vibol khan'},

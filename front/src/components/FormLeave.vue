@@ -133,9 +133,10 @@ export default {
         this.reason != ""
       ) {
           this.emitProgress();
-          let body = {user_id: 2, leave_type: this.type, date_start: this.startDate, end_date: this.endDate, status: null, end_time: this.timeEnd, start_time: this.timeStart, reason: this.reason, duration: this.duration};
+          let id = JSON.parse(localStorage.getItem('id'));
+          let body = {user_id: id, leave_type: this.type, date_start: this.startDate, end_date: this.endDate, status: null, end_time: this.timeEnd, start_time: this.timeStart, reason: this.reason, duration: this.duration};
           this.sentMail();
-          axios.post('requests', body)
+          axios.post('requests', body, { withCredentials: true })
           .then((response) => {
             console.log(response.data);
             return this.$router.push({name: "home"});
@@ -168,7 +169,7 @@ export default {
     },
     sentMail() {
       let body = {greeting: 'Request for leave', body: 'Dear teacher, I hope you are doing well. I am writting this email to let you know I want to ask premession to leave', actiontext: 'Go to System', actionurl: 'http://localhost:8080/', endtext: 'I looking forward to heaing from you.'}
-      axios.post('admin/email/'+this.$route.params.id, body)
+      axios.post('admin/email/'+1, body)
         .then((response=> {{
           console.log(response.data);
       }}))

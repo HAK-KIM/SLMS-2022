@@ -1,120 +1,95 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\SendEmailNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
-
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
     //
-    public function index(){
+    public function index()
+    {
         return User::with(['leaves'])->get();
     }
 
-    public function register(Request $request){
-        $user = new User();
-        $user->firstName = $request->firstName;
-        $user->lastName = $request->lastName;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->role = $request->role;
-        $user->batch = $request->batch;
-        $user->gender = $request->gender;
-        $user->phone = $request->phone;
-        $user->personal_id = $request->personal_id;
-        $user->save();
-        return response()->json(['sms'=>'Create successfull']);
-    }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         return User::destroy($id);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $student = new User();
-        $student->firstName=$request->firstName;
-        $student->lastName=$request->lastName;
-        $student->gender=$request->gender;
-        $student->batch=$request->batch;
-        $student->email=$request->email;
-        $student->password=bcrypt($request->password);
+        $student->firstName = $request->firstName;
+        $student->lastName = $request->lastName;
+        $student->gender = $request->gender;
+        $student->batch = $request->batch;
+        $student->email = $request->email;
+        $student->phone = $request->phone;
+        $student->password = bcrypt($request->password);
         $student->save();
-        return response()->json(["message"=>$student]);
+        return response()->json(["message" => $student]);
     }
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $student = User::find($id);
-        $student->firstName=$request->firstName;
-        $student->lastName=$request->lastName;
-        $student->gender=$request->gender;
-        $student->batch=$request->batch;
-        $student->email=$request->email;
-        $student->phone=$request->phone;
+        $student->firstName = $request->firstName;
+        $student->lastName = $request->lastName;
+        $student->gender = $request->gender;
+        $student->batch = $request->batch;
+        $student->email = $request->email;
+        $student->phone = $request->phone;
         $student->save();
-        return response()->json(["message"=>$student]);
+        return response()->json(["message" => $student]);
     }
-    //sign up
-    public function signUp(Request $request){
-        $user=new User();
-        $user->name=$request->name;
-        $user->email=$request->email;
-        $user->password=bcrypt($request->password);
-        $user->role=$request->role;
-        $user->save();
-        $token=$user->createToken('userToken')->plainTextToken;
-        $response=[
-            'user'=>$user,
-            'token'=>$token
-        ];
-        return response()->json($response);
-        return $token;
 
-    }
-    //sign out
-    public function signOut(Request $request){
-        auth()->user()->tokens()->delete();
-        return response()->json(['message'=>"Sign out successfuly"]);
-    }
-    // sign in
-    public function signIn(Request $request){
-        $request->validate([
-            'email'=> ['required','email', 'regex:/(.*)@(student.passerellesnumeriques|passerellesnumeriques)\.org/i'],
-            'password'=>'required|min:8',
+    public function login(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'email' => 'required|email|exists:users',
+            'password' => 'required'
         ]);
-        $user=User::where('email',$request->email)->first();
-        return $user->createToken($request->email)->plainTextToken;
-        return redirect()->intended('myPassword');
 
-    }
-
-
-    public function logIn(request $request){
-        if(!Auth::attempt($request->only('email','password')))
-        {
-            return response()->json(['sms'=>'Invalid password'], 401);
+        if ($validate->fails()) {
+            return response()->json([
+                'errors' => $validate->errors()
+            ], 422);
         }
+        $reqData = request()->only('email', 'password');
 
-        $user = Auth::user();
-        $token = $user->createToken('token')->plainTextToken;
-        $cookie = cookie('jwt', $token, 60*20); //1 day
-        return response()->json(['sms'=>'success','token'=>$token],200)->withCookie($cookie);
+        if (Auth::attempt($reqData)) {
+            $user = Auth::user();
+            $data['token_type'] =  'Bearer';
+            $token = $user->createToken('token')->accessToken;
+            $data['user'] = $user;
+            $cookie = Cookie('cookie',$token,60*24);            
+            return response()->json(['token' => $token, 'user' => $user], 200)
+                ->withCookie($cookie);
+        } else {
+
+            return response()->json([
+                'loginFailed' => 'Email or Password Incorrect'
+            ], 401);
+        }
     }
 
-
-    public function lognOut(request $request){
-        $cookie = Cookie::forget('jwt');
-        return response()->json(['sms'=>'Logged out from account'])->withCookie($cookie);
+    public function logout()
+    {
+        $cookie = Cookie::forget('cookie');
+        return response()->json(['sms' => 'logout'])
+            ->withCookie($cookie);
     }
-
 
     // Store single user
     public function storeSingleEmail(Request $request, $id)
     {
-
         $admin = User::find($id);
 
         $details = array();

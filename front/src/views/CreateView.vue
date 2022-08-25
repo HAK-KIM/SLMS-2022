@@ -34,25 +34,17 @@ export default ({
   methods: {
     createLeave(item) {
       this.leaves.push(item);
-      axios.post(this.url, item)
+      axios.post('requests', item, { withCredentials: true })
       .then((response) => {
         console.log(response.data);
         axios.post('user/email'+this.$route.parms.userId)
-      })
-    },
-    getData() {
-      axios.get('users')
-      .then((response) => {
-        this.users = response.data
       })
     },
     emitProgress(status) {
       this.progress = status;
     }
   },
-  mounted() {
-    this.getData();
-  }
+
 
 });
 </script>

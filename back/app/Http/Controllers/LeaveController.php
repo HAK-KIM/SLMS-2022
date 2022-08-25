@@ -40,7 +40,6 @@ class LeaveController extends Controller
         $leave->status = $request->status;
         $leave->user_id = $request->user_id;
         
-
         $validated = $request->validate(
             [
             'leave_type' => 'string|required',

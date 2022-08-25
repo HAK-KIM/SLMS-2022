@@ -9,7 +9,7 @@
     </div>
 </template>
 <script>
-import LoginComponent from '@/components/GetIn/LoginComponent.vue'
+import LoginComponent from '@/components/LoginComponent.vue'
 import axios from '../axios-http';
 export default {
     components: { LoginComponent },
@@ -21,16 +21,26 @@ export default {
     },
     methods: {
         loginData(value){
-            axios.post('/signin', value).then((response) => {
-            console.log('successfull', response);
-            return this.$router.push({name: "check leave"});
+            axios.post('/login', value)
+            .then((response) => {
+            localStorage.setItem("id", (response.data.user.id));
+            document.cookie = "cookie=" + response.data.token;
+            return this.$router.push({name: "home"});
           })
+        },
+        logout() {
+            if (this.$route.meta.logout) {
+                document.cookie = 'cookie'+'=; Max-Age=-99999999;';  
+            }
         }
     },
     mounted() {
         setTimeout( () => {
             return this.isShwo = true;
-        }, 1000);
+        }, 500);
+    },
+    created() {
+        this.logout();
     }
 }
 </script>
