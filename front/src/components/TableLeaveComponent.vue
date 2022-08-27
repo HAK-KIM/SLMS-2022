@@ -32,7 +32,7 @@
         </td>
         <td>{{ item.reason }}</td>
         <td>{{item.duration }} <span v-if="item.duration>1">Days</span><span v-else>Day</span></td>
-        <td v-if="item.status==null" class="text-center pa-0">
+        <td v-if="item.status==null && this.$route.meta.isAdmin" class="text-center pa-0" >
         <v-actions  @click="update(item.id, true)" style="background-color: #04e;">
           <span>Approve</span>
         </v-actions>
@@ -53,7 +53,7 @@ import Swal from 'sweetalert2'
     emits: ['update'],
     data() {
       return {
-        items: ['Type Leave', 'From', 'To', 'Status', 'Reason', 'Duration', 'Action'],
+        items: ['Type Leave', 'From', 'To', 'Status', 'Reason', 'Duration', this.$route.meta.isAdmin?'Action':''],
         alert: false,
         status: false
       }

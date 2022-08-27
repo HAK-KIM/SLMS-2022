@@ -7,10 +7,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\UserController;
 
+//user login
+Route::post('/login',[UserController::class,'login']);
+//admin login
+Route::post('/loginAdmin', [AdminController::class, 'login']);
 
-Route::post('/login',[UserController::class,'logIn']);
-
-Route::middleware('auth:api')->group(function () {
+Route::group(['middleware'=>['auth:sanctum']],function(){
     // crud leave requests
     Route::apiResource('requests', LeaveController::class);
     

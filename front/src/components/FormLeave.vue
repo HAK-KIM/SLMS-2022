@@ -139,7 +139,7 @@ export default {
           axios.post('requests', body, { withCredentials: true })
           .then((response) => {
             console.log(response.data);
-            return this.$router.push({name: "home"});
+            return this.$router.push('/leave/'+localStorage.getItem('id'));
           })
           this.type = "";
           this.startDate = "invalidDate";

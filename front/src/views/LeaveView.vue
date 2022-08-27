@@ -24,13 +24,13 @@
     </v-col>
   </section>
   <section class="px-2 pb-3">
-    <card :leaves='filterData' @update="updateRequest" />
+    <leaveTable :leaves='filterData' @update="updateRequest" />
   </section>
 </template>
 
 <script>
 import axios from '../axios-http.js'
-import card from '@/components/TableLeaveComponent.vue';
+import leaveTable from '@/components/TableLeaveComponent.vue';
 export default ({
   data() {
     return {
@@ -41,10 +41,7 @@ export default ({
     }
   },
   components: {
-    card
-  },
-  mounted() {
-    this.getData();
+    leaveTable,
   },
   computed: {
     filterData() {
@@ -65,7 +62,7 @@ export default ({
   },
   methods: {
     getData() {
-      axios.get('requests', { withCredentials: true })
+      axios.get('requests', {withCredentials: true})
       .then((response) => {
         this.leaves = response.data.reverse();
       })
@@ -116,7 +113,7 @@ export default ({
       return items;
     },
     updateRequest(id, status) {
-      axios.put('requests/'+id, {status: status}, { withCredentials: true })
+      axios.put('requests/'+id, {status: status})
       .then((response)=> {
         for (let leave of this.leaves) {
           if (leave.id == id) {
@@ -137,11 +134,26 @@ export default ({
         actionurl: 'http://localhost:8080/', 
         endtext: 'I am looking forward to heaing from you.'
       }
-      axios.post('user/email/'+id, body, { withCredentials: true })
+      axios.post('user/email/'+id, body)
         .then((response=> {{
           console.log(response.data);
       }}))
+    },
+    getLeaveById() {
+      let id = localStorage.getItem('id');
+      axios.get('students/'+id)
+      .then((response=>{
+        this.leaves = response.data.leaves;
+        console.log(response.data.leaves);
+      }))
     }
   },
+  mounted() {
+    if (this.$route.meta.isAdmin) {
+      this.getData();
+    } else {
+      this.getLeaveById();
+    }
+  }
 });
 </script>
