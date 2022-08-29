@@ -62,7 +62,7 @@
               <v-select
                 label="Batch"
                 v-model="batch"
-                :items="['2022 WEB A', '2022 WEB B']"
+                :items="['2022', '2023']"
               ></v-select>
               <small class="text-error">{{error.batch}}</small>
             </v-col>

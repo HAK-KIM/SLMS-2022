@@ -1,9 +1,14 @@
 <template>
   <section class="d-flex justify-center mt-3 pa-0 mb-0">
-    <v-col
-      cols="6"
-      sm="3"
-    >
+    <v-col cols = "3" sm="3">
+    <v-select
+      :items = "batches"
+      label = "Filter By Batches"
+      variant = "outlined"
+      v-model="studentBatches"
+    ></v-select>
+    </v-col>
+    <v-col cols="3" sm="3">
       <v-select
         :items="items"
         label="Filter By Status"
@@ -11,15 +16,12 @@
         v-model="filter"
       ></v-select>
     </v-col>
-    <v-col
-      cols="6"
-      sm="3"
-    >
+    <v-col cols="3" sm="3">
       <v-select
         :items="type"
         label="Filter By Leave Type"
         variant="outlined"
-        v-model="filter"
+        v-model="leaveType"
       ></v-select>
     </v-col>
   </section>
@@ -36,8 +38,12 @@ export default ({
     return {
       items: ['All', 'Check Approve Only', 'Check Rejected Only'],
       type: ['All', 'Go to Home Town', 'Sick', 'Family Event'],
+      batches: ['2022', '2023'],
+      studentsBatches: [],
       leaves: [],
       filter: 'All',
+      leaveType: 'All',
+      stuBatches: 'All'
     }
   },
   components: {
@@ -48,19 +54,40 @@ export default ({
       let items = this.leaves;
       if (this.filter == "Check Approve Only") {
         items = this.getApprove();
-      } else if (this.filter == "Check Rejected Only"){
+      } if (this.filter == "Check Rejected Only"){
         items = this.getRejected();
-      } else if (this.filter == 'Go to Home Town') {
+      } if (this.leaveType == 'Go to Home Town') {
         items = this.getGoHomeType();
-      } else if (this.filter == 'Sick') {
+      } if (this.leaveType == 'Sick') {
         items = this.getSickType();
-      } else if (this.filter == 'Family Event') {
+      } if (this.leaveType == 'Family Event') {
         items = this.getFamilyEventType();
       }
       return items;
     },
+
+    // student batches ===========
+    filterBatchData() {
+      let batches = this.stuBatches;
+      if (this.stuBatches == "2022"){
+        batches = this.get.getStudentBatches();
+      }else if ( this.stuBatches == "2023"){
+        batches = this.get.getStudentBatches();
+      }
+      return batches;
+    }
+    // end ==================
   },
   methods: {
+
+    // student batches ===========
+    getBatchData(){
+      axios.get('requests', {selectCredentials: true}) 
+      .then((response) => {
+        this.studentsBatches = response.data.reverse();
+      })
+    },
+    // end ==================
     getData() {
       axios.get('requests', {withCredentials: true})
       .then((response) => {
@@ -106,12 +133,13 @@ export default ({
     getFamilyEventType() {
       let items = [];
       for (let leave of this.leaves) {
-          if (leave.leave_type == 'family event') {
+          if (leave.leave_type == 'Family event') {
             items.unshift(leave);
           }
       }
       return items;
     },
+
     updateRequest(id, status) {
       axios.put('requests/'+id, {status: status})
       .then((response)=> {
@@ -126,6 +154,7 @@ export default ({
       })
 
     },
+
     sentMailToStudent(id, status) {
       let body = {
         greeting: status ? 'Approve for leave request' : 'Reject for leave request', 
@@ -151,9 +180,10 @@ export default ({
   mounted() {
     if (this.$route.meta.isAdmin) {
       this.getData();
+      this.getBatchData();
     } else {
       this.getLeaveById();
     }
-  }
+  },
 });
 </script>

@@ -9,15 +9,34 @@
         </thead>
         <tbody>
         <p class="text-h6 text-error pa-3" v-if="students.length==0">No students!</p>
-        <tr v-for:="student in students">
-            <td >{{ student.id }}</td>
-            <td >{{ student.firstName }}</td>
-            <td >{{ student.lastName }}</td>
-            <td>{{ student.email }}</td>         
-            <td>{{ student.batch }}</td>         
-            <td>{{ student.gender }}</td>    
-            <td>{{ student.phone }}</td>    
-            <td class="d-flex text-center pa-3">
+        <v-dialog
+            v-model="dialog"
+            persistent
+            hide-overlay
+            transition="dialog-bottom-transition"
+        >
+            <v-card>
+                <v-toolbar
+                    color="primary"
+                >
+                    <v-toolbar-title>Student Detail</v-toolbar-title>
+                    <v-icon @click="dialog = false" class="mr-4">mdi-close</v-icon>
+                </v-toolbar>
+                <v-list class="px-4">
+                    <studentInfo :student='student' elevation="6"/>
+                    <leave class=" rounded" elevation="6" :items='items' :leaves='leaves' :noAction='true'/>
+                </v-list>
+            </v-card>
+        </v-dialog>
+        <tr v-for:="(student, index) in students">
+            <td @click="getLeaveAndStudent(student.id)">{{student.student_ID}}</td>
+            <td @click="getLeaveAndStudent(student.id)">{{student.firstName}}</td>
+            <td @click="getLeaveAndStudent(student.id)">{{student.lastName}}</td>
+            <td @click="getLeaveAndStudent(student.id)">{{student.email}}</td>
+            <td @click="getLeaveAndStudent(student.id)">{{student.batch}}</td>
+            <td @click="getLeaveAndStudent(student.id)">{{student.gender}}</td>
+            <td @click="getLeaveAndStudent(student.id)">{{student.phone}}</td>
+            <td class="d-flex text-center pa-3 noAction">
                 <modal :type="false" :student="student" :id="student.id" @update='updateStudent'/>
                 <v-actions @click="deleteStudent(student.id)" style="background-color: #e04;" class="ml-1">
                     <span>Delete</span>
@@ -30,17 +49,25 @@
 
 <script>
 import modal from '../components/FormCreateStudent.vue'
+import leave from '../components/LeaveComponent.vue';
+import studentInfo from '../components/StudentInformation.vue';
 import Swal from 'sweetalert2'
     export default {
         components: {
             modal,
+            leave,
+            studentInfo
         },
         props: ['students'],
         emits: ['delete', 'update'],
         data() {
             return {
+                dialog: false,
+                items: ['Type Leave', 'From', 'To', 'Status', 'Reason', 'Duration'],
                 headers: ['student Id', 'firstname', 'lastname', 'email', 'batch', 'gender', 'phone', 'action'],
-            }
+                leaves: [],
+                student:{},
+            }   
         },
         methods: {
             deleteStudent(id) {
@@ -60,18 +87,29 @@ import Swal from 'sweetalert2'
             },
             updateStudent(id, body) {
                 this.$emit('update',id, body);
+            },
+            getLeaveAndStudent(id) {
+                // if( 7== 7) {
+                    this.dialog=true;
+                    for (let student of this.students) {
+                        if (id == student.id) {
+                            this.leaves=student.leaves;
+                            this.student=student;
+                        }
+                    }
+                // }
             }
         }
     }
 </script>
 
 <style scoped>
-  v-actions {
-    cursor: pointer;
-    padding: 5px 15px;
-    border-radius:10px;
-    color: #fff;
-    display: flex;
-    align-items: center;
-  }
+    v-actions {
+        cursor: pointer;
+        padding: 5px 15px;
+        border-radius:10px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+    }
 </style>
