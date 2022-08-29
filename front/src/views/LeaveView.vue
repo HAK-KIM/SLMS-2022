@@ -38,6 +38,9 @@
   <section class="px-2 pb-3">
     <card :leaves='filterData' @update="updateRequest" />
   </section>
+  <!-- <section class="px-2 pb-3">
+    <card :studentsBatches ="filterBatchData" @update="updateStudentBatches" />
+  </section> -->
 </template>
 
 <script>
@@ -150,7 +153,7 @@ export default ({
     getFamilyEventType() {
       let items = [];
       for (let leave of this.leaves) {
-          if (leave.leave_type == 'Family event') {
+          if (leave.leave_type == 'family event') {
             items.unshift(leave);
           }
       }
@@ -159,19 +162,7 @@ export default ({
 
     // student request =====================
 
-    // updateStudentBatches(id, generation){
-    //   axios.put('request/' +id, {generation: generation}, { withCredentials: true})
-    //   .then((response) => {
-    //     for (let studentsBatche of this.studentsBatches){
-    //       if(studentsBatche.id == id){
-    //         studentsBatche.generation = generation;
-    //         let user_id = JSON.parse(localStorage.getItem('id'));
-    //         this.sendToStudentBatch(user_id,generation)
-    //       }
-    //     }
-    //     console.log(response.data)
-    //    })
-    // },
+  
     // end ==================
 
     updateRequest(id, status) {
