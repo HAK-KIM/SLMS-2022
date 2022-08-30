@@ -16,7 +16,9 @@
             </v-list-item>
             <v-list-item>
             <v-list-item-avatar class="pa-3">
-                <v-img class="rounded-circle" width="40" :src="userInfo.image"></v-img>
+                <router-link to="/profile">
+                    <v-img class="rounded-circle" width="40" :src="userInfo.image"></v-img>
+                </router-link>
             </v-list-item-avatar>  
             </v-list-item>
     </v-list> 

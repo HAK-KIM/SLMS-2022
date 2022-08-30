@@ -48,6 +48,11 @@ const routes = [
       id: 5
     }
   }, 
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('../components/Profiles/ProfilesComponent.vue'),
+  },
 ]
 
 const router = createRouter({
