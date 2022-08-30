@@ -16,16 +16,31 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $users = [
+            // [
+            //     'firstName'=>'Veang',
+            //     'lastName'=>'Kroh',
+            //     'email'=>'veang.kroh@student.passerellesnumeriques.org',
+            //     'email_verified_at'=>now(),
+            //     'password'=>bcrypt('123456789'),
+            //     'batch'=>'2022',
+            //     'gender'=>'M',
+            //     'phone'=>'098765432',
+            //     'personal_id'=>'22',
+            //     'class'=>'WEB-2022A',
+            //     'image'=> null,
+            // ],
             [
-                'firstName'=>'User',
-                'lastName'=>'kimhak',
-                'email'=>'kimhak6900@gmail.com',
+                'firstName'=>'Vibol',
+                'lastName'=>'Khan',
+                'email'=>'v.k@student.passerellesnumeriques.org',
                 'email_verified_at'=>now(),
-                'password'=>bcrypt('123456789'),
+                'password'=>bcrypt('1234'),
                 'batch'=>'2022',
                 'gender'=>'M',
                 'phone'=>'098765432',
-                'personal_id'=>'22',
+                'personal_id'=>'32',
+                'class'=>'WEB-2022A',
+                'image'=> null,
             ]
             ];
             foreach($users as $key => $value){
