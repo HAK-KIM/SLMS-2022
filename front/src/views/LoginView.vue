@@ -1,10 +1,10 @@
 <template>
-    <div class=home>
-        <div class="background">
-            <img :src="image">
+    <div style="display: flex;justify-content: space-around;align-items: end;">
+        <div style="margin-top: 20px;height: 40vh;">
+            <img src="https://www.datocms-assets.com/40521/1614850600-hrms-6.png">
         </div>
-        <div class="login">
-            <LoginComponent @emit-login="loginData"/>
+        <div style="width: 40%;">
+            <LoginComponent @emit-login="loginData" :isNotLogin="isNotValid"/>
         </div>
     </div>
 </template>
@@ -15,7 +15,7 @@ export default {
     components: { LoginComponent },
     data(){
         return {
-            image: 'https://www.datocms-assets.com/40521/1614850600-hrms-6.png',
+            isNotValid: false,
         }
     },
     methods: {
@@ -42,7 +42,7 @@ export default {
                     console.log(error);
                 })
             } else {
-                console.log('error');
+                console.log('error')
             }
             console.log(this.$route.meta.isAdmin);
             console.log(this.$route.meta.logout);
@@ -62,17 +62,3 @@ export default {
     }
 }
 </script>
-<style>
-    .home{
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-    }
-    .login{
-        width:40%;
-    }
-    .background{
-        width: 70%;
-        margin-top: 20px;
-    }
-</style>
