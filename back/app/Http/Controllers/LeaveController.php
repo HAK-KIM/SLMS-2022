@@ -20,7 +20,6 @@ class LeaveController extends Controller
         return Leave::get();
 
     }
-    
     /**
      * Store a newly created resource in storage.
      *

@@ -3,20 +3,12 @@
             class="d-flex align-center"
         >
             <v-list-item
-            v-for="item in menuItem"
-            :key="item.title"
-            :to="item.to"
+                v-for="item in this.$route.meta.isAdmin ? adminMenu : studentMenu"
+                :key="item.title"
+                :to="item.to"
             >
             <v-list-item-content class="d-flex pa-3">
-                <v-badge
-                    color="primary"
-                    :content="menuItem.length"
-                    v-if="item.title=='Check leaves'"
-                >
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
-                    <v-icon color="primary" class="ml-1">{{ item.icon }}</v-icon>
-                </v-badge>
-                <div v-else class="d-flex">
+                <div class="d-flex">
                     <v-list-item-title>{{ item.title }}</v-list-item-title>
                     <v-icon color="primary" class="ml-1">{{ item.icon }}</v-icon>
                 </div>
@@ -34,6 +26,6 @@
 export default {
   data: () => ({
   }),
-  inject: ['menuItem', 'userInfo']
+  inject: ['adminMenu', 'userInfo', 'studentMenu']
 }
 </script>

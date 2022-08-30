@@ -19,7 +19,7 @@
                Forgot Password?
             </div>
             <div class="btn-longin">
-                <button>Sign Me in</button>
+                <button>Login</button>
             </div>
         </form>
     </div>

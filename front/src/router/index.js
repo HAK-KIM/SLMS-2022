@@ -7,35 +7,46 @@ const routes = [
     component: () => import('../views/LoginView.vue'),
     meta: {
       hideNavbar: true,
+      logout: true,
     }
   },
   {
-    path: '/logout',
-    name: 'logout',
+    path: '/loginAdmin',
+    name: 'loginAdmin',
     component: () => import('../views/LoginView.vue'),
     meta: {
-      logout: true,
+      hideNavbar: true,
+      isAdmin: true,
     }
   },
   {
     path: '/students',
     name: 'students',
-    component: () => import('../views/StudentView.vue')
+    component: () => import('../views/StudentView.vue'),
+    meta: {
+      isAdmin: true,
+    }
   },
   {
     path: '/create',
     name: 'create',
     component: () => import('../views/CreateView.vue')
-  }, 
+  },
   {
     path: '/leave',
-    name: 'home',
-    component: () => import('../views/LeaveView.vue')
+    name: 'all leave',
+    component: () => import('../views/LeaveView.vue'),
+    meta: {
+      isAdmin: true,
+    }
   }, 
   {
-    path: '/create/:id',
-    name: 'email',
-    component: () => import('../views/CreateView.vue')
+    path: '/leave/:id',
+    name: 'leave user id',
+    component: () => import('../views/LeaveView.vue'),
+    meta: {
+      id: 5
+    }
   }, 
 ]
 

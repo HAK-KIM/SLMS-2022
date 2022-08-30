@@ -3,7 +3,7 @@
         <div class="background">
             <img :src="image">
         </div>
-        <div class="login" v-if="isShwo">
+        <div class="login">
             <LoginComponent @emit-login="loginData"/>
         </div>
     </div>
@@ -16,28 +16,52 @@ export default {
     data(){
         return {
             image: 'https://www.datocms-assets.com/40521/1614850600-hrms-6.png',
-            isShwo: false
         }
     },
     methods: {
         loginData(value){
-            axios.post('/login', value)
-            .then((response) => {
-            localStorage.setItem("id", (response.data.user.id));
-            document.cookie = "cookie=" + response.data.token;
-            return this.$router.push({name: "home"});
-          })
+            if (this.$route.meta.isAdmin && (/[a-z].[a-z]*@passerellesnumeriques.org*/.test(value.email))) {
+                axios.post('/loginAdmin', value)
+                .then((response) => {
+                    console.log(response.data);
+                    localStorage.setItem("id", (response.data.user.id));
+                    localStorage.setItem("Authorization", (response.data.token));
+                    this.$router.push('/leave');
+                    setTimeout(function(){
+                        window.location.reload();
+                    }, 80);
+                }).catch((error) => {
+                    console.log(error);
+                })
+            } else if ((/[a-z].[a-z]*@student.passerellesnumeriques.org*/.test(value.email)) && !this.$route.meta.isAdmin ){
+                axios.post('/login', value)
+                .then((response) => {
+                    let id = localStorage.getItem("id");
+                    console.log(response.data);
+                    localStorage.setItem("id", (response.data.user.id));
+                    localStorage.setItem("Authorization", (response.data.token));
+                    setTimeout(function(){
+                        window.location.reload();
+                    }, 80);
+                    this.$router.push('/leave/'+id);
+                }).catch((error) => {
+                    console.log(error);
+                })
+            } else {
+                console.log('error');
+            }
+            console.log(this.$route.meta.isAdmin);
+            console.log(this.$route.meta.logout);
         },
         logout() {
             if (this.$route.meta.logout) {
-                document.cookie = 'cookie'+'=; Max-Age=-99999999;';  
+                localStorage.removeItem("Authorization");
+                localStorage.removeItem("id");
             }
         }
     },
     mounted() {
-        setTimeout( () => {
-            return this.isShwo = true;
-        }, 500);
+
     },
     created() {
         this.logout();
