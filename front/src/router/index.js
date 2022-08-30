@@ -44,6 +44,9 @@ const routes = [
     path: '/leave/:id',
     name: 'leave user id',
     component: () => import('../views/LeaveView.vue'),
+    meta: {
+      id: 5
+    }
   }, 
   {
     path: '/profile',

@@ -14,19 +14,16 @@
         </v-alert>
         <card :students='students' @delete='deleteStudent' @update='updateStudent' class="mt-4"/>
     </section>
-    <studentDetial />
 </template> 
 
 <script>
 import card from '@/components/StudentTableComponent.vue';
 import create from '@/components/FormCreateStudent.vue';
-import studentDetial from '@/components/StudentDetial.vue';
 import axios from '../axios-http';
 export default {
     components: {
         card,
         create,
-        studentDetial
     },
     data: ()=>({
         students: [],

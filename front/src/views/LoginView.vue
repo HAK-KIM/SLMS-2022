@@ -27,6 +27,9 @@ export default {
                     localStorage.setItem("id", (response.data.user.id));
                     localStorage.setItem("Authorization", (response.data.token));
                     this.$router.push('/leave');
+                    setTimeout(function(){
+                        window.location.reload();
+                    }, 80);
                 }).catch((error) => {
                     console.log(error);
                 })
@@ -37,6 +40,9 @@ export default {
                     console.log(response.data);
                     localStorage.setItem("id", (response.data.user.id));
                     localStorage.setItem("Authorization", (response.data.token));
+                    setTimeout(function(){
+                        window.location.reload();
+                    }, 80);
                     this.$router.push('/leave/'+id);
                 }).catch((error) => {
                     console.log(error);
