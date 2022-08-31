@@ -39,7 +39,7 @@ export default {
             })
         },
         createStudent(student) {
-            axios.post('/students', student, { withCredentials: true })
+            axios.post('/students', student)
             .then((response)=>{
                 console.log(response.data);
                 this.getData();
@@ -49,7 +49,7 @@ export default {
             console.log('hi');
         },
         deleteStudent(id) {
-            axios.delete('/students/'+id, { withCredentials: true })
+            axios.delete('/students/'+id)
             .then((response)=>{
                 for (let i = 0; i < this.students.length; i++) {
                     if (this.students[i].id == id) {
@@ -62,7 +62,7 @@ export default {
             })
         },
         updateStudent(id, student) {
-            axios.put('/students/'+id, student, { withCredentials: true })
+            axios.put('/students/'+id, student)
             .then((response)=>{
                 this.getData()
                 this.status = 'update';

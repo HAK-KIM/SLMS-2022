@@ -28,16 +28,15 @@ export default ({
     progress: false,
     leaves: [],
     successed: false,
-    items: ['Username', 'Email', 'Request To'],
-    users: []
   }),
   methods: {
     createLeave(item) {
       this.leaves.push(item);
-      axios.post('requests', item, { withCredentials: true })
+      axios.post('requests', item)
       .then((response) => {
         console.log(response.data);
-        axios.post('user/email'+this.$route.parms.userId)
+        
+        axios.post('admin/email')
       })
     },
     emitProgress(status) {

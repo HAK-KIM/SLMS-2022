@@ -20,16 +20,16 @@ export default {
     },
     methods: {
         loginData(value){
-            if (this.$route.meta.isAdmin && (/[a-z].[a-z]*@passerellesnumeriques.org*/.test(value.email))) {
+            // && (/[a-z].[a-z]*@passerellesnumeriques.org*/.test(value.email))
+            if (this.$route.meta.isAdmin) {
                 axios.post('/loginAdmin', value)
                 .then((response) => {
                     console.log(response.data);
-                    localStorage.setItem("id", (response.data.user.id));
                     localStorage.setItem("Authorization", (response.data.token));
                     this.$router.push('/leave');
                     setTimeout(function(){
                         window.location.reload();
-                    }, 80);
+                    }, 100);
                 }).catch((error) => {
                     console.log(error);
                 })
@@ -42,7 +42,7 @@ export default {
                     localStorage.setItem("Authorization", (response.data.token));
                     setTimeout(function(){
                         window.location.reload();
-                    }, 80);
+                    }, 100);
                     this.$router.push('/leave/'+id);
                 }).catch((error) => {
                     console.log(error);
@@ -59,9 +59,6 @@ export default {
                 localStorage.removeItem("id");
             }
         }
-    },
-    mounted() {
-
     },
     created() {
         this.logout();

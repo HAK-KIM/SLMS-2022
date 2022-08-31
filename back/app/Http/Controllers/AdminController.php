@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Notifications\SendEmailNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 
 class AdminController extends Controller
 {
@@ -23,5 +25,22 @@ class AdminController extends Controller
         return response()->json(['token'=>$token, 'user'=>$user])
         ->withCookie($cookie);
         
+    }
+    public function storeSingleEmail(Request $request, $id)
+    {
+        $admin = Admin::find($id);
+
+        $details = array();
+
+        $details['greeting'] = $request->greeting;
+        $details['body'] = $request->body;
+        $details['actiontext'] = $request->actiontext;
+        $details['actionurl'] = $request->actionurl;
+        $details['endtext'] = $request->endtext;
+
+        Notification::send($admin, new SendEmailNotification($details));
+
+        // return redirect()->to('/users');
+        return [$details];
     }
 }

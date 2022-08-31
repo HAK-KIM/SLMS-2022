@@ -25,7 +25,7 @@ class UsersTableSeeder extends Seeder
                 'batch'=>'2022',
                 'gender'=>'M',
                 'phone'=>'098765432',
-                'personal_id'=>'22',
+                'studentID'=>'22',
             ]
             ];
             foreach($users as $key => $value){

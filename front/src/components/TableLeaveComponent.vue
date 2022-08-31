@@ -34,8 +34,8 @@ import leave from './LeaveComponent.vue'
       }
     },
     methods: {
-      update(id, status) {
-        this.$emit('update', id, status);
+      update(id, userID, status) {
+        this.$emit('update', id, userID, status);
         this.alert = true;
         if (status) {
           this.status = true;

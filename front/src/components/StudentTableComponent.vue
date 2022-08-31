@@ -28,8 +28,8 @@
                 </v-list>
             </v-card>
         </v-dialog>
-        <tr v-for:="(student, index) in students">
-            <td @click="getLeaveAndStudent(student.id)">{{student.student_ID}}</td>
+        <tr v-for:="(student, index) in students" style="cursor:pointer;">
+            <td @click="getLeaveAndStudent(student.id)">{{student.studentID}}</td>
             <td @click="getLeaveAndStudent(student.id)">{{student.firstName}}</td>
             <td @click="getLeaveAndStudent(student.id)">{{student.lastName}}</td>
             <td @click="getLeaveAndStudent(student.id)">{{student.email}}</td>
@@ -52,55 +52,53 @@ import modal from '../components/FormCreateStudent.vue'
 import leave from '../components/LeaveComponent.vue';
 import studentInfo from '../components/StudentInformation.vue';
 import Swal from 'sweetalert2'
-    export default {
-        components: {
-            modal,
-            leave,
-            studentInfo
-        },
-        props: ['students'],
-        emits: ['delete', 'update'],
-        data() {
-            return {
-                dialog: false,
-                items: ['Type Leave', 'From', 'To', 'Status', 'Reason', 'Duration'],
-                headers: ['student Id', 'firstname', 'lastname', 'email', 'batch', 'gender', 'phone', 'action'],
-                leaves: [],
-                student:{},
-            }   
-        },
-        methods: {
-            deleteStudent(id) {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            this.$emit('delete', id)
-                        }
-                    })
-            },
-            updateStudent(id, body) {
-                this.$emit('update',id, body);
-            },
-            getLeaveAndStudent(id) {
-                // if( 7== 7) {
-                    this.dialog=true;
-                    for (let student of this.students) {
-                        if (id == student.id) {
-                            this.leaves=student.leaves;
-                            this.student=student;
-                        }
+export default {
+    components: {
+        modal,
+        leave,
+        studentInfo
+    },
+    props: ['students'],
+    emits: ['delete', 'update'],
+    data() {
+        return {
+            dialog: false,
+            items: ['Type Leave', 'From', 'To', 'Status', 'Reason', 'Duration'],
+            headers: ['student Id', 'firstname', 'lastname', 'email', 'batch', 'gender', 'phone', 'action'],
+            leaves: [],
+            student:{},
+        }   
+    },
+    methods: {
+        deleteStudent(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.$emit('delete', id)
                     }
-                // }
+                })
+        },
+        updateStudent(id, body) {
+            this.$emit('update',id, body);
+        },
+        getLeaveAndStudent(id) {
+            this.dialog=true;
+            for (let student of this.students) {
+                if (id == student.id) {
+                    this.leaves=student.leaves;
+                    this.student=student;
+                }
             }
         }
     }
+}
 </script>
 
 <style scoped>

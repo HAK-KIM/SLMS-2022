@@ -26,10 +26,9 @@
     </v-col>
   </section>
   <section class="px-2 pb-3">
-    <leaveTable :leaves='filterData' @update="updateRequest" />
+    <leaveTable :leaves='filterData' @update="updateRequest"  />
   </section>
 </template>
-
 <script>
 import axios from '../axios-http.js'
 import leaveTable from '@/components/TableLeaveComponent.vue';
@@ -65,33 +64,13 @@ export default ({
       }
       return items;
     },
-
-    // student batches ===========
-    filterBatchData() {
-      let batches = this.stuBatches;
-      if (this.stuBatches == "2022"){
-        batches = this.get.getStudentBatches();
-      }else if ( this.stuBatches == "2023"){
-        batches = this.get.getStudentBatches();
-      }
-      return batches;
-    }
-    // end ==================
   },
   methods: {
-
-    // student batches ===========
-    getBatchData(){
-      axios.get('requests', {selectCredentials: true}) 
-      .then((response) => {
-        this.studentsBatches = response.data.reverse();
-      })
-    },
-    // end ==================
     getData() {
-      axios.get('requests', {withCredentials: true})
+      axios.get('requests')
       .then((response) => {
         this.leaves = response.data.reverse();
+        console.log('requsts----------------'+response.data);
       })
     },
     getApprove() {
@@ -139,22 +118,19 @@ export default ({
       }
       return items;
     },
-
-    updateRequest(id, status) {
+    updateRequest(id, userID, status) {
       axios.put('requests/'+id, {status: status})
       .then((response)=> {
         for (let leave of this.leaves) {
           if (leave.id == id) {
             leave.status = status;
-            let user_id = JSON.parse(localStorage.getItem('id'));
-            this.sentMailToStudent(user_id, status);
+            this.sentMailToStudent(userID, status);
           }
         }
         console.log(response.data);
       })
 
     },
-
     sentMailToStudent(id, status) {
       let body = {
         greeting: status ? 'Approve for leave request' : 'Reject for leave request', 
@@ -168,8 +144,7 @@ export default ({
           console.log(response.data);
       }}))
     },
-    getLeaveById() {
-      let id = localStorage.getItem('id');
+    getLeaveById(id) {
       axios.get('students/'+id)
       .then((response=>{
         this.leaves = response.data.leaves;
@@ -177,12 +152,16 @@ export default ({
       }))
     }
   },
-  mounted() {
-    if (this.$route.meta.isAdmin) {
+  created() {
+    if (localStorage.getItem('id')) {
+      this.$router.push('/leave/' + localStorage.getItem('id'))
+      if (!this.$route.meta.isAdmin) {
+        this.getLeaveById(localStorage.getItem('id'));
+      }
+    }
+    else if (this.$route.meta.isAdmin) {
       this.getData();
       this.getBatchData();
-    } else {
-      this.getLeaveById();
     }
   },
 });

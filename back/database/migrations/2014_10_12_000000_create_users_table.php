@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('batch')->nullable();
             $table->string('gender')->nullable();
             $table->string('phone')->nullable();
-            $table->string('personal_id')->nullable();
+            $table->string('studentID')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

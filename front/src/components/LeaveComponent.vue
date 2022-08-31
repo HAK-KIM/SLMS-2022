@@ -8,7 +8,7 @@
         <tbody>
             <p v-if="leaves.length==0" width="100%" class="text-center text-error text-h6 pa-5">No leave found</p>
             <tr v-for:="item in leaves">
-                <td >{{ item.leave_type }}</td>
+                <td @click="getStudent(item.id)">{{ item.leave_type }}</td>
                 <td>{{ item.date_start }}</td>
                 <td>{{ item.end_date }}</td>
                 <td> 
@@ -19,10 +19,10 @@
                 <td width="300px">{{ item.reason }}</td>
                 <td>{{item.duration }} <span v-if="item.duration>1">Days</span><span v-else>Day</span></td>
                 <td v-if="item.status==null && this.$route.meta.isAdmin && !this.noAction" class="text-center pa-0" >
-                    <v-actions  @click="update(item.id, true)" style="background-color: #04e;">
+                    <v-actions  @click="update(item.id, item.user.id, true)" style="background-color: #04e;">
                         <span>Approve</span>
                     </v-actions>
-                    <v-actions @click="update(item.id, false)"  style="background-color: #e04;" class="ml-3">
+                    <v-actions @click="update(item.id, item.user.id, false)"  style="background-color: #e04;" class="ml-3">
                         <span>Reject</span>
                     </v-actions>
                 </td>
@@ -32,12 +32,18 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 export default {
     props: ['items', 'leaves', 'noAction'],
     emits: ['update'],
+    data() {
+        return {
+            student: {},
+            dialog: false,
+        }
+    },
     methods: {
-        update(id, status) {
+        update(id, userID, status) {
             Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -48,7 +54,7 @@ export default {
             confirmButtonText: status ? 'Yes, I approve' : 'Yes, I reject'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.$emit('update', id, status);
+                    this.$emit('update', id, userID, status);
                     this.alert = true;
                     if (status) {
                         this.status = true;
@@ -59,7 +65,6 @@ export default {
     }
 }
 </script>
-
 <style scoped>
   td:nth-of-type(even){
     background-color: rgba(0, 0, 0, 0.130);

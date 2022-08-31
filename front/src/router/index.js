@@ -30,7 +30,7 @@ const routes = [
   {
     path: '/create',
     name: 'create',
-    component: () => import('../views/CreateView.vue')
+    component: () => import('../views/CreateViewLeave.vue')
   },
   {
     path: '/leave',
