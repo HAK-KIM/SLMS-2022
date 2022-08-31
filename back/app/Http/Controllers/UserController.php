@@ -88,7 +88,6 @@ class UserController extends Controller
 
         Notification::send($admin, new SendEmailNotification($details));
 
-        // return redirect()->to('/users');
         return [$details];
     }
 }

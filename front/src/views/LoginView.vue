@@ -20,29 +20,32 @@ export default {
     },
     methods: {
         loginData(value){
-            // && (/[a-z].[a-z]*@passerellesnumeriques.org*/.test(value.email))
-            if (this.$route.meta.isAdmin) {
+            // if (this.$route.meta.isAdmin && (/[a-z].[a-z]*@passerellesnumeriques.org*/.test(value.email))) {
+            if (this.$route.meta.isAdmin ) {
                 axios.post('/loginAdmin', value)
                 .then((response) => {
                     console.log(response.data);
+                    localStorage.setItem("user",'teacher' );
                     localStorage.setItem("Authorization", (response.data.token));
                     this.$router.push('/leave');
                     setTimeout(function(){
                         window.location.reload();
-                    }, 100);
+                    }, 200);
                 }).catch((error) => {
                     console.log(error);
                 })
-            } else if ((/[a-z].[a-z]*@student.passerellesnumeriques.org*/.test(value.email)) && !this.$route.meta.isAdmin ){
+            }
+             else if ((/[a-z].[a-z]*@student.passerellesnumeriques.org*/.test(value.email)) && !this.$route.meta.isAdmin ){
                 axios.post('/login', value)
                 .then((response) => {
                     let id = localStorage.getItem("id");
                     console.log(response.data);
                     localStorage.setItem("id", (response.data.user.id));
+                    localStorage.setItem("user",'student' );
                     localStorage.setItem("Authorization", (response.data.token));
                     setTimeout(function(){
                         window.location.reload();
-                    }, 100);
+                    }, 200);
                     this.$router.push('/leave/'+id);
                 }).catch((error) => {
                     console.log(error);

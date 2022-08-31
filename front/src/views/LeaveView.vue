@@ -161,7 +161,6 @@ export default ({
     }
     else if (this.$route.meta.isAdmin) {
       this.getData();
-      this.getBatchData();
     }
   },
 });

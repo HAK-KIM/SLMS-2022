@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
             [
                 'firstName'=>'User',
                 'lastName'=>'kimhak',
-                'email'=>'kimhak6900@gmail.com',
+                'email'=>'hak.kim@student.passerellesnumeriques.org',
                 'email_verified_at'=>now(),
                 'password'=>bcrypt('123456789'),
                 'batch'=>'2022',

@@ -15,8 +15,6 @@
 </template>
 
 <script>
-
-// Components
 import axios from '../axios-http';
 import FormLeave from '../components/FormLeave.vue';
 
@@ -43,7 +41,5 @@ export default ({
       this.progress = status;
     }
   },
-
-
 });
 </script>
