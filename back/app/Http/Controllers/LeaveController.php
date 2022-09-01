@@ -17,7 +17,7 @@ class LeaveController extends Controller
      */
     public function index()
     {
-        return Leave::get();
+        return Leave::with(['user'])->get();
 
     }
     /**
@@ -41,18 +41,18 @@ class LeaveController extends Controller
         
         $validated = $request->validate(
             [
-            'leave_type' => 'string|required',
-            'date_start' => 'string|required',
-            'end_date' => 'string|required',
-            'start_time' => 'string|required',
-            'end_time' => 'string|required',
+                'leave_type' => 'string|required',
+                'date_start' => 'string|required',
+                'end_date' => 'string|required',
+                'start_time' => 'string|required',
+                'end_time' => 'string|required',
             ],
             [                
-                    'leave_type.required' => 'leave_type is required',                 
-                    'date_start.required' => 'date_start is required',                  
-                    'end_date.required' => 'end_date is required', 
-                    'start_time.required' => 'start_time is required', 
-                    'end_time.required' => 'end_time is required', 
+                'leave_type.required' => 'leave_type is required',                 
+                'date_start.required' => 'date_start is required',                  
+                'end_date.required' => 'end_date is required', 
+                'start_time.required' => 'start_time is required', 
+                'end_time.required' => 'end_time is required', 
             ]
     );
       

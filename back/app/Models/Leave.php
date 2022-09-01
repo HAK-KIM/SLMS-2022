@@ -28,4 +28,7 @@ class Leave extends Model
        'created_at'  => 'datetime:d D M Y H:i:s A',
        'updated_at' => 'datetime:d D M Y H:i:s A'
    ];
+   public function user(){
+    return $this->belongsTo(User::class);
+   }
 }
