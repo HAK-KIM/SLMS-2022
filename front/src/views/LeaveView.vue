@@ -38,7 +38,7 @@ export default ({
     return {
       items: ['All', 'Check Approve Only', 'Check Rejected Only'],
       type: ['All', 'Go to Home Town', 'Sick', 'Family Event'],
-      batches: ['2022', '2023'],
+      batches: ['All', '2022', '2023'],
       leaves: [],
       filter: 'All',
       leaveType: 'All',
@@ -151,7 +151,6 @@ export default ({
         }
         console.log(response.data);
       })
-
     },
 
     sentMailToStudent(id, status) {

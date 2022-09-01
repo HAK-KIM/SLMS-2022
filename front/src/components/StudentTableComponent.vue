@@ -1,4 +1,17 @@
+
 <template>
+    <section>
+    <v-col cols = "2" sm="3" class="mt-4">
+    <v-select 
+      :items = "batches"
+      label = "Select By Batches"
+      variant = "outlined"
+      v-model="filter"
+    ></v-select>
+    </v-col>
+    </section>
+    <section class="px-2 pb-3">
+  </section>
     <v-table
         class="rounded mx-auto elevation-6"
     >
@@ -28,7 +41,7 @@
                 </v-list>
             </v-card>
         </v-dialog>
-        <tr v-for:="(student, index) in students">
+        <tr v-for:="(student, index) in filterData">
             <td @click="getLeaveAndStudent(student.id)">{{student.student_ID}}</td>
             <td @click="getLeaveAndStudent(student.id)">{{student.firstName}}</td>
             <td @click="getLeaveAndStudent(student.id)">{{student.lastName}}</td>
@@ -52,6 +65,7 @@ import modal from '../components/FormCreateStudent.vue'
 import leave from '../components/LeaveComponent.vue';
 import studentInfo from '../components/StudentInformation.vue';
 import Swal from 'sweetalert2'
+import axios from '../axios-http.js'
     export default {
         components: {
             modal,
@@ -65,11 +79,27 @@ import Swal from 'sweetalert2'
                 dialog: false,
                 items: ['Type Leave', 'From', 'To', 'Status', 'Reason', 'Duration'],
                 headers: ['student Id', 'firstname', 'lastname', 'email', 'batch', 'gender', 'phone', 'action'],
+                batches: ['All','2022', '2023'],
                 leaves: [],
                 student:{},
+                filter: 'All',
             }   
         },
+
+        computed: {
+            filterData(){
+                let baches = this.students;
+                if (this.filter == "2022") {
+                    baches = this.getStudentBatches2022();
+                }else if (this.filter == "2023") {
+                    baches = this.getStudentBatches2023();
+                }
+                return baches;
+            }
+        },
+
         methods: {
+
             deleteStudent(id) {
                 Swal.fire({
                     title: 'Are you sure?',
@@ -89,7 +119,6 @@ import Swal from 'sweetalert2'
                 this.$emit('update',id, body);
             },
             getLeaveAndStudent(id) {
-                // if( 7== 7) {
                     this.dialog=true;
                     for (let student of this.students) {
                         if (id == student.id) {
@@ -97,9 +126,36 @@ import Swal from 'sweetalert2'
                             this.student=student;
                         }
                     }
-                // }
+            },
+            getStudentBatches2022() {
+                let baches = [];
+                for (let student of this.students) {
+                    if (student.batch == '2022') {
+                        baches.unshift(student);
+                    }
+                }
+                return baches;
+            },
+            getStudentBatches2023() {
+                let baches = [];
+                for (let student of this.students) {
+                    if (student.batch == '2023') {
+                        baches.unshift(student);
+                    }
+                }
+                return baches;
+            },
+            sendAllData(id, ) {
+                let body = {
+                    actionurl: 'http://lo calhost:8080/',
+                }
+                axios.post('user//email/' +id, body)
+                .then((response =>{{
+                    console.log(response.data);
+                }}))
             }
         }
+        
     }
 </script>
 
