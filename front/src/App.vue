@@ -1,7 +1,9 @@
 <template>
   <v-app>
-    <v-app-bar v-if="!$route.meta.hideNavbar">
-      <v-toolbar-title style="padding: 10px;margin-left: 30px;"><img :src="logos" alt="" width="50" height="50"> </v-toolbar-title>
+    <v-app-bar v-if="!$route.meta.hideNavbar " 
+    style="background-color: #04e"
+    >
+      <v-toolbar-title class="mt-2" style=" margin-left:30px;"><img :src="logos" alt="" width="130" height="130"> </v-toolbar-title>
       <Menubar />
     </v-app-bar>
     <v-main>
@@ -21,15 +23,17 @@ export default {
       { title: 'List Leaves', icon: 'mdi-home', to:'/leave'},
       { title: 'Students', icon: 'mdi-account-group', to:'/students'},
       { title: 'Logout',icon: 'mdi-logout', to: '/' },
+      { title: '',icon: 'mdi-account-tie', to: '/profile-admin' },
     ],
     studentMenu: [
       { title: 'My Leaves', icon: 'mdi-home', to:'/leave/'+localStorage.getItem('id')},
       { title: 'New Request', icon: 'mdi-creation', to:'/create'},
       { title: 'Logout',icon: 'mdi-logout', to: '/' },
+      { title: '',icon: 'mdi-account-box-outline', to: '/profile-user' },
     ],  
     EXPIRE_TIME: 1000*60*60,
     userInfo: {},
-    logos: 'https://i.pinimg.com/564x/05/cd/df/05cddf679e00c43a62c7f4a53856d775.jpg',
+    logos: 'https://i.pinimg.com/236x/e5/c3/36/e5c3363701f1a2d7f29fba6ed0ccb97d.jpg',
   }), 
   methods: {
     clearLocalstorage() {

@@ -4,12 +4,12 @@
       @click="dialog=true" style="cursor: pointer; padding: 5px 15px; background-color: #04e;border-radius:10px;color: #fff; display: flex;align-items: center;"
     >Edit</span>
     <v-dialog v-model="dialog" max-width="600px" persistent min-height="650px">
-      <v-card class="py-3">
-        <v-card-title class="text-center text-uppercase">
+      <v-card class="py-0">
+        <v-card-title class="text-center text-white text-uppercase pt-5" style="background-color: #04e">
           <span v-if="type">Add Student</span>
           <span v-else>Edit Student Infomation</span>
         </v-card-title>
-        <v-card-text>            
+        <v-card-text class="mx-1 my-1">            
           <v-row>
             <v-col cols="12" sm="6" md="6">
               <v-text-field label="firstName" v-model="firstName"></v-text-field>
@@ -42,7 +42,7 @@
             </v-col>
             </v-row>
         </v-card-text>
-        <v-card-actions class="ml-6">
+        <v-card-actions class="ml-5 mb-5">
           <v-btn style="background-color: #f04" color="#fff" @click="dialog=false"> Cancel </v-btn>
           <v-btn v-if="type" style="background-color: #04f" @click="createStudent" class="text-white">Create</v-btn>
           <v-btn v-else style="background-color: #04f" @click="updateStudent" class="text-white">Update</v-btn>

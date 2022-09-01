@@ -1,13 +1,13 @@
 <template>
-  <v-row justify="center" class="ml-1 pa-3">
+  <v-row justify="center" class="ml-1 pa-9">
     <v-card
-      class="pa-3 rounded-lg"
+      class="pb-5 "
       elevation="6"
       max-width="450"
-      style="border-top: 5px solid #04e;"
+      
     >
-      <v-card-title class="text-center">
-        <span class="text-h5">Create Request</span>
+      <v-card-title class="text-center" style="background-color: #04e">
+        <span class="text-h5 text-white" >CREATE REQUEST</span>
       </v-card-title>
       <v-card-text>
         <v-container>
@@ -88,11 +88,13 @@
       </v-card-text>
       <v-card-actions class="ml-6" style="margin-top: -35px;">
         <v-btn 
+          :elevation="hover ? 24 : 6"
           style="background-color: #f04" 
           color="#fff" text
           @click="dialog=false"
         > Cancel </v-btn>
         <v-btn
+          :elevation="hover ? 24 : 6"
           style="background-color: #04f"
           @click="createLeave"
           class="text-white"

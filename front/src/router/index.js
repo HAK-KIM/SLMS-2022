@@ -8,6 +8,26 @@ const routes = [
     redirect:"/login"
   },
   {
+    path: '/profile-user',
+    name: 'profile-user',
+    component: () => import('../views/ProfileUser.vue'),
+    meta: {
+      Auth: true,
+      user:'student'
+    },
+  },
+  {
+    path: '/profile-admin',
+    name: 'profile-admin',
+    component: () => import('../views/ProfileAdmin.vue'),
+    meta: {
+      isAdmin: true,
+      Auth: true,
+      user:'teacher'
+    },
+  },
+
+  {
     path: '/pageNotFound',
     component: () => import('../views/pageNotFound.vue'),
     meta: {
@@ -93,8 +113,9 @@ router.beforeEach((to, from, next) => {
       next("/login");
     } else if (to.meta.user == userLogin) {
       next();
-    // } else if (to.path =="/pageNotFound" ){
-    } else if (to.path =="/reset_password" || to.path == "/home"){
+    
+    } else if (to.path =="/profile" ){
+    // } else if (to.path =="/reset_password" || to.path == "/home"){
       next();
     }
     else{
