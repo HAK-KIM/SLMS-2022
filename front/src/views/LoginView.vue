@@ -1,8 +1,8 @@
 <template>
     <div class=home>
-        <div class="background">
+        <!-- <div class="background">
             <img :src="image">
-        </div>
+        </div> -->
         <div class="login">
             <LoginComponent @emit-login="loginData"/>
         </div>
@@ -69,16 +69,10 @@ export default {
 }
 </script>
 <style>
-    .home{
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-    }
+    
     .login{
+        margin: 5% 50% 50% 30%;
         width:40%;
-    }
-    .background{
-        width: 70%;
-        margin-top: 20px;
+        height: 60%;
     }
 </style>

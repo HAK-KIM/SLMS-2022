@@ -4,6 +4,7 @@
     density="comfortable"
     type="success"
     variant="tonal"
+    color="white"
     closable
     border="start"
     class="mb-3"

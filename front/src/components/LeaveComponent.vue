@@ -16,7 +16,7 @@
         <th
           v-for:="item in items"
           class="text-left text-white font-weight-medium"
-          style="font-size: 16px"
+          style="font-size: 16px;"
         >
           {{ item }}
         </th>
