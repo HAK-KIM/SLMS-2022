@@ -41,7 +41,8 @@ export default ({
       leaves: [],
       filter: 'All',
       leaveType: 'All',
-      stuBatches: 'All'
+      stuBatches: 'All',
+      user: ''
     }
   },
   components: {
@@ -174,6 +175,7 @@ export default ({
     }
   },
   created() {
+    this.user=localStorage.getItem('user');
     if (localStorage.getItem('id')) {
       this.$router.push('/leave/' + localStorage.getItem('id'))
       if (!this.$route.meta.isAdmin) {
