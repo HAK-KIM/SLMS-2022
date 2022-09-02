@@ -15,7 +15,7 @@ Route::post('/loginAdmin', [AdminController::class, 'login']);
 Route::group(['middleware'=>['auth:sanctum']],function(){
     // crud leave requests
     Route::apiResource('requests', LeaveController::class);
-    
+
     // crud student
     Route::apiResource('/students', UserController::class);
 
@@ -25,4 +25,6 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
     // logout
     Route::post('/logout', [UserController::class, 'logout']);
+    // UPDATE IMAGE SET
+    Route::put('/upload/{id}', [UserController::class, 'updateImage']);
 });

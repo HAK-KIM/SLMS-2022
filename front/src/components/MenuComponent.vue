@@ -12,23 +12,18 @@
                 <v-list-item-content class="d-flex pa-4">
                     <div class="d-flex">
                         <v-list-item-title class="text-left text-white text-uppercase">{{ item.title }}</v-list-item-title>
-                        <v-icon color="white" class="ml-1">{{ item.icon }}</v-icon>
+                        <v-icon color="white" class="ml-1" v-if="item.icon">{{ item.icon }}</v-icon>
+                        <!-- <v-img v-else class="rounded-circle " width="40" :src="image"></v-img> -->
                     </div>
                 </v-list-item-content>
             </v-list-item>
-            <!-- <v-list-item>
-                <v-list-item-avatar class="pa-3">
-                    <router-link to="/profile">
-                        <v-img class="rounded-circle " width="40" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv4gEyPWM753daTs1eDDPEbJVqECmiMZRmLw&usqp=CAU"></v-img>
-                    </router-link>
-                </v-list-item-avatar>  
-            </v-list-item> -->
     </v-list> 
 </template>
 <script>
 
 export default {
   data: () => ({
+    image:'https://cdn-icons-png.flaticon.com/512/149/149071.png'
   }),
   inject: ['adminMenu', 'userInfo', 'studentMenu']
 }

@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/profile-user',
     name: 'profile-user',
-    component: () => import('../views/ProfileUser.vue'),
+    component: () => import('@/components/Profiles/ProfilesComponent.vue'),
     meta: {
       Auth: true,
       user:'student'

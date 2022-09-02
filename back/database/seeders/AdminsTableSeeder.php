@@ -15,23 +15,25 @@ class AdminsTableSeeder extends Seeder
      */
     public function run()
     {
-        $admins = [
-            [
-                'firstName'=>'Admin',
-                'lastName'=>'kimhak',
-                'email'=>'kimhak6900@gmail.com',
-                'password'=>bcrypt('123456789'),
-            ],
-            [
-                'firstName'=>'Admin',
-                'lastName'=>'kimhak',
-                'email'=>'kimhak6747@gmail.com',
-                'password'=>bcrypt('123456789'),
+        // $admins = [
+            // [
+            //     'firstName'=>'Sim',
+            //     'lastName'=>'Hul',
+            //     'email'=>'hul.sim@student.passerellesnumeriques.org',
+            //     'password'=>bcrypt('123456789'),
+            //     'image'=>null,
+            // ],
+            // [
+            //     'firstName'=>'Vanndy',
+            //     'lastName'=>'Houn',
+            //     'email'=>'vanndy.ngoun@student.passerellesnumeriques.org',
+            //     'password'=>bcrypt('123456789'),
+            //     'image'=>null,
 
-            ]
-            ];
-            foreach($admins as $key => $value){
-                Admin::create($value);
-            }
+            // ]
+            // ];
+            // foreach($admins as $key => $value){
+            //     Admin::create($value);
+            // }
     }
 }

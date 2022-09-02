@@ -26,6 +26,21 @@ class UsersTableSeeder extends Seeder
                 'gender'=>'M',
                 'phone'=>'098765432',
                 'studentID'=>'22',
+                'class'=>'WEB 2022A',
+                'image'=>null
+            ],
+            [
+                'firstName'=>'Veang',
+                'lastName'=>'Kroh',
+                'email'=>'i.hat@student.passerellesnumeriques.org',
+                'email_verified_at'=>now(),
+                'password'=>bcrypt('12345'),
+                'batch'=>'2022',
+                'gender'=>'M',
+                'phone'=>'098765432',
+                'studentID'=>'22',
+                'class'=>'WEB 2022A',
+                'image'=>null
             ]
             ];
             foreach($users as $key => $value){

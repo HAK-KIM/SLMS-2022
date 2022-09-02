@@ -23,16 +23,16 @@ export default {
       { title: 'List Leaves', icon: 'mdi-home', to:'/leave'},
       { title: 'Students', icon: 'mdi-account-group', to:'/students'},
       { title: 'Logout',icon: 'mdi-logout', to: '/' },
-      { title: '',icon: 'mdi-account-tie', to: '/profile-admin' },
+      { title: 'ADMIN',icon: 'mdi-account-tie', to: '/profile-admin' },
     ],
     studentMenu: [
       { title: 'My Leaves', icon: 'mdi-home', to:'/leave/'+localStorage.getItem('id')},
       { title: 'New Request', icon: 'mdi-creation', to:'/create'},
       { title: 'Logout',icon: 'mdi-logout', to: '/' },
-      { title: '',icon: 'mdi-account-box-outline', to: '/profile-user' },
+      { title: 'STUDENT',icon: 'mdi-account-tie', to: '/profile-user'},
     ],  
     EXPIRE_TIME: 1000*60*60,
-    userInfo: {},
+
     logos: 'https://i.pinimg.com/236x/e5/c3/36/e5c3363701f1a2d7f29fba6ed0ccb97d.jpg',
   }), 
   methods: {

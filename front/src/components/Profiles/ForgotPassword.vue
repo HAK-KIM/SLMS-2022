@@ -3,8 +3,8 @@
         <div style="display:flex;justify-content:center;">
             <img src="https://o.remove.bg/downloads/cc449e3b-f195-4e45-9347-d3345655a9bf/New_Project-removebg-preview.png" alt="" width="120" height="120">
         </div>
-        <div style="text-align: center;">
-            Signin your account
+        <div style="text-align: center;font-weight: bold;">
+            Forgot My password!
         </div>
         <v-form
             ref="form"
@@ -33,11 +33,11 @@
             </div>
            
             <div class="btn-longin my-2">
-                <v-btn block color="primary" @click="login" x-large>
+                <v-btn block color="primary" @click="re" x-large>
                     LOGIN NOW
                 </v-btn>                  
-                <div style="text-align:right;">
-                    <p style="color: rgb(10, 189, 10);width: 30%;background: gray;">Forgot password?</p>
+                <div style="display: flex;justify-content: end;">
+                    <p  style="color: rgb(10, 189, 10);cursor: pointer;width: 50%;text-align:center;">Forgot password?</p>
                 </div>
             </div>
         </v-form>
@@ -79,3 +79,6 @@ export default {
 
 }
 </script>
+<style>
+ 
+</style>

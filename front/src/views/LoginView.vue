@@ -1,18 +1,20 @@
 <template>
-    <div class=home>
-        <div class="background">
+    <div style="display: flex;justify-content: space-between;align-items: end; height: 80vh;">
+        <div style="width: 70%;margin-top: 20px;">
             <img :src="image">
         </div>
-        <div class="login">
-            <LoginComponent @emit-login="loginData"/>
+        <div style="width:40%;">
+            <LoginComponent  v-show="false" @emit-login="loginData"/>
+            <ForgotPassword @emit-login="loginData"/>
         </div>
     </div>
 </template>
 <script>
 import LoginComponent from '@/components/LoginComponent.vue'
+import ForgotPassword from '@/components/Profiles/ForgotPassword.vue';
 import axios from '../axios-http';
 export default {
-    components: { LoginComponent },
+    components: { LoginComponent, ForgotPassword},
     data(){
         return {
             image: 'https://www.datocms-assets.com/40521/1614850600-hrms-6.png',
@@ -20,6 +22,7 @@ export default {
     },
     methods: {
         loginData(value){
+            console.log(value)
             // if (this.$route.meta.isAdmin && (/[a-z].[a-z]*@passerellesnumeriques.org*/.test(value.email))) {
             if (this.$route.meta.isAdmin ) {
                 axios.post('/loginAdmin', value)
@@ -28,9 +31,9 @@ export default {
                     localStorage.setItem("user",'teacher' );
                     localStorage.setItem("Authorization", (response.data.token));
                     this.$router.push('/leave');
-                    setTimeout(function(){
-                        window.location.reload();
-                    }, 200);
+                    // setTimeout(function(){
+                    //     window.location.reload();
+                    // }, 2000);
                 }).catch((error) => {
                     console.log(error);
                 })
@@ -43,9 +46,9 @@ export default {
                     localStorage.setItem("id", (response.data.user.id));
                     localStorage.setItem("user",'student' );
                     localStorage.setItem("Authorization", (response.data.token));
-                    setTimeout(function(){
-                        window.location.reload();
-                    }, 200);
+                    // setTimeout(function(){
+                    //     window.location.reload();
+                    // }, 2000);
                     this.$router.push('/leave/'+id);
                 }).catch((error) => {
                     console.log(error);
@@ -63,22 +66,8 @@ export default {
             }
         }
     },
-    created() {
-        this.logout();
-    }
+    // created() {
+    //     this.logout();
+    // }
 }
 </script>
-<style>
-    .home{
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-    }
-    .login{
-        width:40%;
-    }
-    .background{
-        width: 70%;
-        margin-top: 20px;
-    }
-</style>
