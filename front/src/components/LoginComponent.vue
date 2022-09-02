@@ -1,21 +1,21 @@
 <template>
     <div class="form-container">
         <div class="login-logo">
-            <img :src="logos" alt="" width="200" height="200">
+            <img :src="logos" alt="" width="500" height="500">
         </div>
-        <div class="text-title">
-            Signin your account
+        <div class="text-title text-white ">
+            SIGNIN ACCOUNT
         </div>
         <form @submit.prevent = "login">
-            <div class="group-form">
+            <div class="group-form text-white">
                 <label for="">Email Address</label><br>
                 <input type="email" placeholder="Enter email address" v-model="mailEnter" required>
             </div>
-            <div class="group-form">
+            <div class="group-form text-white">
                 <label for="">Password</label><br>
                  <input type="password" placeholder="Enter password" v-model="passwordEnter" required>
             </div>
-            <div class="verify-email">
+            <div class="verify-email text-white">
                Forgot Password?
             </div>
             <div class="btn-longin">
@@ -32,7 +32,8 @@ export default {
             mailEnter: '',
             passwordEnter: '',
             loginNow:{email: '', password: '',},
-            logos: 'https://i.pinimg.com/564x/05/cd/df/05cddf679e00c43a62c7f4a53856d775.jpg'
+            // logos:  "https://i.pinimg.com/236x/e5/c3/36/e5c3363701f1a2d7f29fba6ed0ccb97d.jpg"
+            logos:  "https://i.pinimg.com/564x/28/72/bb/2872bb61e93425c0bb9393d5e444e9e5.jpg"
         }
     },
     methods:{
@@ -47,20 +48,23 @@ export default {
 </script>
 <style scoped>
     .form-container{
-        width: 80%;
-        padding: 20px;
+        /* width: 40%; */
+        padding: 30px;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         border-radius:10px;
+        /* background-color: rgb(27, 91, 253); */
+        /* background-color: #1976d2; */
     }
     .login-logo{
         display: flex;
         justify-content: center;
     }
     .login-logo img{
-        width: 80px;
-        height: 80px;
+        width: 150px;
+        height: 150px;
     }
     .text-title{
+        font-size: 30px;
         display: flex;
         justify-content: center;
     }
@@ -69,14 +73,14 @@ export default {
         width: 100%;
     }
     .group-form{
-        margin: 10px;
+        margin: 20px;
     }
     .group-form input, button{
         width: 100%;
         padding: 10px;
         box-sizing: border-box;
         border-radius: 10px;
-        border: 1px solid rgb(32, 253, 32);
+        /* border: 1px solid rgb(32, 253, 32); */
     }
     .btn-longin{
         width: 95%;
@@ -87,7 +91,7 @@ export default {
     button{
         padding: 10px;
         background: #0044AA;
-        border: 2px solid  white;
+        /* border: 2px solid  white; */
         color: white;
         box-sizing: border-box;
         width: 100%;

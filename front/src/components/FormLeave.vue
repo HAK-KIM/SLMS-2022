@@ -1,8 +1,13 @@
 <template>
-  <v-row justify="center" class="ml-1 pa-3">
-    <v-col class="container" md="4" sm="6">
-      <v-card-title class="text-center">
-        <span class="text-h5">Create Request</span>
+  <v-row justify="center" class="ml-1 pa-9">
+    <v-card
+      class="pb-5 "
+      elevation="6"
+      max-width="450"
+      
+    >
+      <v-card-title class="text-center" style="background-color: #04e">
+        <span class="text-h5 text-white" >CREATE REQUEST</span>
       </v-card-title>
       <v-card-text>
         <v-container>
@@ -82,19 +87,21 @@
           </v-row>
         </v-container>
       </v-card-text>
-      <v-card-actions class="ml-4">
-        <v-btn class="btn"
+      <v-card-actions class="ml-6" style="margin-top: -35px;">
+        <v-btn 
+          :elevation="hover ? 24 : 6"
           style="background-color: #f04" 
           color="#fff" text
           @click="dialog=false"
         > Cancel </v-btn>
-        <v-btn 
+        <v-btn
+          :elevation="hover ? 24 : 6"
           style="background-color: #04f"
           @click="createLeave"
           class="text-white btn"
         >Create</v-btn>
       </v-card-actions>
-    </v-col>
+    </v-card>
   </v-row>
 </template>
 <script>
