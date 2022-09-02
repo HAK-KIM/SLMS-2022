@@ -24,7 +24,6 @@ class AdminController extends Controller
         $cookie = Cookie('jwt',$token,60*24);
         return response()->json(['token'=>$token, 'user'=>$user])
         ->withCookie($cookie);
-        
     }
     public function storeSingleEmail(Request $request, $id)
     {

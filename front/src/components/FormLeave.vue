@@ -1,11 +1,6 @@
 <template>
   <v-row justify="center" class="ml-1 pa-3">
-    <v-card
-      class="pa-3 rounded-lg"
-      elevation="6"
-      max-width="450"
-      style="border-top: 5px solid #04e;"
-    >
+    <v-col class="container" md="4" sm="6">
       <v-card-title class="text-center">
         <span class="text-h5">Create Request</span>
       </v-card-title>
@@ -17,9 +12,10 @@
             <select
               v-model="type"
               class="input"
+              placeholder="Leave Type"
             >
               <option 
-                v-for:="item in ['Sick', 'Go to home town', 'family event']" :value="item"
+                v-for:="item in ['Sick', 'Go to home town', 'family event', 'Other']" :value="item"
               >{{item}}</option>
             </select>
               <small v-if="type.length <= 0 && isValid" style="color: red">
@@ -78,7 +74,7 @@
               >
             </v-col>
             <v-col cols="12" md="12" sm="12">
-              <v-textarea label="Reason" v-model="reason" required rows="1"></v-textarea>
+              <textarea class="input" placeholder="Reason" v-model="reason" required ></textarea>
               <small v-if="reason.length <= 0 && isValid" style="color: red">
                 Reason cannot be empty!
               </small>
@@ -86,19 +82,19 @@
           </v-row>
         </v-container>
       </v-card-text>
-      <v-card-actions class="ml-6" style="margin-top: -35px;">
-        <v-btn 
+      <v-card-actions class="ml-4">
+        <v-btn class="btn"
           style="background-color: #f04" 
           color="#fff" text
           @click="dialog=false"
         > Cancel </v-btn>
-        <v-btn
+        <v-btn 
           style="background-color: #04f"
           @click="createLeave"
-          class="text-white"
+          class="text-white btn"
         >Create</v-btn>
       </v-card-actions>
-    </v-card>
+    </v-col>
   </v-row>
 </template>
 <script>
@@ -108,9 +104,9 @@ export default {
   data: () => ({
     startDate: "invalidDate",
     endDate: "invalidDate",
-    timeStart: "",
-    timeEnd: "",
-    type: "",
+    timeStart: "Morning",
+    timeEnd: "Afternoon",
+    type: "Sick",
     reason: "",
     successed: null,
     duration: 0,
@@ -200,16 +196,22 @@ export default {
 </script>
 
 <style scoped>
+  .container {
+    border-top: 10px solid #04e;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: -5px -5px 9px #dde1e7, 5px 5px 9px rgba(94,104,121,0.3);
+  }
   .input {
     width: 100%;
-    outline: none;
     padding: 10px;
-    background-color: #eee;
-    border-bottom: 1px solid #999;
-    font-size: 16px;
-    color: #000;
-    border-radius: 3px 3px 0 0;
-    font-weight: 300;
-    cursor: pointer;
+    padding-left: 20px;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: inset 6px 6px 6px #d3d0d0, inset -6px -6px 6px rgb(217, 214, 214);
+  }
+  .btn:hover {
+    transition: 0.2s;
+    transform: translateY(-2px);
   }
 </style>

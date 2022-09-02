@@ -25,12 +25,20 @@
       ></v-select>
     </v-col>
   </section>
+  <section >
+    <v-overlay v-model="overlay" class="d-flex justify-center align-center">
+      <v-progress-circular
+        indeterminate
+        size="100"
+      >Loading</v-progress-circular>
+    </v-overlay>
+  </section>
   <section class="px-2 pb-3">
     <leaveTable :leaves='filterData' @update="updateRequest"  />
   </section>
 </template>
 <script>
-import axios from '../axios-http.js'
+import axios from '../axios-http'
 import leaveTable from '@/components/TableLeaveComponent.vue';
 export default ({
   data() {
@@ -42,11 +50,19 @@ export default ({
       leaves: [],
       filter: 'All',
       leaveType: 'All',
-      stuBatches: 'All'
+      stuBatches: 'All',
+      overlay: false,
     }
   },
   components: {
     leaveTable,
+  },
+  watch: {
+    overlay (val) {
+      val && setTimeout(() => {
+        this.overlay = false;
+      }, 300)
+    },
   },
   computed: {
     filterData() {
@@ -153,15 +169,17 @@ export default ({
     }
   },
   created() {
-    if (localStorage.getItem('id')) {
+    this.overlay=true;
+    console.log(localStorage.getItem('Authorization')==undefined);
+    if (localStorage.getItem('id') && localStorage.getItem('Authorization')) {
       this.$router.push('/leave/' + localStorage.getItem('id'))
       if (!this.$route.meta.isAdmin) {
         this.getLeaveById(localStorage.getItem('id'));
       }
     }
-    else if (this.$route.meta.isAdmin) {
+    else if (this.$route.meta.isAdmin && localStorage.getItem('Authorization')) {
       this.getData();
-    }
+    } 
   },
 });
 </script>

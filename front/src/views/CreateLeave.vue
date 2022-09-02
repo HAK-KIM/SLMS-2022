@@ -1,16 +1,14 @@
 <template>
-  <v-rows class="d-flex justify-center  ">
-    <v-col cols="4" class="d-flex justify-center flex-column align-center" v-if="progress">
-      Loading
-      <v-progress-linear
-        rounded
+  <section>
+      <FormLeave />
+  </section>
+  <section >
+    <v-overlay v-model="overlay" class="d-flex justify-center align-center">
+      <v-progress-circular
         indeterminate
-        color="#04e"
-      ></v-progress-linear>
-    </v-col>
-  </v-rows>
-  <section class="px-3 mt-3">
-      <FormLeave/>
+        size="100"
+      >Loading</v-progress-circular>
+    </v-overlay>
   </section>
 </template>
 
@@ -26,7 +24,15 @@ export default ({
     progress: false,
     leaves: [],
     successed: false,
+    overlay: false,
   }),
+  watch: {
+    overlay (val) {
+      val && setTimeout(() => {
+        this.overlay = false;
+      }, 300)
+    },
+  },
   methods: {
     createLeave(item) {
       this.leaves.push(item);
@@ -41,5 +47,8 @@ export default ({
       this.progress = status;
     }
   },
+  created() {
+    this.overlay = true;
+  }
 });
 </script>
