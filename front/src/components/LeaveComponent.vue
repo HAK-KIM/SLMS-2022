@@ -16,11 +16,25 @@
         <th
           v-for:="item in items"
           class="text-left text-white font-weight-medium"
-          style="font-size: 16px;"
+          style="font-size: 16px"
         >
           {{ item }}
         </th>
       </tr>
+      <v-dialog
+        v-model="dialog"
+        persistent
+        hide-overlay
+        transition="dialog-bottom-transition"
+      >
+        <v-toolbar color="primary">
+          <v-toolbar-title>Student Detail</v-toolbar-title>
+          <v-icon @click="dialog = false" class="mr-4">mdi-close</v-icon>
+        </v-toolbar>
+        <v-list class="px-4">
+          <studentInfo :student="student" elevation="6" />
+        </v-list>
+      </v-dialog>
     </thead>
     <tbody>
       <p
@@ -31,7 +45,7 @@
         No leave found
       </p>
       <tr v-for:="item in leaves">
-        <td>{{ item.leave_type }}</td>
+        <td @click="showDialog(item.id)">{{ item.leave_type }}</td>
         <td>{{ item.date_start }}</td>
         <td>{{ item.end_date }}</td>
         <td>
@@ -73,7 +87,11 @@
 
 <script>
 import Swal from "sweetalert2";
+import studentInfo from "./StudentInformation.vue";
 export default {
+  components: {
+    studentInfo,
+  },
   props: ["items", "leaves", "noAction"],
   emits: ["update"],
   data() {
@@ -81,6 +99,8 @@ export default {
       approved: 0,
       rejected: 0,
       newRequest: 0,
+      dialog: false,
+      student: {},
     };
   },
   methods: {
@@ -100,7 +120,7 @@ export default {
           if (status) {
             this.status = true;
             this.approved += 1;
-            this.newRequest+=1
+            this.newRequest += 1;
           } else {
             this.rejected += 1;
           }
@@ -116,6 +136,15 @@ export default {
         } else {
           this.rejected += 1;
         }
+      }
+    },
+    showDialog(id) {
+      this.dialog = true;
+      for (let leave of this.leaves) {
+        if (id == leave.id) {
+          this.student = leave.user;
+        }
+        console.log(leave.user);
       }
     },
   },
