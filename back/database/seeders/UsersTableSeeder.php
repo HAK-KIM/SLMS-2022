@@ -16,19 +16,19 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $users = [
-            // [
-            //     'firstName'=>'Veang',
-            //     'lastName'=>'Kroh',
-            //     'email'=>'veang.kroh@student.passerellesnumeriques.org',
-            //     'email_verified_at'=>now(),
-            //     'password'=>bcrypt('123456789'),
-            //     'batch'=>'2022',
-            //     'gender'=>'M',
-            //     'phone'=>'098765432',
-            //     'personal_id'=>'22',
-            //     'class'=>'WEB-2022A',
-            //     'image'=> null,
-            // ],
+            [
+                'firstName'=>'Veang',
+                'lastName'=>'Kroh',
+                'email'=>'veang.kroh@student.passerellesnumeriques.org',
+                'email_verified_at'=>now(),
+                'password'=>bcrypt('123456789'),
+                'batch'=>'2022',
+                'gender'=>'M',
+                'phone'=>'098765432',
+                'studentID'=>'22',
+                'class'=>'WEB-2022A',
+                'image'=> null,
+            ],
             [
                 'firstName'=>'Vibol',
                 'lastName'=>'Khan',
@@ -38,9 +38,9 @@ class UsersTableSeeder extends Seeder
                 'batch'=>'2022',
                 'gender'=>'M',
                 'phone'=>'098765432',
-                'personal_id'=>'32',
                 'class'=>'WEB-2022A',
                 'image'=> null,
+                'studentID'=>'22',
             ]
             ];
             foreach($users as $key => $value){

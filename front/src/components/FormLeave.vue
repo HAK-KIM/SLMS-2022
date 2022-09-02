@@ -1,13 +1,13 @@
 <template>
-  <v-row justify="center" class="ml-1 pa-3">
+  <v-row justify="center" class="ml-1 pa-9">
     <v-card
-      class="pa-3 rounded-lg"
+      class="pb-5 "
       elevation="6"
       max-width="450"
-      style="border-top: 5px solid #04e;"
+      
     >
-      <v-card-title class="text-center">
-        <span class="text-h5">Create Request</span>
+      <v-card-title class="text-center" style="background-color: #04e">
+        <span class="text-h5 text-white" >CREATE REQUEST</span>
       </v-card-title>
       <v-card-text>
         <v-container>
@@ -88,11 +88,13 @@
       </v-card-text>
       <v-card-actions class="ml-6" style="margin-top: -35px;">
         <v-btn 
+          :elevation="hover ? 24 : 6"
           style="background-color: #f04" 
           color="#fff" text
           @click="dialog=false"
         > Cancel </v-btn>
         <v-btn
+          :elevation="hover ? 24 : 6"
           style="background-color: #04f"
           @click="createLeave"
           class="text-white"
@@ -136,7 +138,7 @@ export default {
           let id = JSON.parse(localStorage.getItem('id'));
           let body = {user_id: id, leave_type: this.type, date_start: this.startDate, end_date: this.endDate, status: null, end_time: this.timeEnd, start_time: this.timeStart, reason: this.reason, duration: this.duration};
           this.sentMail();
-          axios.post('requests', body, { withCredentials: true })
+          axios.post('requests', body)
           .then((response) => {
             console.log(response.data);
             return this.$router.push('/leave/'+localStorage.getItem('id'));
@@ -168,11 +170,21 @@ export default {
       this.currentDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
     },
     sentMail() {
-      let body = {greeting: 'Request for leave', body: 'Dear teacher, I hope you are doing well. I am writting this email to let you know I want to ask premession to leave', actiontext: 'Go to System', actionurl: 'http://localhost:8080/', endtext: 'I looking forward to heaing from you.'}
-      axios.post('admin/email/'+1, body)
-        .then((response=> {{
-          console.log(response.data);
-      }}))
+      let body = {greeting: 'Request for leave', body: 'Dear teacher, I hope you are doing well. I am writting this email to let you know I want to ask premession to leave', actiontext: 'Go to System', actionurl: 'http://localhost:8080/', endtext: 'I looking forward to heaing from you.'};
+      axios.get('students/'+localStorage.getItem('id'))
+      .then((response) => {
+        if (response.data.batch==2022) {
+          axios.post('admin/email/1', body)
+            .then((response=> {{
+              console.log(response.data);
+          }}))
+        }else if (response.data.batch==2023) {
+          axios.post('admin/email/2', body)
+            .then((response=> {{
+              console.log(response.data);
+          }}))
+        }
+      })
     }
   },
   watch: {

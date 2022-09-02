@@ -19,7 +19,7 @@ class AdminsTableSeeder extends Seeder
             [
                 'firstName'=>'Admin',
                 'lastName'=>'kimhak',
-                'email'=>'hak.kim@passerellesnumeriques.org',
+                'email'=>'kimhak6900@gmail.com',
                 'password'=>bcrypt('123456789'),
             ],
             [

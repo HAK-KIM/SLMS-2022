@@ -41,8 +41,8 @@
                 </v-list>
             </v-card>
         </v-dialog>
-        <tr v-for:="(student, index) in filterData">
-            <td @click="getLeaveAndStudent(student.id)">{{student.student_ID}}</td>
+        <tr v-for:="(student, index) in students" style="cursor:pointer;">
+            <td @click="getLeaveAndStudent(student.id)">{{student.studentID}}</td>
             <td @click="getLeaveAndStudent(student.id)">{{student.firstName}}</td>
             <td @click="getLeaveAndStudent(student.id)">{{student.lastName}}</td>
             <td @click="getLeaveAndStudent(student.id)">{{student.email}}</td>
@@ -66,97 +66,96 @@ import leave from '../components/LeaveComponent.vue';
 import studentInfo from '../components/StudentInformation.vue';
 import Swal from 'sweetalert2'
 import axios from '../axios-http.js'
-    export default {
-        components: {
-            modal,
-            leave,
-            studentInfo
-        },
-        props: ['students'],
-        emits: ['delete', 'update'],
-        data() {
-            return {
-                dialog: false,
-                items: ['Type Leave', 'From', 'To', 'Status', 'Reason', 'Duration'],
-                headers: ['student Id', 'firstname', 'lastname', 'email', 'batch', 'gender', 'phone', 'action'],
-                batches: ['All','2022', '2023'],
-                leaves: [],
-                student:{},
-                filter: 'All',
-            }   
-        },
+export default {
+    components: {
+        modal,
+        leave,
+        studentInfo
+    },
+    props: ['students'],
+    emits: ['delete', 'update'],
+    data() {
+        return {
+            dialog: false,
+            items: ['Type Leave', 'From', 'To', 'Status', 'Reason', 'Duration'],
+            headers: ['student Id', 'firstname', 'lastname', 'email', 'batch', 'gender', 'phone', 'action'],
+            batches: ['All','2022', '2023'],
+            leaves: [],
+            student:{},
+            filter: 'All',
+        }   
+    },
 
-        computed: {
-            filterData(){
-                let baches = this.students;
-                if (this.filter == "2022") {
-                    baches = this.getStudentBatches2022();
-                }else if (this.filter == "2023") {
-                    baches = this.getStudentBatches2023();
-                }
-                return baches;
+    computed: {
+        filterData(){
+            let baches = this.students;
+            if (this.filter == "2022") {
+                baches = this.getStudentBatches2022();
+            }else if (this.filter == "2023") {
+                baches = this.getStudentBatches2023();
             }
-        },
-
-        methods: {
-
-            deleteStudent(id) {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            this.$emit('delete', id)
-                        }
-                    })
-            },
-            updateStudent(id, body) {
-                this.$emit('update',id, body);
-            },
-            getLeaveAndStudent(id) {
-                    this.dialog=true;
-                    for (let student of this.students) {
-                        if (id == student.id) {
-                            this.leaves=student.leaves;
-                            this.student=student;
-                        }
-                    }
-            },
-            getStudentBatches2022() {
-                let baches = [];
-                for (let student of this.students) {
-                    if (student.batch == '2022') {
-                        baches.unshift(student);
-                    }
-                }
-                return baches;
-            },
-            getStudentBatches2023() {
-                let baches = [];
-                for (let student of this.students) {
-                    if (student.batch == '2023') {
-                        baches.unshift(student);
-                    }
-                }
-                return baches;
-            },
-            sendAllData(id, ) {
-                let body = {
-                    actionurl: 'http://lo calhost:8080/',
-                }
-                axios.post('user//email/' +id, body)
-                .then((response =>{{
-                    console.log(response.data);
-                }}))
-            }
+            return baches;
         }
-        
+    },
+
+    methods: {
+
+        deleteStudent(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.$emit('delete', id)
+                    }
+                })
+        },
+        updateStudent(id, body) {
+            this.$emit('update',id, body);
+        },
+        getLeaveAndStudent(id) {
+                this.dialog=true;
+                for (let student of this.students) {
+                    if (id == student.id) {
+                        this.leaves=student.leaves;
+                        this.student=student;
+                    }
+                }
+        },
+        getStudentBatches2022() {
+            let baches = [];
+            for (let student of this.students) {
+                if (student.batch == '2022') {
+                    baches.unshift(student);
+                }
+            }
+            return baches;
+        },
+        getStudentBatches2023() {
+            let baches = [];
+            for (let student of this.students) {
+                if (student.batch == '2023') {
+                    baches.unshift(student);
+                }
+            }
+            return baches;
+        },
+        sendAllData(id, ) {
+            let body = {
+                actionurl: 'http://lo calhost:8080/',
+            }
+            axios.post('user//email/' +id, body)
+            .then((response =>{{
+                console.log(response.data);
+            }}))
+        }
     }
+}
 </script>
 
 <style scoped>

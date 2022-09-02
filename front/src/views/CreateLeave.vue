@@ -10,13 +10,11 @@
     </v-col>
   </v-rows>
   <section class="px-3 mt-3">
-      <FormLeave/>
+      <FormLeave />
   </section>
 </template>
 
 <script>
-
-// Components
 import axios from '../axios-http';
 import FormLeave from '../components/FormLeave.vue';
 
@@ -28,23 +26,20 @@ export default ({
     progress: false,
     leaves: [],
     successed: false,
-    items: ['Username', 'Email', 'Request To'],
-    users: []
   }),
   methods: {
     createLeave(item) {
       this.leaves.push(item);
-      axios.post('requests', item, { withCredentials: true })
+      axios.post('requests', item)
       .then((response) => {
         console.log(response.data);
-        axios.post('user/email'+this.$route.parms.userId)
+        
+        axios.post('admin/email')
       })
     },
     emitProgress(status) {
       this.progress = status;
     }
   },
-
-
 });
 </script>

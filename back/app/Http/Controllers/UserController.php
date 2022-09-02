@@ -36,6 +36,7 @@ class UserController extends Controller
         $student->batch = $request->batch;
         $student->email = $request->email;
         $student->phone = $request->phone;
+        $student->studentID = $request->studentID;
         $student->password = bcrypt($request->password);
         $student->class = $request->class;
         {
@@ -46,7 +47,7 @@ class UserController extends Controller
             $file = $request->file('image');
             $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
             $file->move($path, $fileName);
-            $users->image = asset('images/' . $fileName);
+            $student->image = asset('images/' . $fileName);
         }
         $student->save();
         return response()->json(["message" => $student]);
@@ -59,6 +60,7 @@ class UserController extends Controller
         $student->lastName = $request->lastName;
         $student->gender = $request->gender;
         $student->batch = $request->batch;
+        $student->studentID = $request->studentID;
         $student->email = $request->email;
         $student->phone = $request->phone;
         $student->password = bcrypt($request->password);
@@ -110,7 +112,6 @@ class UserController extends Controller
 
         Notification::send($admin, new SendEmailNotification($details));
 
-        // return redirect()->to('/users');
         return [$details];
     }
 }

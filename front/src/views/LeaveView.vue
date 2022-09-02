@@ -1,6 +1,6 @@
 <template>
   <section class="d-flex justify-center mt-3 pa-0 mb-0">
-    <v-col cols = "3" sm="3">
+    <v-col cols = "3" sm="3"  v-if="user=='teacher'">
     <v-select
       :items = "batches"
       label = "Filter By Batches"
@@ -26,10 +26,9 @@
     </v-col>
   </section>
   <section class="px-2 pb-3">
-    <leaveTable :leaves='filterData' @update="updateRequest" />
+    <leaveTable :leaves='filterData' @update="updateRequest"  />
   </section>
 </template>
-
 <script>
 import axios from '../axios-http.js'
 import leaveTable from '@/components/TableLeaveComponent.vue';
@@ -71,9 +70,10 @@ export default ({
   },
   methods: {
     getData() {
-      axios.get('requests', {withCredentials: true})
+      axios.get('requests')
       .then((response) => {
         this.leaves = response.data.reverse();
+        console.log('requsts----------------'+response.data);
       })
     },
     getApprove() {
@@ -139,20 +139,19 @@ export default ({
       }
       return items;
     },
-    updateRequest(id, status) {
+
+    updateRequest(id, userID, status) {
       axios.put('requests/'+id, {status: status})
       .then((response)=> {
         for (let leave of this.leaves) {
           if (leave.id == id) {
             leave.status = status;
-            let user_id = JSON.parse(localStorage.getItem('id'));
-            this.sentMailToStudent(user_id, status);
+            this.sentMailToStudent(userID, status);
           }
         }
         console.log(response.data);
       })
     },
-
     sentMailToStudent(id, status) {
       let body = {
         greeting: status ? 'Approve for leave request' : 'Reject for leave request', 
@@ -166,8 +165,7 @@ export default ({
           console.log(response.data);
       }}))
     },
-    getLeaveById() {
-      let id = localStorage.getItem('id');
+    getLeaveById(id) {
       axios.get('students/'+id)
       .then((response=>{
         this.leaves = response.data.leaves;
@@ -175,12 +173,16 @@ export default ({
       }))
     }
   },
-  mounted() {
-    if (this.$route.meta.isAdmin) {
-      this.getData();
-    } else {
-      this.getLeaveById();
+  created() {
+    if (localStorage.getItem('id')) {
+      this.$router.push('/leave/' + localStorage.getItem('id'))
+      if (!this.$route.meta.isAdmin) {
+        this.getLeaveById(localStorage.getItem('id'));
+      }
     }
+    else if (this.$route.meta.isAdmin) {
+      this.getData();
+    } 
   },
 });
 </script>
