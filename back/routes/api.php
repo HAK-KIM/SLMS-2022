@@ -27,4 +27,6 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::post('/logout', [UserController::class, 'logout']);
     // UPDATE IMAGE SET
     Route::put('/upload/{id}', [UserController::class, 'updateImage']);
+    // UPDATE IMAGE SET
+    Route::put('/password/{id}', [UserController::class, 'updatePassword']);
 });

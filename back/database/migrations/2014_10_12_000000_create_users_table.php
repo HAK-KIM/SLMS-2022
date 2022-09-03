@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('batch')->nullable();
             $table->string('gender')->nullable();
             $table->string('phone')->nullable();
+            $table->string('class')->nullable();
+            $table->string('image')->nullable();
             $table->string('studentID')->nullable();
             $table->string('class')->nullable();
             $table->string('image')->nullable();

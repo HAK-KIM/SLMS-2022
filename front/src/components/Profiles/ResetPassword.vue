@@ -1,86 +1,66 @@
 <template>
-    <div class="form-container">
-        <div class="login-logo">
-            <img src="https://i.pinimg.com/564x/05/cd/df/05cddf679e00c43a62c7f4a53856d775.jpg" alt="" width="200" height="200">
+    <div style="width: 60%;padding: 20px;box-shadow: #00000059 0px 5px 15px;border-radius:10px;">
+        <div style="display: flex;justify-content: center;">
+            <img src="https://i.pinimg.com/564x/35/8f/c9/358fc916283e21aa785ef5d6fbe56eba.jpg" alt="" width="80" height="80">
         </div>
-        <div class="text-title">
-            Reset New Password
+        <div style="text-align: center;">
+            Change My Password
         </div>
-        <form @submit.prevent = "reset">
+        <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+            class="purple darken-2 white--text mt-5"
+            >
             <div class="group-form">
-                <label for="">Password</label><br>
-                 <input type="password" placeholder="Enter password" v-model="passwordEnter" required>
+                <v-text-field
+                    id="password"
+                    v-model="passwordEnter"
+                    label="Password" 
+                    :type="show ?'text': 'password'"
+                    :rules="passwordRules"
+                    :append-icon="show ?'mdi-eye':'mdi-eye-off'"   
+                    @click:append="show=!show">
+                </v-text-field>
             </div>
-            <button>Change Now</button>
-        </form>
+           
+            <div class="btn-longin my-2 d-flex justify-content: center;">
+                <v-btn
+                    class="ma-2"
+                    outlined
+                    color="indigo"
+                    @click="resetPassword"
+                >
+                    Change Password
+                </v-btn>              
+
+            </div>
+        </v-form>
     </div>
 </template>
 <script>
 export default {
-    emits: ['emit-reset','show-data'],
-    props:['change_password'],
+    emits: ['emit-password'],
     data(){
         return{
-            passwordEnter: this.change_password,
+            passwordEnter: '',
+            isPassword:false,
+            show:false,
+            passwordRules: [
+            v => !!v || 'password is required',
+            v => (v &&  10 >= v.length>=5)  || 'Passwor must be between 5 and 10 characters',
+            ],
         }
     },
     methods:{
-        reset(){
-            console.log('Successfully now.')
-            this.$emit('emit-reset', this.passwordEnter)
-            this.$emit('show-data', false)
-        }
-    }
+        resetPassword(){
+            if(this.passwordEnter != ''){
+                this.$emit('emit-password', this.passwordEnter,false)
+            }
+            console.log(this.passwordEnter)
+        },
+    },
+
 }
 </script>
-<style scoped>
-    .form-container{
-        width: 40%;
-        padding: 20px;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        border-radius:10px;
-        margin: 30px auto;
-    }
-    .login-logo{
-        display: flex;
-        justify-content: center;
-    }
-    .login-logo img{
-        width: 80px;
-        height: 80px;
-    }
-    .text-title{
-        display: flex;
-        justify-content: center;
-        font-weight: bold;
-    }
-    form{
-        padding-right: 10px;
-        width: 100%;
-    }
-    .group-form{
-        margin: 10px;
-    }
-    .group-form input, button{
-        width: 100%;
-        padding: 10px;
-        box-sizing: border-box;
-        border-radius: 10px;
-        border: 1px solid rgb(32, 253, 32);
-    }
-    .btn-longin{
-        width: 95%;
-        margin: auto;
-        margin: 10px;
-    
-    }
-    button{
-        padding: 10px;
-        background: #0044AA;
-        border: 2px solid  white;
-        color: white;
-        box-sizing: border-box;
-        width: 100%;
-    }
-    
-</style>
+

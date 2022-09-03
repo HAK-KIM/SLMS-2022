@@ -1,10 +1,10 @@
 <template>
     <div style="width: 80%;padding: 20px;box-shadow: #00000059 0px 5px 15px;border-radius:10px;">
-        <div style="display:flex;justify-content:center;">
-            <img src="https://o.remove.bg/downloads/cc449e3b-f195-4e45-9347-d3345655a9bf/New_Project-removebg-preview.png" alt="" width="120" height="120">
+        <div style="display: flex;justify-content: center;">
+            <img src="https://i.pinimg.com/564x/35/8f/c9/358fc916283e21aa785ef5d6fbe56eba.jpg" alt="" width="80" height="80">
         </div>
         <div style="text-align: center;">
-            Signin your account
+            <H1>Signin your account</H1>
         </div>
         <v-form
             ref="form"
@@ -36,8 +36,8 @@
                 <v-btn block color="primary" @click="login" x-large>
                     LOGIN NOW
                 </v-btn>                  
-                <div style="text-align:right;">
-                    <p style="color: rgb(10, 189, 10);width: 30%;background: gray;">Forgot password?</p>
+                <div style="text-align: right;">
+                    <router-link to="/forgot" style="color: green;">Forgot password?</router-link>
                 </div>
             </div>
         </v-form>
@@ -74,8 +74,11 @@ export default {
                 this.isEmail = false;
                 this.isPassword = false;
             }
+            console.log(this.mailEnter)
+            console.log(this.passwordEnter)
         },
     },
 
 }
 </script>
+

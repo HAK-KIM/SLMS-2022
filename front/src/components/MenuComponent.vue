@@ -9,22 +9,31 @@
                 :key="item.title"
                 :to="item.to"
             >
+
                 <v-list-item-content class="d-flex pa-4">
                     <div class="d-flex">
                         <v-list-item-title class="text-left text-white text-uppercase">{{ item.title }}</v-list-item-title>
                         <v-icon color="white" class="ml-1" v-if="item.icon">{{ item.icon }}</v-icon>
-                        <!-- <v-img v-else class="rounded-circle " width="40" :src="image"></v-img> -->
+                        <!-- <v-icon class="text-left text-white">{{item.icon}}</v-icon> -->
                     </div>
                 </v-list-item-content>
             </v-list-item>
-    </v-list> 
+          
+        </v-list> 
+        <div class="image" style="width:10%;text-align:center;">
+            <router-link to="/profile-user">
+                <img :src="imageProfile !=null?imageProfile:avataImage" alt="" width="40" height="40" style="border-radius:50%;">
+            </router-link>
+        </div>
 </template>
 <script>
-
 export default {
+    props:['imageProfile'],
   data: () => ({
-    image:'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+    avataImage:'https://cdn-icons-png.flaticon.com/512/149/149071.png',
   }),
-  inject: ['adminMenu', 'userInfo', 'studentMenu']
+  inject: ['adminMenu', 'studentMenu','image'],
+  
 }
 </script>
+ 

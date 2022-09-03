@@ -10,7 +10,7 @@
     </v-col>
   </v-rows>
   <section class="px-3 mt-3">
-      <FormLeave/>
+      <FormLeave />
   </section>
 </template>
 

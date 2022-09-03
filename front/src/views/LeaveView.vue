@@ -1,11 +1,11 @@
 <template>
   <section class="d-flex justify-center mt-3 pa-0 mb-0">
-    <v-col cols = "3" sm="3">
+    <v-col cols = "3" sm="3"  v-if="user=='teacher'">
     <v-select
       :items = "batches"
       label = "Filter By Batches"
       variant = "outlined"
-      v-model="studentBatches"
+      v-model="stuBatches"
     ></v-select>
     </v-col>
     <v-col cols="3" sm="3">
@@ -37,12 +37,12 @@ export default ({
     return {
       items: ['All', 'Check Approve Only', 'Check Rejected Only'],
       type: ['All', 'Go to Home Town', 'Sick', 'Family Event'],
-      batches: ['2022', '2023'],
-      studentsBatches: [],
+      batches: ['All', '2022', '2023'],
       leaves: [],
       filter: 'All',
       leaveType: 'All',
-      stuBatches: 'All'
+      stuBatches: 'All',
+      user: ''
     }
   },
   components: {
@@ -61,6 +61,10 @@ export default ({
         items = this.getSickType();
       } if (this.leaveType == 'Family Event') {
         items = this.getFamilyEventType();
+      }if (this.stuBatches == "2022"){
+        items = this.getStudentBatches2022();
+      }else if ( this.stuBatches == "2023"){
+        items = this.getStudentBatches2023();
       }
       return items;
     },
@@ -112,12 +116,31 @@ export default ({
     getFamilyEventType() {
       let items = [];
       for (let leave of this.leaves) {
-          if (leave.leave_type == 'Family event') {
+          if (leave.leave_type == 'family event') {
             items.unshift(leave);
           }
       }
       return items;
     },
+    getStudentBatches2022() {
+      let items = [];
+      for (let leave of this.leaves) {
+          if (leave.user.batch == '2022') {
+            items.unshift(leave);
+          }
+      }
+      return items;
+    }, 
+    getStudentBatches2023() {
+      let items = [];
+      for (let leave of this.leaves) {
+          if (leave.user.batch == '2023') {
+            items.unshift(leave);
+          }
+      }
+      return items;
+    },
+
     updateRequest(id, userID, status) {
       axios.put('requests/'+id, {status: status})
       .then((response)=> {
@@ -129,7 +152,6 @@ export default ({
         }
         console.log(response.data);
       })
-
     },
     sentMailToStudent(id, status) {
       let body = {
@@ -153,6 +175,7 @@ export default ({
     }
   },
   created() {
+    this.user=localStorage.getItem('user');
     if (localStorage.getItem('id')) {
       this.$router.push('/leave/' + localStorage.getItem('id'))
       if (!this.$route.meta.isAdmin) {
@@ -161,7 +184,7 @@ export default ({
     }
     else if (this.$route.meta.isAdmin) {
       this.getData();
-    }
+    } 
   },
 });
 </script>

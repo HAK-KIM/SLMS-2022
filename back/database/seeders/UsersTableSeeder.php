@@ -17,9 +17,9 @@ class UsersTableSeeder extends Seeder
     {
         $users = [
             [
-                'firstName'=>'User',
-                'lastName'=>'kimhak',
-                'email'=>'hak.kim@student.passerellesnumeriques.org',
+                'firstName'=>'Veang',
+                'lastName'=>'Kroh',
+                'email'=>'veang.kroh@student.passerellesnumeriques.org',
                 'email_verified_at'=>now(),
                 'password'=>bcrypt('123456789'),
                 'batch'=>'2022',

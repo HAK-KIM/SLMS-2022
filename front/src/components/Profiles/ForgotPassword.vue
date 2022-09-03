@@ -1,10 +1,10 @@
 <template>
-    <div style="width: 80%;padding: 20px;box-shadow: #00000059 0px 5px 15px;border-radius:10px;">
-        <div style="display:flex;justify-content:center;">
-            <img src="https://o.remove.bg/downloads/cc449e3b-f195-4e45-9347-d3345655a9bf/New_Project-removebg-preview.png" alt="" width="120" height="120">
+    <div style="width: 40%; margin: auto; margin-top: 20px; padding: 20px;box-shadow: #00000059 0px 5px 15px;border-radius:10px;">
+        <div style="display: flex;justify-content: center;">
+            <img src="https://i.pinimg.com/564x/35/8f/c9/358fc916283e21aa785ef5d6fbe56eba.jpg" alt="" width="80" height="80">
         </div>
-        <div style="text-align: center;font-weight: bold;">
-            Forgot My password!
+        <div style="text-align: center;">
+            <h1>RESTE PASSWORD</h1>
         </div>
         <v-form
             ref="form"
@@ -33,12 +33,9 @@
             </div>
            
             <div class="btn-longin my-2">
-                <v-btn block color="primary" @click="re" x-large>
-                    LOGIN NOW
+                <v-btn block color="primary" @click="login" x-large>
+                        RESTE NOW
                 </v-btn>                  
-                <div style="display: flex;justify-content: end;">
-                    <p  style="color: rgb(10, 189, 10);cursor: pointer;width: 50%;text-align:center;">Forgot password?</p>
-                </div>
             </div>
         </v-form>
     </div>
@@ -74,11 +71,11 @@ export default {
                 this.isEmail = false;
                 this.isPassword = false;
             }
+            console.log(this.mailEnter)
+            console.log(this.passwordEnter)
         },
     },
 
 }
 </script>
-<style>
- 
-</style>
+

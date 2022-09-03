@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Notification;
 
 class UserController extends Controller
 {
-    //GET ALL STUDENT
+    // GET ALL STUDENT USERS
     public function index()
     {
         return User::with(['leaves'])->get();
@@ -47,6 +47,7 @@ class UserController extends Controller
             $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
             $file->move($path, $fileName);
             $users->image = asset('images/' . $fileName);
+            $student->image = asset('images/' . $fileName);
         }
         $student->save();
         return response()->json(["message" => $student]);
@@ -66,7 +67,8 @@ class UserController extends Controller
         $student->save();
         return response()->json(["message" => $student]);
     }
-    //LOGIN ACCOUNT
+
+    // LOGIN TO APPLICATION
     public function login(Request $request) {
         $user = User::where('email',"$request->email")->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
@@ -78,7 +80,8 @@ class UserController extends Controller
         ->withCookie($cookie);
 
     }
-    //LOGOUT ACCOUNT
+
+    // LOGOUT THE APPLICATION
     public function logout(Request $request) {
         $cookie = Cookie::forget('jwt');
         return response()->json(['sms'=>'logout'])
@@ -102,7 +105,7 @@ class UserController extends Controller
 
         return [$details];
     }
-
+    // UPDATE IMAGE OF PROFILE
     public function updateImage(Request $request, $id){
         $student = User::find($id);
         {
@@ -117,5 +120,14 @@ class UserController extends Controller
         }
         $student->save();
         return response()->json(["message" => "Image is saved successfully"]);
+    }
+
+    // UPDATE PASSWORD STUDENT
+    public function updatePassword(Request $request, $id){
+        $student = User::find($id);
+        $student->password = bcrypt($request->password);
+        $student->save();
+        return response()->json(["message" => "Password is updated"]);
+
     }
 }
