@@ -9,10 +9,11 @@
                 :key="item.title"
                 :to="item.to"
             >
+
                 <v-list-item-content class="d-flex pa-4">
                     <div class="d-flex">
                         <v-list-item-title class="text-left text-white text-uppercase">{{ item.title }}</v-list-item-title>
-                        <v-icon color="white" class="ml-1">{{ item.icon }}</v-icon>
+                        <v-icon class="text-left text-white">{{item.icon}}</v-icon>
                     </div>
                 </v-list-item-content>
             </v-list-item>

@@ -12,9 +12,12 @@
     Leave request have been <strong v-if="status == true">approved</strong>
     <strong v-else-if="status == false">rejected</strong> successfully.
   </v-alert>
-  <v-table class="rounded mx-auto elevation-6">
-    <leave :items="items" :leaves="leaves" @update="update" />
-  </v-table>
+  <leave
+    elevation="6"
+    :items="user == 'teacher' ? headerTeacher : headerStudent"
+    :leaves="leaves"
+    @update="update"
+  />
 </template>
 
 <script>
@@ -27,18 +30,19 @@ export default {
   emits: ["update"],
   data() {
     return {
-      items: [
-        "Type Leave",
-        "From",
-        "To",
-        "Status",
-        "Reason",
-        "Duration",
-        this.$route.meta.isAdmin ? "Action" : null,
-      ],
       alert: false,
       status: false,
       student: {},
+      headerStudent: ["Type Leave", "Status", "Reason", "Duration"],
+      headerTeacher: [
+        "Username",
+        "Type Leave",
+        "Status",
+        "Reason",
+        "Duration",
+        "actions",
+      ],
+      user: localStorage.getItem('user'),
     };
   },
   methods: {

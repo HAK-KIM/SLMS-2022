@@ -4,8 +4,8 @@
         <v-table width="50%" class="mx-6" elevation="9" max-width="500px">
             <tbody>
                 <tr class="text-left" v-for:="(value,key) in student">
-                    <td class="text-capitalize font-weight-medium" v-if="key != 'leaves' && key != 'id' ">{{key}}</td>
-                    <td :class="key!='email'?'text-capitalize':''" v-if="key != 'leaves' && key != 'id'" max-width="300px">{{value}}</td>
+                    <td class="text-capitalize font-weight-medium" v-if="key != 'leaves' && key != 'id' && key != 'image'">{{key}}</td>
+                    <td :class="key!='email'?'text-capitalize':''" v-if="key != 'leaves' && key != 'id' && key != 'image'" max-width="300px">{{value}}</td>
                 </tr>
             </tbody>
         </v-table>

@@ -27,7 +27,7 @@ export default {
                         localStorage.setItem("Authorization", (response.data.token));
                         setTimeout(function(){
                             window.location.reload();
-                        }, 200);
+                        }, 500);
                         this.$router.push('/leave');
                     }
                 }).catch((error) => {
@@ -44,20 +44,25 @@ export default {
                         localStorage.setItem("Authorization", (response.data.token));
                         setTimeout(function(){
                             window.location.reload();
-                        }, 200);
+                        }, 500);
                         this.$router.push('/leave/'+id);
+                        console.log('login');
                     }
                 }).catch((error) => {
                     console.log(error);
+                    console.log('login not success');
                 })
-            } else {
-                console.log('in valid email');
+                    console.log('login not success');
             }
             console.log(this.$route.meta.isAdmin);
             console.log(this.$route.meta.logout);
         },
         logout() {
             if (this.$route.meta.logout) {
+                axios.post('logout')
+                .then((response) => {
+                    console.log(response.data);
+                })
                 localStorage.removeItem("Authorization");
                 localStorage.removeItem("id");
                 localStorage.removeItem("user");
@@ -70,9 +75,16 @@ export default {
 }
 </script>
 <style>
+    .home{
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+    }
     .login{
-        margin: 5% 50% 50% 30%;
         width:40%;
-        height: 60%;
+    }
+    .background{
+        width: 70%;
+        margin-top: 20px;
     }
 </style>

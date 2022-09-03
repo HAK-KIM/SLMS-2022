@@ -1,12 +1,12 @@
 <template>
   <section class="d-flex justify-center mt-3 pa-0 mb-0">
-    <v-col cols = "3" sm="3">
+    <v-col cols = "3" sm="3"  v-if="user=='teacher'">
     <v-select
       class="text-white"
       :items = "batches"
       label = "Filter By Batches"
       variant = "outlined"
-      v-model="studentBatches"
+      v-model="stuBatches"
     ></v-select>
     </v-col>
     <v-col cols="3" sm="3">
@@ -15,7 +15,7 @@
         :items="items"
         label="Filter By Status"
         variant="outlined"
-        v-model="filter"
+        v-model="status"
       ></v-select>
     </v-col>
     <v-col cols="3" sm="3">
@@ -48,31 +48,31 @@ export default ({
     return {
       items: ['All', 'Check Approve Only', 'Check Rejected Only'],
       type: ['All', 'Go to Home Town', 'Sick', 'Family Event'],
-      batches: ['2022', '2023'],
-      studentsBatches: [],
+      batches: ['All', '2022', '2023'],
       leaves: [],
-      filter: 'All',
+      status: 'All',
       leaveType: 'All',
       stuBatches: 'All',
       overlay: false,
+      user: ''
     }
   },
   components: {
     leaveTable,
   },
-  watch: {
-    overlay (val) {
-      val && setTimeout(() => {
-        this.overlay = false;
-      }, 300)
-    },
-  },
+  // watch: {
+  //   overlay (val) {
+  //     val && setTimeout(() => {
+  //       this.overlay = false;
+  //     }, 300)
+  //   },
+  // },
   computed: {
     filterData() {
       let items = this.leaves;
-      if (this.filter == "Check Approve Only") {
+      if (this.status == "Check Approve Only") {
         items = this.getApprove();
-      } if (this.filter == "Check Rejected Only"){
+      } if (this.status == "Check Rejected Only"){
         items = this.getRejected();
       } if (this.leaveType == 'Go to Home Town') {
         items = this.getGoHomeType();
@@ -80,6 +80,10 @@ export default ({
         items = this.getSickType();
       } if (this.leaveType == 'Family Event') {
         items = this.getFamilyEventType();
+      } if (this.stuBatches == "2022"){
+        items = this.getStudentBatches2022();
+      } if ( this.stuBatches == "2023"){
+        items = this.getStudentBatches2023();
       }
       return items;
     },
@@ -90,6 +94,7 @@ export default ({
       .then((response) => {
         this.leaves = response.data.reverse();
         console.log('requsts----------------'+response.data);
+        this.overlay = false;
       })
     },
     getApprove() {
@@ -131,12 +136,31 @@ export default ({
     getFamilyEventType() {
       let items = [];
       for (let leave of this.leaves) {
-          if (leave.leave_type == 'Family event') {
+          if (leave.leave_type == 'family event') {
             items.unshift(leave);
           }
       }
       return items;
     },
+    getStudentBatches2022() {
+      let items = [];
+      for (let leave of this.leaves) {
+          if (leave.user.batch == '2022') {
+            items.unshift(leave);
+          }
+      }
+      return items;
+    }, 
+    getStudentBatches2023() {
+      let items = [];
+      for (let leave of this.leaves) {
+          if (leave.user.batch == '2023') {
+            items.unshift(leave);
+          }
+      }
+      return items;
+    },
+
     updateRequest(id, userID, status) {
       axios.put('requests/'+id, {status: status})
       .then((response)=> {
@@ -148,7 +172,6 @@ export default ({
         }
         console.log(response.data);
       })
-
     },
     sentMailToStudent(id, status) {
       let body = {
@@ -168,21 +191,26 @@ export default ({
       .then((response=>{
         this.leaves = response.data.leaves;
         console.log(response.data.leaves);
+        this.overlay = false;
       }))
     }
   },
   created() {
     this.overlay=true;
-    console.log(localStorage.getItem('Authorization')==undefined);
-    if (localStorage.getItem('id') && localStorage.getItem('Authorization')) {
-      this.$router.push('/leave/' + localStorage.getItem('id'))
-      if (!this.$route.meta.isAdmin) {
+    if (localStorage.getItem('user') && localStorage.getItem('Authorization')) {
+      this.user=localStorage.getItem('user');
+      if (localStorage.getItem('id') && !this.$route.meta.isAdmin) {
+        this.$router.push('/leave/' + localStorage.getItem('id'))
         this.getLeaveById(localStorage.getItem('id'));
+        console.log('i am student')
       }
+      else if (this.$route.meta.isAdmin) {
+        this.getData();
+        console.log('i am admin')
+      } 
+    } else {
+      console.log('No one here')
     }
-    else if (this.$route.meta.isAdmin && localStorage.getItem('Authorization')) {
-      this.getData();
-    } 
   },
 });
 </script>

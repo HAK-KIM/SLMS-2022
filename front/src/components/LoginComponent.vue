@@ -6,22 +6,41 @@
         <div class="text-title text-white ">
             SIGNIN ACCOUNT
         </div>
-        <form @submit.prevent = "login">
-            <div class="group-form text-white">
-                <label for="">Email Address</label><br>
-                <input type="email" placeholder="Enter email address" v-model="mailEnter" required>
+        <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+            class="purple darken-2 white--text mt-5"
+            >
+
+            <v-text-field
+                v-model="mailEnter"
+                :rules="emailRules"
+                label="E-mail"
+                required
+            ></v-text-field>
+
+            <div class="group-form">
+                <v-text-field
+                    id="password"
+                    v-model="passwordEnter"
+                    label="Password" 
+                    :type="show ?'text': 'password'"
+                    :rules="passwordRules"
+                    :append-icon="show ?'mdi-eye':'mdi-eye-off'"   
+                    @click:append="show=!show">
+                </v-text-field>
             </div>
-            <div class="group-form text-white">
-                <label for="">Password</label><br>
-                 <input type="password" placeholder="Enter password" v-model="passwordEnter" required>
+           
+            <div class="btn-longin my-2">
+                <v-btn block color="primary" @click="login" x-large>
+                    LOGIN NOW
+                </v-btn>                  
+                <div class="forgot">
+                    <router-link to="/change">Forgot password?</router-link>
+                </div>
             </div>
-            <div class="verify-email text-white">
-               Forgot Password?
-            </div>
-            <div class="btn-longin">
-                <button>Login</button>
-            </div>
-        </form>
+        </v-form>
     </div>
 </template>
 <script>
@@ -38,10 +57,22 @@ export default {
     },
     methods:{
         login(){
-            this.loginNow.email = this.mailEnter
-            this.loginNow.password = this.passwordEnter
-            this.$emit('emit-login', this.loginNow)
-        }
+            if(this.mailEnter != '' && this.passwordEnter != ''){
+                this.loginNow.email = this.mailEnter
+                this.loginNow.password = this.passwordEnter
+                this.$emit('emit-login', this.loginNow)
+                this.isEmail = false;
+                this.isPassword = false;
+            }
+            // if (this.mailEnter == ''){
+            //     this.isEmail = true;
+            // }
+            // if (this.passwordEnter == ''){
+            //     this.isPassword = true;
+            // }
+            console.log(this.mailEnter)
+            console.log(this.passwordEnter)
+        },
     },
 
 }
@@ -68,33 +99,25 @@ export default {
         display: flex;
         justify-content: center;
     }
-    form{
-        padding-right: 10px;
-        width: 100%;
-    }
-    .group-form{
-        margin: 20px;
-    }
-    .group-form input, button{
-        width: 100%;
-        padding: 10px;
-        box-sizing: border-box;
-        border-radius: 10px;
-        /* border: 1px solid rgb(32, 253, 32); */
+
+    button{
+        width: 100px;
+        margin: auto;      
+        /* color: white; */
     }
     .btn-longin{
-        width: 95%;
-        margin: auto;
-        margin: 10px;
-    
-    }
-    button{
-        padding: 10px;
-        background: #0044AA;
-        /* border: 2px solid  white; */
-        color: white;
-        box-sizing: border-box;
         width: 100%;
+        margin: auto;
     }
-    
+    .forgot{
+        display: flex;
+        justify-content: end;
+    }
+    .forgot a{
+        color: rgb(10, 189, 10);
+
+    }
+    .group-form p{
+        color: red;
+    }
 </style>

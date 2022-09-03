@@ -1,4 +1,17 @@
+
 <template>
+    <section>
+    <v-col cols = "2" sm="3" class="mt-4">
+    <v-select 
+      :items = "batches"
+      label = "Select By Batches"
+      variant = "outlined"
+      v-model="batch"
+    ></v-select>
+    </v-col>
+    </section>
+    <section class="px-2 pb-3">
+  </section>
     <v-table
         class="rounded mx-auto elevation-6"
     >
@@ -25,11 +38,11 @@
                 </v-toolbar>
                 <v-list class="px-4">
                     <studentInfo :student='student' elevation="6"/>
-                    <leave class=" rounded" elevation="6" :items='items' :leaves='leaves' :noAction='true'/>
+                    <leave class=" rounded" elevation="6" :items='items' :leaves='leaves' />
                 </v-list>
             </v-card>
         </v-dialog>
-        <tr v-for:="(student, index) in students" style="cursor:pointer; font-size: 18px;">
+        <tr v-for:="(student, index) in filterData" style="cursor:pointer; font-size: 18px;">
             <td @click="getLeaveAndStudent(student.id)" class="py-1">
                 <v-img style="border: 1px solid #04e;" width="50px" height="50px" class="rounded-circle" src="https://play-lh.googleusercontent.com/AmKSpZt_rynhOO0ID1eS0gqeW3DFzoH6KNZkAAgepQ0t9MDRQTmil-nlY5GqkZ_7El0"></v-img>
             </td>
@@ -50,9 +63,10 @@
 
 <script>
 import modal from '../components/FormCreateStudent.vue'
-import leave from '../components/LeaveComponent.vue';
+import leave from '../components/LeaveDetial.vue';
 import studentInfo from '../components/StudentInformation.vue';
 import Swal from 'sweetalert2'
+import axios from '../axios-http.js'
 export default {
     components: {
         modal,
@@ -64,13 +78,29 @@ export default {
     data() {
         return {
             dialog: false,
-            items: ['Type Leave', 'From', 'To', 'Status', 'Reason', 'Duration'],
+            items: ['Type Leave', 'From', 'To', 'Duration', 'Reason', 'Status'],
             headers: ['profile','firstname', 'lastname', 'gender', 'batch', 'action'],
+            batches: ['All','2022', '2023'],
             leaves: [],
             student:{},
+            batch: 'All',
         }   
     },
+
+    computed: {
+        filterData(){
+            let baches = this.students;
+            if (this.batch == "2022") {
+                baches = this.getStudentBatches2022();
+            }else if (this.batch == "2023") {
+                baches = this.getStudentBatches2023();
+            }
+            return baches;
+        }
+    },
+
     methods: {
+
         deleteStudent(id) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -90,13 +120,40 @@ export default {
             this.$emit('update',id, body);
         },
         getLeaveAndStudent(id) {
-            this.dialog=true;
+                this.dialog=true;
+                for (let student of this.students) {
+                    if (id == student.id) {
+                        this.leaves=student.leaves;
+                        this.student=student;
+                    }
+                }
+        },
+        getStudentBatches2022() {
+            let baches = [];
             for (let student of this.students) {
-                if (id == student.id) {
-                    this.leaves=student.leaves;
-                    this.student=student;
+                if (student.batch == '2022') {
+                    baches.unshift(student);
                 }
             }
+            return baches;
+        },
+        getStudentBatches2023() {
+            let baches = [];
+            for (let student of this.students) {
+                if (student.batch == '2023') {
+                    baches.unshift(student);
+                }
+            }
+            return baches;
+        },
+        sendAllData(id, ) {
+            let body = {
+                actionurl: 'http://lo calhost:8080/',
+            }
+            axios.post('user//email/' +id, body)
+            .then((response =>{{
+                console.log(response.data);
+            }}))
         }
     }
 }

@@ -39,17 +39,11 @@ export default {
         status: '',
         overlay: false,
     }),
-    watch: {
-        overlay (val) {
-            val && setTimeout(() => {
-                this.overlay = false;
-            }, 300)
-        },
-    },
     methods: {
         getData() {
             axios.get('/students',  { withCredentials: true })
             .then((response)=>{
+                this.overlay = false;
                 this.students = response.data;
                 console.log(response.data);
             })

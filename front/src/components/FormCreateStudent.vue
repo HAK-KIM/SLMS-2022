@@ -78,14 +78,14 @@ export default {
         this.checkForm();
         if (this.isValid) {
           this.$emit('create', {
+            studentID: this.studentID,
             firstName: this.firstName, 
             lastName: this.lastName,
             email: this.email,
             gender: this.gender,
             batch: this.batch,
             phone: this.phone,
-            password: '123456789',
-            studentID: this.studentID,
+            password: 123456789,
           });
           this.clearForm();
           this.dialog=false;
