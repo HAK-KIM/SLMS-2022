@@ -6,7 +6,7 @@
       :items = "batches"
       label = "Select By Batches"
       variant = "outlined"
-      v-model="filter"
+      v-model="batch"
     ></v-select>
     </v-col>
     </section>
@@ -30,29 +30,30 @@
         >
             <v-card>
                 <v-toolbar
-                    color="primary"
+                    color="#04e"
+                    class="text-white"
                 >
                     <v-toolbar-title>Student Detail</v-toolbar-title>
                     <v-icon @click="dialog = false" class="mr-4">mdi-close</v-icon>
                 </v-toolbar>
                 <v-list class="px-4">
                     <studentInfo :student='student' elevation="6"/>
-                    <leave class=" rounded" elevation="6" :items='items' :leaves='leaves' :noAction='true'/>
+                    <leave class=" rounded" elevation="6" :items='items' :leaves='leaves' />
                 </v-list>
             </v-card>
         </v-dialog>
-        <tr v-for:="(student, index) in students" style="cursor:pointer;">
-            <td @click="getLeaveAndStudent(student.id)">{{student.studentID}}</td>
-            <td @click="getLeaveAndStudent(student.id)">{{student.firstName}}</td>
-            <td @click="getLeaveAndStudent(student.id)">{{student.lastName}}</td>
-            <td @click="getLeaveAndStudent(student.id)">{{student.email}}</td>
-            <td @click="getLeaveAndStudent(student.id)">{{student.batch}}</td>
-            <td @click="getLeaveAndStudent(student.id)">{{student.gender}}</td>
-            <td @click="getLeaveAndStudent(student.id)">{{student.phone}}</td>
-            <td class="d-flex text-center pa-3 noAction">
+        <tr v-for:="(student, index) in filterData" style="cursor:pointer; font-size: 18px;">
+            <td @click="getLeaveAndStudent(student.id)" class="py-1">
+                <v-img style="border: 1px solid #04e;" width="50px" height="50px" class="rounded-circle" src="https://play-lh.googleusercontent.com/AmKSpZt_rynhOO0ID1eS0gqeW3DFzoH6KNZkAAgepQ0t9MDRQTmil-nlY5GqkZ_7El0"></v-img>
+            </td>
+            <td @click="getLeaveAndStudent(student.id)" style="font-size: 16px;">{{student.firstName}}</td>
+            <td @click="getLeaveAndStudent(student.id)" style="font-size: 16px;">{{student.lastName}}</td>
+            <td @click="getLeaveAndStudent(student.id)" style="font-size: 16px;">{{student.gender}}</td>
+            <td @click="getLeaveAndStudent(student.id)" style="font-size: 16px;">{{student.batch}}</td>
+            <td class="d-flex pa-4" style="height: 60px">
                 <modal :type="false" :student="student" :id="student.id" @update='updateStudent'/>
                 <v-actions @click="deleteStudent(student.id)" style="background-color: #e04;" class="ml-1">
-                    <span>Delete</span>
+                    Delete
                 </v-actions>
             </td>
         </tr>
@@ -62,7 +63,7 @@
 
 <script>
 import modal from '../components/FormCreateStudent.vue'
-import leave from '../components/LeaveComponent.vue';
+import leave from '../components/LeaveDetial.vue';
 import studentInfo from '../components/StudentInformation.vue';
 import Swal from 'sweetalert2'
 import axios from '../axios-http.js'
@@ -77,21 +78,21 @@ export default {
     data() {
         return {
             dialog: false,
-            items: ['Type Leave', 'From', 'To', 'Status', 'Reason', 'Duration'],
-            headers: ['student Id', 'firstname', 'lastname', 'email', 'batch', 'gender', 'phone', 'action'],
+            items: ['Type Leave', 'From', 'To', 'Duration', 'Reason', 'Status'],
+            headers: ['profile','firstname', 'lastname', 'gender', 'batch', 'action'],
             batches: ['All','2022', '2023'],
             leaves: [],
             student:{},
-            filter: 'All',
+            batch: 'All',
         }   
     },
 
     computed: {
         filterData(){
             let baches = this.students;
-            if (this.filter == "2022") {
+            if (this.batch == "2022") {
                 baches = this.getStudentBatches2022();
-            }else if (this.filter == "2023") {
+            }else if (this.batch == "2023") {
                 baches = this.getStudentBatches2023();
             }
             return baches;

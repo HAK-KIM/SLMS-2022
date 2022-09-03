@@ -1,7 +1,7 @@
 <template>
     <div style="width: 80%;padding: 20px;box-shadow: #00000059 0px 5px 15px;border-radius:10px;">
         <div style="display: flex;justify-content: center;">
-            <img src="https://i.pinimg.com/564x/35/8f/c9/358fc916283e21aa785ef5d6fbe56eba.jpg" alt="" width="80" height="80">
+            <img src="https://i.pinimg.com/564x/35/8f/c9/358fc916283e21aa785ef5d6fbe56eba.jpg" alt="" width="80" height="80" style="border-radius:50%;">
         </div>
         <div style="text-align: center;">
             <H1>Signin your account</H1>
@@ -51,18 +51,7 @@ export default {
             mailEnter: '',
             passwordEnter: '',
             loginNow:{email: '', password: '',},
-            isEmail:false,
-            isPassword:false,
-            show:false,
-            passwordRules: [
-            v => !!v || 'password is required',
-            v => (v &&  10 >= v.length>=5)  || 'Passwor must be between 5 and 10 characters',
-            ],
-            email: '',
-            emailRules: [
-            v => !!v || 'E-mail is required',
-            v => /.+@.+\..+/.test(v) || 'E-mail must be passerellesnumeriques.org account!',
-            ],
+            logos:  "https://i.pinimg.com/564x/28/72/bb/2872bb61e93425c0bb9393d5e444e9e5.jpg"
         }
     },
     methods:{

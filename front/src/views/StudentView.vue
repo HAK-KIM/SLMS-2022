@@ -1,5 +1,5 @@
 <template>
-    <section class="pa-4">
+    <section class="px-16 py-4">
         <create @create='createStudent' :type="true" />
          <v-alert
             v-model="alert"
@@ -12,28 +12,38 @@
         >
             Student have been <strong v-if="status=='create'">created </strong> <strong v-else-if="status=='delete'">deleted </strong> <strong v-else-if="status=='update'">updated </strong>successfully.
         </v-alert>
-        <card :students='students' @delete='deleteStudent' @update='updateStudent' class="mt-4"/>
+        <studentTable :students='students' @delete='deleteStudent' @update='updateStudent' class="mt-4"/>
+    </section>
+    <section >
+        <v-overlay v-model="overlay" class="d-flex justify-center align-center">
+            <v-progress-circular
+                indeterminate
+                size="100"
+            >Loading</v-progress-circular>
+        </v-overlay>
     </section>
 </template> 
 
 <script>
-import card from '@/components/StudentTableComponent.vue';
+import studentTable from '@/components/StudentTableComponent.vue';
 import create from '@/components/FormCreateStudent.vue';
 import axios from '../axios-http';
 export default {
     components: {
-        card,
+        studentTable,
         create,
     },
     data: ()=>({
         students: [],
         alert: false,
         status: '',
+        overlay: false,
     }),
     methods: {
         getData() {
             axios.get('/students',  { withCredentials: true })
             .then((response)=>{
+                this.overlay = false;
                 this.students = response.data;
                 console.log(response.data);
             })
@@ -73,6 +83,7 @@ export default {
     },
     mounted() {
         this.getData();
+        this.overlay = true;
     },
 }
 </script>

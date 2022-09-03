@@ -4,6 +4,7 @@
     density="comfortable"
     type="success"
     variant="tonal"
+    color="white"
     closable
     border="start"
     class="mb-3"
@@ -29,6 +30,9 @@ export default {
   emits: ["update"],
   data() {
     return {
+      alert: false,
+      status: false,
+      student: {},
       headerStudent: ["Type Leave", "Status", "Reason", "Duration"],
       headerTeacher: [
         "Username",
@@ -38,9 +42,7 @@ export default {
         "Duration",
         "actions",
       ],
-      alert: false,
-      status: false,
-      user: null,
+      user: localStorage.getItem('user'),
     };
   },
   methods: {
@@ -51,10 +53,6 @@ export default {
         this.status = true;
       }
     },
-  },
-  created() {
-    this.user = localStorage.getItem("user");
-    console.log(localStorage.getItem("user"));
   },
 };
 </script>

@@ -49,6 +49,7 @@ class UserController extends Controller
             $users->image = asset('images/' . $fileName);
             $student->image = asset('images/' . $fileName);
         }
+
         $student->save();
         return response()->json(["message" => $student]);
     }

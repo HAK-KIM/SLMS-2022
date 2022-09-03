@@ -1,12 +1,10 @@
 <template>
-    <v-btn v-if="type" color="primary" v-bind="attrs" @click="dialog=true">add student</v-btn>
-    <span v-else 
-      @click="dialog=true" style="cursor: pointer; padding: 5px 15px; background-color: #04e;border-radius:10px;color: #fff; display: flex;align-items: center;"
-    >Edit</span>
+    <v-btn v-if="type" color="#04e" class="text-white" v-bind="attrs" @click="dialog=true">Create student</v-btn>
+    <span v-else @click="dialog=true" style="cursor: pointer; padding: 5px 15px; background-color: #04e;border-radius:10px;color: #fff; display: flex;align-items: center;">Edit</span>
     <v-dialog v-model="dialog" max-width="600px" persistent min-height="650px">
-      <v-card class="py-0">
-        <v-card-title class="text-center text-white text-uppercase pt-5" style="background-color: #04e">
-          <span v-if="type">Add Student</span>
+      <v-card class="py-3">
+        <v-card-title class="text-center text-uppercase">
+          <span v-if="type">Create Student</span>
           <span v-else>Edit Student Infomation</span>
         </v-card-title>
         <v-card-text class="mx-1 my-1">            
@@ -80,14 +78,14 @@ export default {
         this.checkForm();
         if (this.isValid) {
           this.$emit('create', {
+            studentID: this.studentID,
             firstName: this.firstName, 
             lastName: this.lastName,
             email: this.email,
             gender: this.gender,
             batch: this.batch,
             phone: this.phone,
-            password: '123456789',
-            studentID: this.studentID,
+            password: 123456789,
           });
           this.clearForm();
           this.dialog=false;

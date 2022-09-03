@@ -17,9 +17,10 @@
             <select
               v-model="type"
               class="input"
+              placeholder="Leave Type"
             >
               <option 
-                v-for:="item in ['Sick', 'Go to home town', 'family event']" :value="item"
+                v-for:="item in ['Sick', 'Go to home town', 'family event', 'Other']" :value="item"
               >{{item}}</option>
             </select>
               <small v-if="type.length <= 0 && isValid" style="color: red">
@@ -78,7 +79,7 @@
               >
             </v-col>
             <v-col cols="12" md="12" sm="12">
-              <v-textarea label="Reason" v-model="reason" required rows="1"></v-textarea>
+              <textarea class="input" placeholder="Reason" v-model="reason" required ></textarea>
               <small v-if="reason.length <= 0 && isValid" style="color: red">
                 Reason cannot be empty!
               </small>
@@ -97,7 +98,7 @@
           :elevation="hover ? 24 : 6"
           style="background-color: #04f"
           @click="createLeave"
-          class="text-white"
+          class="text-white btn"
         >Create</v-btn>
       </v-card-actions>
     </v-card>
@@ -110,9 +111,9 @@ export default {
   data: () => ({
     startDate: "invalidDate",
     endDate: "invalidDate",
-    timeStart: "",
-    timeEnd: "",
-    type: "",
+    timeStart: "Morning",
+    timeEnd: "Afternoon",
+    type: "Sick",
     reason: "",
     successed: null,
     duration: 0,
@@ -122,9 +123,6 @@ export default {
   }),
   emits: ["progress"],
   methods: {
-    emitProgress() {
-      this.$emit('progress', true)
-    },
     createLeave() {
       if (
         this.type != "" &&
@@ -134,7 +132,6 @@ export default {
         this.startDate != "invalidDate" && 
         this.reason != ""
       ) {
-          this.emitProgress();
           let id = JSON.parse(localStorage.getItem('id'));
           let body = {user_id: id, leave_type: this.type, date_start: this.startDate, end_date: this.endDate, status: null, end_time: this.timeEnd, start_time: this.timeStart, reason: this.reason, duration: this.duration};
           this.sentMail();
@@ -202,16 +199,22 @@ export default {
 </script>
 
 <style scoped>
+  .container {
+    border-top: 10px solid #04e;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: -5px -5px 9px #dde1e7, 5px 5px 9px rgba(94,104,121,0.3);
+  }
   .input {
     width: 100%;
-    outline: none;
     padding: 10px;
-    background-color: #eee;
-    border-bottom: 1px solid #999;
-    font-size: 16px;
-    color: #000;
-    border-radius: 3px 3px 0 0;
-    font-weight: 300;
-    cursor: pointer;
+    padding-left: 20px;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: inset 6px 6px 6px #d3d0d0, inset -6px -6px 6px rgb(217, 214, 214);
+  }
+  .btn:hover {
+    transition: 0.2s;
+    transform: translateY(-2px);
   }
 </style>

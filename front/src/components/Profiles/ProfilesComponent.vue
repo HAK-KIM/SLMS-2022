@@ -199,7 +199,7 @@ export default ({
       width: 30%;
       justify-content: center;
       padding: 3px;
-      color: blue;
+      /* color: blue; */
       box-sizing: border-box;
     }
     .btn-reset:hover{

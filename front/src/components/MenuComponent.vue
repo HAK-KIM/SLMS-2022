@@ -32,7 +32,7 @@ export default {
   data: () => ({
     avataImage:'https://cdn-icons-png.flaticon.com/512/149/149071.png',
   }),
-  inject: ['adminMenu', 'studentMenu','image'],
+  inject: ['adminMenu', 'studentMenu',],
   
 }
 </script>

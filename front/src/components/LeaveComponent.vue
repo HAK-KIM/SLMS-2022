@@ -26,6 +26,20 @@
           {{ item }}
         </th>
       </tr>
+      <v-dialog
+        v-model="dialog"
+        persistent
+        hide-overlay
+        transition="dialog-bottom-transition"
+      >
+        <v-toolbar color="primary">
+          <v-toolbar-title>Who is request?</v-toolbar-title>
+          <v-icon @click="dialog = false" class="mr-4">mdi-close</v-icon>
+        </v-toolbar>
+        <v-list class="px-4">
+          <studentInfo :student="student" elevation="6" />
+        </v-list>
+      </v-dialog>
     </thead>
     <tbody>
       <p
@@ -35,28 +49,24 @@
       >
         No leave found
       </p>
-      <tr v-for:="item in leaves">
-        <td
+      <tr v-for:="item in leaves" style="cursor:pointer;">
+        <td @click="showDialog(item.id)"
           class="d-flex align-center font-weight-bold"
           v-if="user !== 'student'"
         >
-          <img
-            src="https://i.zoomtventertainment.com/story/Jungkook_13.png"
-            alt=""
-            class="mr-3"
-          />
+          <img src="https://i.zoomtventertainment.com/story/Jungkook_13.png" class="mr-3"/>
           {{ item.user.firstName }} {{ item.user.lastName }}
         </td>
-        <td>{{ item.leave_type }}</td>
-        <td>
+        <td @click="showDialog(item.id)">{{ item.leave_type }}</td>
+        <td @click="showDialog(item.id)">
           <span v-if="item.status == true" class="text-primary">Approved</span>
           <span v-else-if="item.status == false" class="text-error"
             >Rejected</span
           >
           <span v-else-if="item.status == null" class="text-warning">New</span>
         </td>
-        <td width="300px">{{ item.reason }}</td>
-        <td>
+        <td @click="showDialog(item.id)" width="300px">{{ item.reason }}</td>
+        <td @click="showDialog(item.id)">
           {{ item.duration }} <span v-if="item.duration > 1">Days</span
           ><span v-else>Day</span>
         </td>
@@ -80,7 +90,6 @@
             <span>Reject</span>
           </v-actions>
         </td>
-        <td v-else></td>
       </tr>
     </tbody>
   </v-table>
@@ -88,7 +97,11 @@
 
 <script>
 import Swal from "sweetalert2";
+import studentInfo from "./StudentInformation.vue";
 export default {
+  components: {
+    studentInfo,
+  },
   props: ["items", "leaves", "noAction"],
   emits: ["update"],
   data() {
@@ -96,6 +109,8 @@ export default {
       approved: 0,
       rejected: 0,
       newRequest: 0,
+      dialog: false,
+      student: {},
       user: localStorage.getItem("user"),
     };
   },
@@ -115,6 +130,11 @@ export default {
           this.alert = true;
           if (status) {
             this.status = true;
+            this.approved += 1;
+            this.newRequest -= 1;
+          } else {
+            this.newRequest -= 1;
+            this.rejected += 1;
           }
         }
       });
@@ -130,16 +150,20 @@ export default {
         }
       }
     },
+    showDialog(id) {
+      if (localStorage.getItem('user')!=='student') {
+        this.dialog = true;
+        for (let leave of this.leaves) {
+          if (id == leave.id) {
+            this.student = leave.user;
+          }
+          console.log(leave.user);
+        }
+      }
+    },
   },
   updated() {
     this.countApprovedAndRejected();
-  },
-  created() {
-    console.log(
-      this.user ==
-        "student" +
-          "==============================================================="
-    );
   },
 };
 </script>
