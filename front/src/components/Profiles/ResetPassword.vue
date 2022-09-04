@@ -1,9 +1,6 @@
 <template>
-    <div style="width: 60%;padding: 20px;box-shadow: #00000059 0px 5px 15px;border-radius:10px;">
-        <div style="display: flex;justify-content: center;">
-            <img src="https://i.pinimg.com/564x/35/8f/c9/358fc916283e21aa785ef5d6fbe56eba.jpg" alt="" width="80" height="80">
-        </div>
-        <div style="text-align: center;">
+    <div class="ma-5">
+        <div style="text-align: center; font-size: 30px; font-weight: bold;">
             Change My Password
         </div>
         <v-form

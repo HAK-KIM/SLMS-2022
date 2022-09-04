@@ -118,7 +118,7 @@ export default ({
     },
 
     hidden(){
-        this.ishidden = !this.ishidden
+        this.ishidden = true
     },
     // SELECTE FILES IMAGE
     async onFileSelected(event){
@@ -142,6 +142,7 @@ export default ({
       return this.getPersonalData();
     })
     this.ishidden = boolean;
+    console.log(boolean)
   }
   },
   created() {
