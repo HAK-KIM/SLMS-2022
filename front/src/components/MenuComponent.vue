@@ -20,15 +20,21 @@
             </v-list-item>
           
         </v-list> 
-        <div class="image" style="width:10%;text-align:center;">
+        <div class="image" style="width:10%;text-align:center;" v-if="isStudent">
             <router-link to="/profile-user">
+                <img :src="imageProfile !=null?imageProfile:avataImage" alt="" width="40" height="40" style="border-radius:50%;">
+            </router-link>
+        </div>
+
+        <div class="image" style="width:10%;text-align:center;" v-else>
+            <router-link to="/profile-admin" >
                 <img :src="imageProfile !=null?imageProfile:avataImage" alt="" width="40" height="40" style="border-radius:50%;">
             </router-link>
         </div>
 </template>
 <script>
 export default {
-    props:['imageProfile'],
+    props:['imageProfile', 'isStudent'],
   data: () => ({
     avataImage:'https://cdn-icons-png.flaticon.com/512/149/149071.png',
   }),

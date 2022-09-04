@@ -29,4 +29,9 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::put('/upload/{id}', [UserController::class, 'updateImage']);
     // UPDATE IMAGE SET
     Route::put('/password/{id}', [UserController::class, 'updatePassword']);
+
 });
+//GET ADMIN
+Route::apiResource('/admins', AdminController::class);
+Route::put('/admin_upload/{id}', [AdminController::class, 'updateImage']);
+Route::put('/admin_password/{id}', [AdminController::class, 'updatePassword']);

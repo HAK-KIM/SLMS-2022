@@ -51,7 +51,8 @@ export default {
             mailEnter: '',
             passwordEnter: '',
             loginNow:{email: '', password: '',},
-            logos:  "https://i.pinimg.com/564x/28/72/bb/2872bb61e93425c0bb9393d5e444e9e5.jpg"
+            logos:  "https://i.pinimg.com/564x/28/72/bb/2872bb61e93425c0bb9393d5e444e9e5.jpg",
+            show:false
         }
     },
     methods:{

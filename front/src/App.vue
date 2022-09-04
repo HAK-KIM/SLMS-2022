@@ -4,7 +4,7 @@
       <v-toolbar-title class="mt-2" style="margin-left: 30px">
         <img :src="logos" alt="" width="130" height="130" />
       </v-toolbar-title>
-      <Menubar :imageProfile="users.image"/>
+      <Menubar :imageProfile="users.image" :isStudent='isstudentRoute'/>
     </v-app-bar>
     <div class="area">
       <ul class="circles">
@@ -41,7 +41,7 @@ export default {
       { title: "List Leaves", icon: "mdi-home", to: "/leave" },
       { title: "Students", icon: "mdi-account-group", to: "/students" },
       { title: "Logout", icon: "mdi-logout", to: "/" },
-      { title: "", icon: "mdi-account-tie", to: "/profile-admin" },
+      // { title: "", icon: "mdi-account-tie", to: "/profile-admin" },
     ],
     studentMenu: [
       {
@@ -55,6 +55,7 @@ export default {
     EXPIRE_TIME: 1000 * 60 * 60,
     users: {},
     logos:"https://i.pinimg.com/236x/e5/c3/36/e5c3363701f1a2d7f29fba6ed0ccb97d.jpg",
+    isstudentRoute: false,
   }),
   methods: {
     clearLocalstorage() {
@@ -63,10 +64,19 @@ export default {
       }, this.EXPIRE_TIME);
     },
     getImageProfile() {
-      axios.get('/students/'+ localStorage.getItem("id"))
-      .then((response)=>{
-          this.users = response.data
-      })
+      console.log(localStorage.getItem("user")==="student")
+      if(localStorage.getItem("user")==="student"){
+        axios.get('/students/'+ localStorage.getItem("id"))
+        .then((response)=>{
+            this.users = response.data
+            this.isstudentRoute = true;
+        })
+      }else{
+        axios.get('/admins/'+ localStorage.getItem("id"))
+        .then((response)=>{
+            this.users = response.data
+        })
+      }
     }
   },
  

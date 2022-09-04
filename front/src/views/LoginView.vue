@@ -17,12 +17,12 @@ export default {
     },
     methods: {
         loginData(value){
-            console.log(value)
             // if (this.$route.meta.isAdmin && (/[a-z].[a-z]*@passerellesnumeriques.org*/.test(value.email))) {
             if (this.$route.meta.isAdmin) {
                 axios.post('/loginAdmin', value)
                 .then((response) => {
                     console.log(response.data);
+                    localStorage.setItem("id", (response.data.user.id));
                     localStorage.setItem("user",'teacher' );
                     localStorage.setItem("Authorization", (response.data.token));
                     this.$router.push('/leave');
@@ -49,15 +49,14 @@ export default {
                         localStorage.setItem("id", (response.data.user.id));
                         localStorage.setItem("user",'student' );
                         localStorage.setItem("Authorization", (response.data.token));
-                        setTimeout(function(){
-                            window.location.reload();
-                        }, 500);
+                        // setTimeout(function(){
+                        //     window.location.reload();
+                        // }, 500);
                         this.$router.push('/leave/'+id);
                         console.log('login');
                     }
                 }).catch((error) => {
                     console.log(error);
-                    console.log('login not success');
                 })
                     console.log('login not success');
             }
@@ -76,8 +75,8 @@ export default {
             }
         }
     },
-    // created() {
-    //     this.logout();
-    // }
+    created() {
+        this.logout();
+    }
 }
 </script>
