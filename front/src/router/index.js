@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/profile-user',
     name: 'profile-user',
-    component: () => import('../views/ProfileUser.vue'),
+    component: () => import('@/components/Profiles/ProfilesComponent.vue'),
     meta: {
       Auth: true,
       user:'student'
@@ -100,6 +100,17 @@ const routes = [
       user:'student'
     }
   }, 
+
+  {
+    path: '/forgot',
+    name: 'forgot',
+    component: () => import('../components/Profiles/ForgotPassword.vue'),
+    meta: {
+      hideNavbar: true,
+      logout: true,
+      Auth: false
+    },
+  },
 ]
 
 const router = createRouter({

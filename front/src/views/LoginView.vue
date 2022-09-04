@@ -1,7 +1,7 @@
 <template>
-    <div class=home>
-        <div class="login">
-            <LoginComponent @emit-login="loginData"/>
+    <div style="display: flex;justify-content: space-around;align-items: center; height: 80vh;;">
+        <div style="width: 40%;">
+            <LoginComponent @emit-login="loginData" :isNotLogin="isNotValid"/>
         </div>
     </div>
 </template>
@@ -9,7 +9,7 @@
 import LoginComponent from '@/components/LoginComponent.vue'
 import axios from '../axios-http';
 export default {
-    components: { LoginComponent },
+    components: { LoginComponent }, 
     data(){
         return {
             image: 'https://i.pinimg.com/564x/35/8f/c9/358fc916283e21aa785ef5d6fbe56eba.jpg',
@@ -17,11 +17,18 @@ export default {
     },
     methods: {
         loginData(value){
+            console.log(value)
             // if (this.$route.meta.isAdmin && (/[a-z].[a-z]*@passerellesnumeriques.org*/.test(value.email))) {
             if (this.$route.meta.isAdmin) {
                 axios.post('/loginAdmin', value)
                 .then((response) => {
                     console.log(response.data);
+                    localStorage.setItem("user",'teacher' );
+                    localStorage.setItem("Authorization", (response.data.token));
+                    this.$router.push('/leave');
+                    // setTimeout(function(){
+                    //     window.location.reload();
+                    // }, 2000);
                     if (response.data.token) {
                         localStorage.setItem("user",'teacher' );
                         localStorage.setItem("Authorization", (response.data.token));
@@ -69,9 +76,9 @@ export default {
             }
         }
     },
-    created() {
-        this.logout();
-    }
+    // created() {
+    //     this.logout();
+    // }
 }
 </script>
 <style>

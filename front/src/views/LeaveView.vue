@@ -193,7 +193,7 @@ export default ({
     }
   },
   created() {
-    this.overlay=true;
+    // this.overlay=true;
     if (localStorage.getItem('user') && localStorage.getItem('Authorization')) {
       this.user=localStorage.getItem('user');
       if (localStorage.getItem('id') && !this.$route.meta.isAdmin) {

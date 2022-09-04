@@ -16,12 +16,12 @@ class UserController extends Controller
     {
         return User::with(['leaves'])->get();
     }
-
+    // DELETE STUDENT
     public function destroy($id)
     {
         return User::destroy($id);
     }
-
+    // GET ONLY STUDENT
     public function show($id)
     {
         return User::with('leaves')->findOrfail($id);
@@ -30,14 +30,15 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $student = new User();
+        $student->studentID = $request->studentID;
         $student->firstName = $request->firstName;
         $student->lastName = $request->lastName;
         $student->gender = $request->gender;
         $student->batch = $request->batch;
         $student->email = $request->email;
         $student->phone = $request->phone;
-        $student->studentID = $request->studentID;
         $student->password = bcrypt($request->password);
+        $student->class = $request->class;
 
         $student->save();
         return response()->json(["message" => $student]);
@@ -46,17 +47,19 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $student = User::find($id);
+        $student->studentID = $request->studentID;
         $student->firstName = $request->firstName;
         $student->lastName = $request->lastName;
         $student->gender = $request->gender;
         $student->batch = $request->batch;
-        $student->studentID = $request->studentID;
         $student->email = $request->email;
         $student->phone = $request->phone;
         $student->password = bcrypt($request->password);
+        $student->class = $request->class;
         $student->save();
         return response()->json(["message" => $student]);
     }
+
     // LOGIN TO APPLICATION
     public function login(Request $request) {
         $user = User::where('email',"$request->email")->first();
@@ -69,6 +72,7 @@ class UserController extends Controller
         ->withCookie($cookie);
 
     }
+
     // LOGOUT THE APPLICATION
     public function logout(Request $request) {
         $cookie = Cookie::forget('jwt');
@@ -92,5 +96,30 @@ class UserController extends Controller
         Notification::send($admin, new SendEmailNotification($details));
 
         return [$details];
+    }
+    // UPDATE IMAGE OF PROFILE
+    public function updateImage(Request $request, $id){
+        $student = User::find($id);
+        {
+            $path = public_path('images');
+            if ( ! file_exists($path) ) {
+                mkdir($path, 0777, true);
+            }
+            $file = $request->file('image');
+            $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
+            $file->move($path, $fileName);
+            $student->image = asset('images/' . $fileName);
+        }
+        $student->save();
+        return response()->json(["message" => "Image is saved successfully"]);
+    }
+
+    // UPDATE PASSWORD STUDENT
+    public function updatePassword(Request $request, $id){
+        $student = User::find($id);
+        $student->password = bcrypt($request->password);
+        $student->save();
+        return response()->json(["message" => "Password is updated"]);
+
     }
 }

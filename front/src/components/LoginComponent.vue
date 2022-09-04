@@ -36,8 +36,8 @@
                 <v-btn block color="primary" @click="login" x-large>
                     LOGIN NOW
                 </v-btn>                  
-                <div class="forgot">
-                    <router-link to="/change">Forgot password?</router-link>
+                <div style="text-align: right;">
+                    <router-link to="/forgot" style="color: green;">Forgot password?</router-link>
                 </div>
             </div>
         </v-form>
