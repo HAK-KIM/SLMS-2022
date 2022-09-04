@@ -2,7 +2,6 @@
   <section class="d-flex justify-center mt-3 pa-0 mb-0">
     <v-col cols = "3" sm="3"  v-if="user=='teacher'">
     <v-select
-      class="text-white"
       :items = "batches"
       label = "Filter By Batches"
       variant = "outlined"
@@ -11,7 +10,6 @@
     </v-col>
     <v-col cols="3" sm="3">
       <v-select
-        class="text-white"
         :items="items"
         label="Filter By Status"
         variant="outlined"
@@ -20,7 +18,6 @@
     </v-col>
     <v-col cols="3" sm="3">
       <v-select
-        class="text-white"
         :items="type"
         label="Filter By Leave Type"
         variant="outlined"

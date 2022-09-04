@@ -1,9 +1,9 @@
 <template>
     <div class="form-container">
         <div class="login-logo">
-            <img :src="logos" alt="" width="500" height="500">
+            <img :src="logos" alt="">
         </div>
-        <div class="text-title text-white ">
+        <div class="text-title ">
             SIGNIN ACCOUNT
         </div>
         <v-form
@@ -48,11 +48,11 @@ export default {
     emits: ['emit-login'],
     data(){
         return{
+            show:false,
             mailEnter: '',
             passwordEnter: '',
             loginNow:{email: '', password: '',},
-            // logos:  "https://i.pinimg.com/236x/e5/c3/36/e5c3363701f1a2d7f29fba6ed0ccb97d.jpg"
-            logos:  "https://i.pinimg.com/564x/28/72/bb/2872bb61e93425c0bb9393d5e444e9e5.jpg"
+            logos:  "https://i.pinimg.com/564x/5c/c9/a3/5cc9a3dfeb7ad4e84c418b3f4938edc3.jpg"
         }
     },
     methods:{
@@ -64,12 +64,6 @@ export default {
                 this.isEmail = false;
                 this.isPassword = false;
             }
-            // if (this.mailEnter == ''){
-            //     this.isEmail = true;
-            // }
-            // if (this.passwordEnter == ''){
-            //     this.isPassword = true;
-            // }
             console.log(this.mailEnter)
             console.log(this.passwordEnter)
         },
@@ -79,12 +73,10 @@ export default {
 </script>
 <style scoped>
     .form-container{
-        /* width: 40%; */
-        padding: 30px;
+        padding: 50px;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         border-radius:10px;
-        /* background-color: rgb(27, 91, 253); */
-        /* background-color: #1976d2; */
+        background: white;
     }
     .login-logo{
         display: flex;
@@ -93,6 +85,7 @@ export default {
     .login-logo img{
         width: 150px;
         height: 150px;
+        margin-top: -40px;
     }
     .text-title{
         font-size: 30px;
@@ -102,8 +95,7 @@ export default {
 
     button{
         width: 100px;
-        margin: auto;      
-        /* color: white; */
+        margin: auto;    
     }
     .btn-longin{
         width: 100%;
@@ -112,12 +104,11 @@ export default {
     .forgot{
         display: flex;
         justify-content: end;
+        padding-top: 20px;
     }
     .forgot a{
         color: rgb(10, 189, 10);
+        text-decoration: none;
 
-    }
-    .group-form p{
-        color: red;
     }
 </style>

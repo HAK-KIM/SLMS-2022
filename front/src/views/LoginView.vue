@@ -12,7 +12,7 @@ export default {
     components: { LoginComponent },
     data(){
         return {
-            image: 'https://www.datocms-assets.com/40521/1614850600-hrms-6.png',
+            image: 'https://i.pinimg.com/564x/35/8f/c9/358fc916283e21aa785ef5d6fbe56eba.jpg',
         }
     },
     methods: {
@@ -75,16 +75,10 @@ export default {
 }
 </script>
 <style>
-    .home{
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-    }
+    
     .login{
-        width:40%;
+        width:30%;
+        margin: 5% auto;
     }
-    .background{
-        width: 70%;
-        margin-top: 20px;
-    }
+    
 </style>

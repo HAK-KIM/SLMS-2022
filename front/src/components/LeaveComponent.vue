@@ -60,9 +60,7 @@
         <td @click="showDialog(item.id)">{{ item.leave_type }}</td>
         <td @click="showDialog(item.id)">
           <span v-if="item.status == true" class="text-primary">Approved</span>
-          <span v-else-if="item.status == false" class="text-error"
-            >Rejected</span
-          >
+          <span v-else-if="item.status == false" class="text-error">Rejected</span>
           <span v-else-if="item.status == null" class="text-warning">New</span>
         </td>
         <td @click="showDialog(item.id)" width="300px">{{ item.reason }}</td>
@@ -163,6 +161,9 @@ export default {
     },
   },
   updated() {
+    this.approved = 0;
+    this.newRequest = 0;
+    this.rejected = 0;
     this.countApprovedAndRejected();
   },
 };
