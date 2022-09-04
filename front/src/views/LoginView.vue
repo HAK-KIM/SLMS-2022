@@ -22,6 +22,7 @@ export default {
                 axios.post('/loginAdmin', value)
                 .then((response) => {
                     console.log(response.data);
+                    localStorage.setItem("id", (response.data.user.id));
                     localStorage.setItem("user",'teacher' );
                     localStorage.setItem("Authorization", (response.data.token));
                     if (response.data.token) {
@@ -42,14 +43,16 @@ export default {
                         localStorage.setItem("id", (response.data.user.id));
                         localStorage.setItem("user",'student' );
                         localStorage.setItem("Authorization", (response.data.token));
-                        setTimeout(function(){
-                            window.location.reload();
-                        }, 500);
+                        // setTimeout(function(){
+                        //     window.location.reload();
+                        // }, 500);
                         this.$router.push('/leave/'+id);
                         console.log('login');
                     } else {
                         console.log('login not success');
                     }
+                }).catch((error) => {
+                    console.log(error);
                 })
             }
         },
