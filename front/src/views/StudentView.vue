@@ -1,17 +1,6 @@
 <template>
     <section class="px-16 py-4">
         <create @create='createStudent' :type="true" />
-         <v-alert
-            v-model="alert"
-            density="comfortable"
-            type="success"
-            variant="tonal"
-            closable
-            border="start"
-            class="mt-4"
-        >
-            Student have been <strong v-if="status=='create'">created </strong> <strong v-else-if="status=='delete'">deleted </strong> <strong v-else-if="status=='update'">updated </strong>successfully.
-        </v-alert>
         <studentTable :students='students' @delete='deleteStudent' @update='updateStudent' class="mt-4"/>
     </section>
     <section >

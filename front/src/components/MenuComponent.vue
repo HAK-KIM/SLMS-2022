@@ -14,7 +14,6 @@
                     <div class="d-flex">
                         <v-list-item-title class="text-left text-white text-uppercase">{{ item.title }}</v-list-item-title>
                         <v-icon color="white" class="ml-1" v-if="item.icon">{{ item.icon }}</v-icon>
-                        <!-- <v-icon class="text-left text-white">{{item.icon}}</v-icon> -->
                     </div>
                 </v-list-item-content>
             </v-list-item>
@@ -37,6 +36,7 @@ export default {
     props:['imageProfile', 'isStudent'],
   data: () => ({
     avataImage:'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+    user: localStorage.getItem('user'),
   }),
   inject: ['adminMenu', 'studentMenu',],
   

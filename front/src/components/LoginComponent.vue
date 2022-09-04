@@ -1,10 +1,10 @@
 <template>
-    <div style="width: 80%;padding: 20px;box-shadow: #00000059 0px 5px 15px;border-radius:10px;">
-        <div style="display: flex;justify-content: center;">
-            <img src="https://i.pinimg.com/564x/35/8f/c9/358fc916283e21aa785ef5d6fbe56eba.jpg" alt="" width="80" height="80" style="border-radius:50%;">
+    <div class="form-container">
+        <div class="login-logo">
+            <img :src="logos" alt="">
         </div>
-        <div style="text-align: center;">
-            <H1>Signin your account</H1>
+        <div class="text-title ">
+            SIGNIN ACCOUNT
         </div>
         <v-form
             ref="form"
@@ -20,17 +20,15 @@
                 required
             ></v-text-field>
 
-            <div class="group-form">
-                <v-text-field
-                    id="password"
-                    v-model="passwordEnter"
-                    label="Password" 
-                    :type="show ?'text': 'password'"
-                    :rules="passwordRules"
-                    :append-icon="show ?'mdi-eye':'mdi-eye-off'"   
-                    @click:append="show=!show">
-                </v-text-field>
-            </div>
+            <v-text-field
+                id="password"
+                v-model="passwordEnter"
+                label="Password" 
+                :type="show ?'text': 'password'"
+                :rules="passwordRules"
+                :append-inner-icon="show ?'mdi-eye':'mdi-eye-off'"   
+                @click:append-inner="show=!show">
+            </v-text-field>
            
             <div class="btn-longin my-2">
                 <v-btn block color="primary" @click="login" x-large>
@@ -48,11 +46,11 @@ export default {
     emits: ['emit-login'],
     data(){
         return{
+            show:false,
             mailEnter: '',
             passwordEnter: '',
             loginNow:{email: '', password: '',},
-            logos:  "https://i.pinimg.com/564x/28/72/bb/2872bb61e93425c0bb9393d5e444e9e5.jpg",
-            show:false
+            logos:  "https://i.pinimg.com/564x/5c/c9/a3/5cc9a3dfeb7ad4e84c418b3f4938edc3.jpg"
         }
     },
     methods:{
@@ -71,4 +69,44 @@ export default {
 
 }
 </script>
+<style scoped>
+    .form-container{
+        padding: 50px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        border-radius:10px;
+        background: white;
+    }
+    .login-logo{
+        display: flex;
+        justify-content: center;
+    }
+    .login-logo img{
+        width: 150px;
+        height: 150px;
+        margin-top: -40px;
+    }
+    .text-title{
+        font-size: 30px;
+        display: flex;
+        justify-content: center;
+    }
 
+    button{
+        width: 100px;
+        margin: auto;    
+    }
+    .btn-longin{
+        width: 100%;
+        margin: auto;
+    }
+    .forgot{
+        display: flex;
+        justify-content: end;
+        padding-top: 20px;
+    }
+    .forgot a{
+        color: rgb(10, 189, 10);
+        text-decoration: none;
+
+    }
+</style>

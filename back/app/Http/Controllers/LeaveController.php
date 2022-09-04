@@ -17,7 +17,7 @@ class LeaveController extends Controller
      */
     public function index()
     {
-        return Leave::with(['user'])->get();
+        return Leave::with(['user'])->orderBy('status', 'asc')->get();
     }
     /**
      * Store a newly created resource in storage.

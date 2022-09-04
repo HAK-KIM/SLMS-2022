@@ -19,8 +19,8 @@
                     label="Password" 
                     :type="show ?'text': 'password'"
                     :rules="passwordRules"
-                    :append-icon="show ?'mdi-eye':'mdi-eye-off'"   
-                    @click:append="show=!show">
+                    :append-inner-icon="show ?'mdi-eye':'mdi-eye-off'"   
+                    @click:append-inner="show=!show">
                 </v-text-field>
             </div>
            
@@ -60,7 +60,6 @@ export default {
             console.log(this.passwordEnter)
         },
     },
-
 }
 </script>
 

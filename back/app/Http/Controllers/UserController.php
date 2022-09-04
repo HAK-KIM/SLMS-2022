@@ -30,26 +30,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $student = new User();
+        $student->studentID = $request->studentID;
         $student->firstName = $request->firstName;
         $student->lastName = $request->lastName;
         $student->gender = $request->gender;
         $student->batch = $request->batch;
         $student->email = $request->email;
         $student->phone = $request->phone;
-        $student->password = bcrypt($request->password);
         $student->class = $request->class;
-        {
-            $path = public_path('images');
-            if ( ! file_exists($path) ) {
-                mkdir($path, 0777, true);
-            }
-            $file = $request->file('image');
-            $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
-            $file->move($path, $fileName);
-            $users->image = asset('images/' . $fileName);
-            $student->image = asset('images/' . $fileName);
-        }
-
         $student->save();
         return response()->json(["message" => $student]);
     }
@@ -57,11 +45,13 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $student = User::find($id);
+        $student->studentID = $request->studentID;
         $student->firstName = $request->firstName;
         $student->lastName = $request->lastName;
         $student->gender = $request->gender;
         $student->batch = $request->batch;
         $student->email = $request->email;
+        $student->class = $request->class;
         $student->phone = $request->phone;
         $student->password = bcrypt($request->password);
         $student->class = $request->class;
