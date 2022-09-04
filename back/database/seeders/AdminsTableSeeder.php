@@ -17,16 +17,18 @@ class AdminsTableSeeder extends Seeder
     {
         $admins = [
             [
-                'firstName'=>'Admin',
-                'lastName'=>'kimhak',
-                'email'=>'kimhak6900@gmail.com',
+                'firstName'=>'Sim',
+                'lastName'=>'Hul',
+                'email'=>'hul.sim@student.passerellesnumeriques.org',
                 'password'=>bcrypt('123456789'),
+                'image'=>null,
             ],
             [
-                'firstName'=>'Admin',
-                'lastName'=>'kimhak',
-                'email'=>'kimhak6747@gmail.com',
+                'firstName'=>'Vanndy',
+                'lastName'=>'Houn',
+                'email'=>'vanndy.ngoun@student.passerellesnumeriques.org',
                 'password'=>bcrypt('123456789'),
+                'image'=>null,
 
             ]
             ];

@@ -90,7 +90,7 @@ export default {
             email: this.email,
             gender: this.gender,
             batch: this.batch,
-            classes: this.classes,
+            class: this.classes,
             phone: this.phone,
             password: 123456789,
           });
@@ -150,6 +150,7 @@ export default {
           this.phone = this.student.phone;
           this.gender = this.student.gender;
           this.studentID = this.student.studentID;
+          this.classes = this.student.class;
         }
       },
       updateStudent() {
@@ -163,6 +164,7 @@ export default {
             gender: this.gender,
             phone: this.phone,
             studentID: this.studentID,
+            class: this.classes
           })
           this.dialog = false;
         }

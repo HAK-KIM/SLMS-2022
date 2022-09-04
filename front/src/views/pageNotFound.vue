@@ -2,7 +2,7 @@
     <div class="NotFound">
         <div id="main">
             <div class="fof">
-                    <h1>Error 404 Page Not Found</h1>
+                <h1>Error 404 Page Not Found</h1>
             </div>
         </div>
     </div>

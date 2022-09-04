@@ -1,7 +1,7 @@
 <template>
-    <div class=home>
-        <div class="login">
-            <LoginComponent @emit-login="loginData"/>
+    <div style="display: flex;justify-content: space-around;align-items: center; height: 80vh;;">
+        <div style="width: 40%;">
+            <LoginComponent @emit-login="loginData" :isNotLogin="isNotValid"/>
         </div>
     </div>
 </template>
@@ -9,10 +9,10 @@
 import LoginComponent from '@/components/LoginComponent.vue'
 import axios from '../axios-http';
 export default {
-    components: { LoginComponent },
+    components: { LoginComponent }, 
     data(){
         return {
-            image: 'https://www.datocms-assets.com/40521/1614850600-hrms-6.png',
+            
         }
     },
     methods: {
@@ -22,16 +22,16 @@ export default {
                 axios.post('/loginAdmin', value)
                 .then((response) => {
                     console.log(response.data);
+                    localStorage.setItem("user",'teacher' );
+                    localStorage.setItem("Authorization", (response.data.token));
                     if (response.data.token) {
                         localStorage.setItem("user",'teacher' );
                         localStorage.setItem("Authorization", (response.data.token));
                         setTimeout(function(){
                             window.location.reload();
-                        }, 500);
+                        }, 1000);
                         this.$router.push('/leave');
                     }
-                }).catch((error) => {
-                    console.log(error);
                 })
             } else if ((/[a-z].[a-z]*@student.passerellesnumeriques.org*/.test(value.email)) && !this.$route.meta.isAdmin ){
                 axios.post('/login', value)
@@ -47,25 +47,21 @@ export default {
                         }, 500);
                         this.$router.push('/leave/'+id);
                         console.log('login');
+                    } else {
+                        console.log('login not success');
                     }
-                }).catch((error) => {
-                    console.log(error);
-                    console.log('login not success');
                 })
-                    console.log('login not success');
             }
-            console.log(this.$route.meta.isAdmin);
-            console.log(this.$route.meta.logout);
         },
         logout() {
             if (this.$route.meta.logout) {
-                axios.post('logout')
-                .then((response) => {
-                    console.log(response.data);
-                })
-                localStorage.removeItem("Authorization");
-                localStorage.removeItem("id");
-                localStorage.removeItem("user");
+                // axios.post('logout')
+                // .then((response) => {
+                //     console.log(response.data);
+                    localStorage.removeItem("Authorization");
+                    localStorage.removeItem("id");
+                    localStorage.removeItem("user");
+                // })
             }
         }
     },
@@ -74,17 +70,3 @@ export default {
     }
 }
 </script>
-<style>
-    .home{
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-    }
-    .login{
-        width:40%;
-    }
-    .background{
-        width: 70%;
-        margin-top: 20px;
-    }
-</style>

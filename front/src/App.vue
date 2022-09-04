@@ -4,7 +4,7 @@
       <v-toolbar-title class="mt-2" style="margin-left: 30px">
         <img :src="logos" alt="" width="130" height="130" />
       </v-toolbar-title>
-      <Menubar />
+      <Menubar :imageProfile="users.image"/>
     </v-app-bar>
     <div class="area">
       <ul class="circles">
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import axios from './axios-http';
 import Menubar from "./components/MenuComponent.vue";
 export default {
   components: {
@@ -40,7 +41,6 @@ export default {
       { title: "List Leaves", icon: "mdi-home", to: "/leave" },
       { title: "Students", icon: "mdi-account-group", to: "/students" },
       { title: "Logout", icon: "mdi-logout", to: "/" },
-      { title: "", icon: "mdi-account-tie", to: "/profile-admin" },
     ],
     studentMenu: [
       {
@@ -50,12 +50,10 @@ export default {
       },
       { title: "New Request", icon: "mdi-creation", to: "/create" },
       { title: "Logout", icon: "mdi-logout", to: "/" },
-      { title: "", icon: "mdi-account-box-outline", to: "/profile-user" },
     ],
     EXPIRE_TIME: 1000 * 60 * 60,
-    userInfo: {},
-    logos:
-      "https://i.pinimg.com/236x/e5/c3/36/e5c3363701f1a2d7f29fba6ed0ccb97d.jpg",
+    users: {},
+    logos:"https://i.pinimg.com/236x/e5/c3/36/e5c3363701f1a2d7f29fba6ed0ccb97d.jpg",
   }),
   methods: {
     clearLocalstorage() {
@@ -63,6 +61,16 @@ export default {
         localStorage.removeItem("Authorization");
       }, this.EXPIRE_TIME);
     },
+    getImageProfile() {
+      axios.get('/students/'+ localStorage.getItem("id"))
+      .then((response)=>{
+          this.users = response.data
+      })
+    }
+  },
+ 
+  mounted() {
+      return this.getImageProfile();
   },
   provide() {
     return {

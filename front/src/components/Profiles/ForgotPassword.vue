@@ -1,10 +1,10 @@
 <template>
-    <div style="width: 80%;padding: 20px;box-shadow: #00000059 0px 5px 15px;border-radius:10px;">
+    <div style="width: 40%; margin: auto; margin-top: 20px; padding: 20px;box-shadow: #00000059 0px 5px 15px;border-radius:10px;">
         <div style="display: flex;justify-content: center;">
-            <img src="https://i.pinimg.com/564x/35/8f/c9/358fc916283e21aa785ef5d6fbe56eba.jpg" alt="" width="80" height="80" style="border-radius:50%;">
+            <img src="https://i.pinimg.com/564x/35/8f/c9/358fc916283e21aa785ef5d6fbe56eba.jpg" alt="" width="80" height="80">
         </div>
         <div style="text-align: center;">
-            <H1>Signin your account</H1>
+            <h1>RESTE PASSWORD</h1>
         </div>
         <v-form
             ref="form"
@@ -27,18 +27,15 @@
                     label="Password" 
                     :type="show ?'text': 'password'"
                     :rules="passwordRules"
-                    :append-inner-icon="show ?'mdi-eye':'mdi-eye-off'"   
-                    @click:append-inner="show=!show">
+                    :append-icon="show ?'mdi-eye':'mdi-eye-off'"   
+                    @click:append="show=!show">
                 </v-text-field>
             </div>
            
             <div class="btn-longin my-2">
                 <v-btn block color="primary" @click="login" x-large>
-                    LOGIN NOW
+                        RESTE NOW
                 </v-btn>                  
-                <div style="text-align: right;">
-                    <router-link to="/forgot" style="color: green;">Forgot password?</router-link>
-                </div>
             </div>
         </v-form>
     </div>
@@ -49,10 +46,20 @@ export default {
     data(){
         return{
             mailEnter: '',
-            show: false,
             passwordEnter: '',
             loginNow:{email: '', password: '',},
-            logos:  "https://i.pinimg.com/564x/28/72/bb/2872bb61e93425c0bb9393d5e444e9e5.jpg"
+            isEmail:false,
+            isPassword:false,
+            show:false,
+            passwordRules: [
+            v => !!v || 'password is required',
+            v => (v &&  10 >= v.length>=5)  || 'Passwor must be between 5 and 10 characters',
+            ],
+            email: '',
+            emailRules: [
+            v => !!v || 'E-mail is required',
+            v => /.+@.+\..+/.test(v) || 'E-mail must be passerellesnumeriques.org account!',
+            ],
         }
     },
     methods:{

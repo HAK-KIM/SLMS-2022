@@ -1,17 +1,18 @@
 <template>
   <section class="d-flex justify-center mt-3 pa-0 mb-0">
     <v-col cols="3" sm="3" v-if="user == 'teacher'">
-      <v-select class="text-white" :items="['All', '2022', '2023']" label="Filter By Batches" variant="outlined" v-model="stuBatches">
+      <v-select class="text-white" :items="['All', '2022', '2023']" label="Filter By Batches" variant="solo"
+        v-model="stuBatches">
       </v-select>
     </v-col>
     <v-col cols="3" sm="3">
       <v-select class="text-white" :items="['All', 'New Request Only', 'Check Approved Only', 'Check Rejected Only']"
-        label="Filter By Status" variant="outlined" v-model="status">
+        label="Filter By Status" variant="solo" v-model="status">
       </v-select>
     </v-col>
     <v-col cols="3" sm="3">
       <v-select class="text-white" :items="['All', 'Go to home town', 'Sick', 'family event']"
-        label="Filter By Leave Type" variant="outlined" v-model="leaveType">
+        label="Filter By Leave Type" variant="solo" v-model="leaveType">
       </v-select>
     </v-col>
   </section>
@@ -74,6 +75,7 @@ export default ({
             if (leave.id == id) {
               leave.status = status;
               this.sentMailToStudent(userID, status);
+              window.location.reload()
             }
           }
           console.log(response.data);

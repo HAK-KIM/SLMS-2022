@@ -54,7 +54,7 @@
           class="d-flex align-center font-weight-bold"
           v-if="user !== 'student'"
         >
-          <img src="https://i.zoomtventertainment.com/story/Jungkook_13.png" class="mr-3"/>
+          <img :src="item.user.image !=null ? item.user.image : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'" class="mr-3"/>
           {{ item.user.firstName }} {{ item.user.lastName }}
         </td>
         <td @click="showDialog(item.id)">{{ item.leave_type }}</td>
@@ -127,7 +127,6 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           this.$emit("update", id, userID, status);
-          this.alert = true;
           if (status) {
             this.status = true;
             this.approved += 1;

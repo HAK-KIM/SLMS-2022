@@ -2,11 +2,11 @@
 <template>
     <v-row>
         <v-col cols="6" sm="3" class="mt-4">
-            <v-select class="text-white" :items="batches" label="Select By Batches" variant="outlined" v-model="batch">
+            <v-select class="text-white" :items="batches" label="Select By Batches" variant="solo" v-model="batch">
             </v-select>
         </v-col>
         <v-col cols="6" sm="9" class="mt-4">
-            <v-text-field variant="outlined" class="text-white" label="Search" prepend-inner-icon="mdi-magnify" v-model="filterName">
+            <v-text-field variant="solo" class="text-white" label="Search" prepend-inner-icon="mdi-magnify" v-model="filterName">
             </v-text-field>
         </v-col>
     </v-row>
@@ -34,7 +34,7 @@
             <tr v-for:="(student, index) in filterData" style="cursor:pointer; font-size: 18px;">
                 <td @click="getLeaveAndStudent(student.id)" class="py-1">
                     <v-img style="border: 1px solid #04e;" width="50px" height="50px" class="rounded-circle"
-                        src="https://play-lh.googleusercontent.com/AmKSpZt_rynhOO0ID1eS0gqeW3DFzoH6KNZkAAgepQ0t9MDRQTmil-nlY5GqkZ_7El0">
+                        :src="student.image != null ? student.image : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'">
                     </v-img>
                 </td>
                 <td @click="getLeaveAndStudent(student.id)" style="font-size: 16px;">{{ student.firstName }}</td>
