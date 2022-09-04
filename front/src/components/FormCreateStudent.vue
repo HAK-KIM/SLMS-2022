@@ -17,9 +17,13 @@
               <v-text-field label="lastName" v-model="lastName"></v-text-field>
               <small class="text-error">{{error.lastName}}</small>
             </v-col>
-            <v-col cols="12" sm="12">
+            <v-col cols="12" sm="6">
               <v-text-field label="E-mail" v-model='email'></v-text-field>
               <small class="text-error">{{error.email}}</small>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-text-field label="Class" v-model='classes'></v-text-field>
+              <small class="text-error">{{error.classes}}</small>
             </v-col>
             <v-col cols="12" sm="6">
               <v-select label="Gender" v-model="gender" :items="['Male', 'Female', 'Other']"
@@ -60,6 +64,7 @@ export default {
       email: '',
       phone: '',
       studentID: '',
+      classes: '',
       isValid: false,
       error: {},
     }),
@@ -73,6 +78,7 @@ export default {
         this.batch = '';
         this.phone = '';
         this.studentID = '';
+        this.classes = '';
       },
       createStudent() {
         this.checkForm();
@@ -84,6 +90,7 @@ export default {
             email: this.email,
             gender: this.gender,
             batch: this.batch,
+            class: this.classes,
             phone: this.phone,
             password: 123456789,
           });
@@ -93,7 +100,7 @@ export default {
         }
       },
       checkForm() {
-        const pattern  = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const pattern  = /[a-z].[a-z]*@student.passerellesnumeriques.org*/;
         if (this.firstName == '') {
           this.error.firstName = 'firstName is required'
         } else if (this.firstName != '') {
@@ -119,7 +126,11 @@ export default {
           this.error.phone = 'phone minimum size is 9'
         }else if (this.phone.length > 8) {
           this.error.phone = ''
-        } if (!pattern.test(this.email)) {
+        } if (this.classes == '') {
+          this.error.classes = 'classes is required'
+        }else if (this.classes != '') {
+          this.error.classes = ''
+        }if (!pattern.test(this.email)) {
           this.error.email = 'email invalid'
         }else if (this.email != '') {
           this.error.email = ''
@@ -139,6 +150,7 @@ export default {
           this.phone = this.student.phone;
           this.gender = this.student.gender;
           this.studentID = this.student.studentID;
+          this.classes = this.student.class;
         }
       },
       updateStudent() {
@@ -152,6 +164,7 @@ export default {
             gender: this.gender,
             phone: this.phone,
             studentID: this.studentID,
+            class: this.classes
           })
           this.dialog = false;
         }

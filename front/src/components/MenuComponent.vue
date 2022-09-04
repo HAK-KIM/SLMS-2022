@@ -14,14 +14,13 @@
                     <div class="d-flex">
                         <v-list-item-title class="text-left text-white text-uppercase">{{ item.title }}</v-list-item-title>
                         <v-icon color="white" class="ml-1" v-if="item.icon">{{ item.icon }}</v-icon>
-                        <!-- <v-icon class="text-left text-white">{{item.icon}}</v-icon> -->
                     </div>
                 </v-list-item-content>
             </v-list-item>
           
         </v-list> 
         <div class="image" style="width:10%;text-align:center;">
-            <router-link to="/profile-user">
+            <router-link :to="user=='student' ? '/profile-user' : '/profile-admin'">
                 <img :src="imageProfile !=null?imageProfile:avataImage" alt="" width="40" height="40" style="border-radius:50%;">
             </router-link>
         </div>
@@ -31,6 +30,7 @@ export default {
     props:['imageProfile'],
   data: () => ({
     avataImage:'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+    user: localStorage.getItem('user'),
   }),
   inject: ['adminMenu', 'studentMenu',],
   

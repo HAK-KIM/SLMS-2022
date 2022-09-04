@@ -37,9 +37,7 @@ class UserController extends Controller
         $student->batch = $request->batch;
         $student->email = $request->email;
         $student->phone = $request->phone;
-        $student->password = bcrypt($request->password);
         $student->class = $request->class;
-
         $student->save();
         return response()->json(["message" => $student]);
     }
@@ -53,6 +51,7 @@ class UserController extends Controller
         $student->gender = $request->gender;
         $student->batch = $request->batch;
         $student->email = $request->email;
+        $student->class = $request->class;
         $student->phone = $request->phone;
         $student->password = bcrypt($request->password);
         $student->class = $request->class;

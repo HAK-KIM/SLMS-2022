@@ -38,7 +38,6 @@ export default {
       { title: "List Leaves", icon: "mdi-home", to: "/leave" },
       { title: "Students", icon: "mdi-account-group", to: "/students" },
       { title: "Logout", icon: "mdi-logout", to: "/" },
-      { title: "", icon: "mdi-account-tie", to: "/profile-admin" },
     ],
     studentMenu: [
       {

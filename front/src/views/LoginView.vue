@@ -1,6 +1,6 @@
 <template>
     <div style="display: flex;justify-content: space-around;align-items: center; height: 80vh;;">
-        <div style="width: 40%;">
+        <div style="width: 40%;" class="mt-16">
             <LoginComponent @emit-login="loginData" :isNotLogin="isNotValid"/>
         </div>
     </div>
@@ -17,7 +17,6 @@ export default {
     },
     methods: {
         loginData(value){
-            console.log(value)
             // if (this.$route.meta.isAdmin && (/[a-z].[a-z]*@passerellesnumeriques.org*/.test(value.email))) {
             if (this.$route.meta.isAdmin) {
                 axios.post('/loginAdmin', value)
@@ -25,20 +24,14 @@ export default {
                     console.log(response.data);
                     localStorage.setItem("user",'teacher' );
                     localStorage.setItem("Authorization", (response.data.token));
-                    this.$router.push('/leave');
-                    // setTimeout(function(){
-                    //     window.location.reload();
-                    // }, 2000);
                     if (response.data.token) {
                         localStorage.setItem("user",'teacher' );
                         localStorage.setItem("Authorization", (response.data.token));
                         setTimeout(function(){
                             window.location.reload();
-                        }, 500);
+                        }, 1000);
                         this.$router.push('/leave');
                     }
-                }).catch((error) => {
-                    console.log(error);
                 })
             } else if ((/[a-z].[a-z]*@student.passerellesnumeriques.org*/.test(value.email)) && !this.$route.meta.isAdmin ){
                 axios.post('/login', value)
@@ -54,31 +47,27 @@ export default {
                         }, 500);
                         this.$router.push('/leave/'+id);
                         console.log('login');
+                    } else {
+                        console.log('login not success');
                     }
-                }).catch((error) => {
-                    console.log(error);
-                    console.log('login not success');
                 })
-                    console.log('login not success');
             }
-            console.log(this.$route.meta.isAdmin);
-            console.log(this.$route.meta.logout);
         },
         logout() {
             if (this.$route.meta.logout) {
                 axios.post('logout')
                 .then((response) => {
                     console.log(response.data);
+                    localStorage.removeItem("Authorization");
+                    localStorage.removeItem("id");
+                    localStorage.removeItem("user");
                 })
-                localStorage.removeItem("Authorization");
-                localStorage.removeItem("id");
-                localStorage.removeItem("user");
             }
         }
     },
-    // created() {
-    //     this.logout();
-    // }
+    created() {
+        this.logout();
+    }
 }
 </script>
 <style>

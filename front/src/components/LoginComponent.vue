@@ -20,17 +20,15 @@
                 required
             ></v-text-field>
 
-            <div class="group-form">
-                <v-text-field
-                    id="password"
-                    v-model="passwordEnter"
-                    label="Password" 
-                    :type="show ?'text': 'password'"
-                    :rules="passwordRules"
-                    :append-icon="show ?'mdi-eye':'mdi-eye-off'"   
-                    @click:append="show=!show">
-                </v-text-field>
-            </div>
+            <v-text-field
+                id="password"
+                v-model="passwordEnter"
+                label="Password" 
+                :type="show ?'text': 'password'"
+                :rules="passwordRules"
+                :append-inner-icon="show ?'mdi-eye':'mdi-eye-off'"   
+                @click:append-inner="show=!show">
+            </v-text-field>
            
             <div class="btn-longin my-2">
                 <v-btn block color="primary" @click="login" x-large>

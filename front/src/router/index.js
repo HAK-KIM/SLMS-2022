@@ -19,7 +19,7 @@ const routes = [
   {
     path: '/profile-admin',
     name: 'profile-admin',
-    component: () => import('../views/ProfileAdmin.vue'),
+    component: () => import('@/components/Profiles/ProfilesComponent.vue'),
     meta: {
       isAdmin: true,
       Auth: true,
