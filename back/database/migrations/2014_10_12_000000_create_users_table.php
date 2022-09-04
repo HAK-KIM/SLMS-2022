@@ -26,9 +26,6 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('class')->nullable();
             $table->string('image')->nullable();
-            $table->string('studentID')->nullable();
-            $table->string('class')->nullable();
-            $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

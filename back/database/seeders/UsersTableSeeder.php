@@ -34,7 +34,7 @@ class UsersTableSeeder extends Seeder
                 'lastName'=>'Kroh',
                 'email'=>'i.hat@student.passerellesnumeriques.org',
                 'email_verified_at'=>now(),
-                'password'=>bcrypt('12345'),
+                'password'=>bcrypt('123456789'),
                 'batch'=>'2022',
                 'gender'=>'M',
                 'phone'=>'098765432',
