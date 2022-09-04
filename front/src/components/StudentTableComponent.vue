@@ -15,10 +15,10 @@
             <tr style="background-color: #04e; width: 100%">
                 <th v-for:="item in headers" class="text-left text-white text-uppercase" style="font-size: 16px;">
                     {{ item }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <p class="text-h6 text-error pa-3" v-if="students.length == 0">No students!</p>
+                </tr>
+            </thead>
+            <tbody>
+            <p class="text-h6 text-error pa-3" v-if="filterData.length == 0">No students!</p>
             <v-dialog v-model="dialog" persistent hide-overlay transition="dialog-bottom-transition">
                 <v-card>
                     <v-toolbar color="#04e" class="text-white">
@@ -31,7 +31,7 @@
                     </v-list>
                 </v-card>
             </v-dialog>
-            <tr v-for:="(student, index) in filterData" style="cursor:pointer; font-size: 18px;">
+            <tr v-for:="(student, index) in filterData" style="cursor:pointer; font-size: 18px; ">
                 <td @click="getLeaveAndStudent(student.id)" class="py-1">
                     <v-img style="border: 1px solid #04e;" width="50px" height="50px" class="rounded-circle"
                         :src="student.image != null ? student.image : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'">

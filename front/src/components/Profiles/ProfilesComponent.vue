@@ -1,87 +1,88 @@
 <template>
-  <div
-    style="width: 60%;margin: auto;margin-top: 20px;box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;border-top: 5px solid blue;border-radius: 10px;">
-    <div style="margin: auto;display: flex;justify-content: center;background: rgb(212, 236, 249);">
+  <div class="w-50 mx-auto my-3 rounded-lg" style="box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;">
+    <div class="rounded-lg" style="margin: auto; display: flex; justify-content: center; background: rgb(212, 236, 249);">
       <!-- REAL IMAGE -->
       <div class="top-content">
-        <h2>Personal Profile</h2>
+        <h2 class="mt-3 mb-2">Personal Profile</h2>
         <img :src="users.image !=null?users.image:avataImage" alt="" width="150" height="150"
           style="border-radius: 50%;">
         <div class="update">
           <label for="images">
-            <img src="https://www.freeiconspng.com/thumbs/camera-icon/camera-icon-21.png" alt="" width="50" height="50">
+            <v-icon x-large class="ml-15" style="cursor: pointer;">mdi-camera</v-icon>
           </label>
           <input type="file" id="images" hidden="true" @change="onFileSelected">
         </div>
-
-        <div class="change">Chang your photos</div>
-      </div>
-
-    </div>
-
-    <div class="info-detail" v-if="!ishidden">
-      <div class="name-defualt">
-        <div>FIRSTNAME</div>
-        <div class="getinfo"><strong>{{ users.firstName }}</strong></div>
       </div>
     </div>
-
-    <div class="info-detail" v-if="!ishidden">
-      <div class="name-defualt">
-        <div>LASTNAME</div>
-        <div class="getinfo"><strong>{{users.lastName}}</strong></div>
+    <section v-if="!ishidden" class="py-3">
+      <div class="info-detail mt-5">
+        <div class="name-defualt">
+          <div>FIRST NAME</div>
+          <div class="getinfo"><strong>{{ users.firstName }}</strong></div>
+        </div>
       </div>
-    </div>
-    <!-- CLASS INFO -->
-    <div class="info-detail" v-if="!ishidden">
-      <div class="name-defualt">
-        <div>CLASS</div>
-        <div class="getinfo"><strong>{{users.class}}</strong></div>
+  
+      <div class="info-detail">
+        <div class="name-defualt">
+          <div>LAST NAME</div>
+          <div class="getinfo"><strong>{{users.lastName}}</strong></div>
+        </div>
       </div>
-    </div>
-    <!-- GENDER INFO-->
-    <div class="info-detail" v-if="!ishidden">
-      <div class="name-defualt">
-        <div>GENDER</div>
-        <div class="getinfo"><strong>{{users.gender}}</strong></div>
+      <!-- CLASS INFO -->
+      <div class="info-detail">
+        <div class="name-defualt">
+          <div>ClASS</div>
+          <div class="getinfo"><strong>{{users.class}}</strong></div>
+        </div>
       </div>
-    </div>
-    <!-- BATCH GENERATION -->
-    <div class="info-detail" v-if="!ishidden">
-      <div class="name-defualt">
-        <div>BATCH</div>
-        <div class="getinfo"><strong>{{users.batch}}</strong></div>
+      <!-- GENDER INFO-->
+      <div class="info-detail">
+        <div class="name-defualt">
+          <div>GENDER</div>
+          <div class="getinfo"><strong>{{users.gender}}</strong></div>
+        </div>
       </div>
-    </div>
-    <!-- STUDENT ID -->
-    <div class="info-detail" v-if="!ishidden">
-      <div class="name-defualt">
-        <div>STUDENT ID</div>
-        <div class="getinfo"><strong>{{users.studentID}}</strong></div>
+      <!-- BATCH GENERATION -->
+      <div class="info-detail">
+        <div class="name-defualt">
+          <div>BATCH</div>
+          <div class="getinfo"><strong>{{users.batch}}</strong></div>
+        </div>
       </div>
-    </div>
-    <!-- PHONE NUMBER-->
-    <div class="info-detail" v-if="!ishidden">
-      <div class="name-defualt">
-        <div>CONTACT</div>
-        <div class="getinfo"><strong>{{users.phone}}</strong></div>
+      <!-- STUDENT ID -->
+      <div class="info-detail">
+        <div class="name-defualt">
+          <div>STUDENT ID</div>
+          <div class="getinfo"><strong>{{users.studentID}}</strong></div>
+        </div>
       </div>
-    </div>
-    <!-- EMAIL -->
-    <div class="info-detail" v-if="!ishidden">
-      <div class="name-defualt">
-        <div>EMAIL</div>
-        <div class="getinfo"><strong style="color: blue;">{{users.email}}</strong></div>
+      <!-- PHONE NUMBER-->
+      <div class="info-detail">
+        <div class="name-defualt">
+          <div>CONTACT</div>
+          <div class="getinfo"><strong>{{users.phone}}</strong></div>
+        </div>
       </div>
-    </div>
-    <!-- PASSWORD -->
-    <div class="info-detail" v-if="!ishidden">
-      <div class="name-defualt">
-        <div>PASSWORD</div>
-        <div class="getinfo" style="cursor: pointer; color: #04e;" @click="hidden">
-          <v-icon>mdi-pencil</v-icon> Reset Password</div>
+      <!-- EMAIL -->
+      <div class="info-detail">
+        <div class="name-defualt">
+          <div>EMAIL</div>
+          <div class="getinfo"><strong style="color: blue;">{{users.email}}</strong></div>
+        </div>
       </div>
-    </div>
+      <!-- PASSWORD -->
+      <div class="info-detail">
+        <div class="name-defualt">
+          <div>PASSWORD</div>
+          <div class="getinfo" >
+            <span  @click="hidden" style="padding: 8px; cursor: pointer; background-color: #04e; border-radius: 10px; color: #fff;">
+              <v-icon>mdi-lock-reset</v-icon>
+              Reset Password
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- CHANGE PASSWORD -->
     <div class="change-password" v-if="ishidden">
       <ResetPassword :change_password="users.password" @emit-password="sendPassword" />
@@ -171,7 +172,7 @@ export default ({
   display: flex;
   justify-content: center;
   position: relative;
-  top: -35px;
+  top: -35px;  
 }
 
 .change {
@@ -205,7 +206,7 @@ strong {
   width: 70%;
 }
 
-.text-getinfo{
+.text-getinfo {
   width: 25%;
 }
 

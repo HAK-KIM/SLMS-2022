@@ -30,6 +30,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $student = new User();
+        $student->studentID = $request->studentID;
         $student->firstName = $request->firstName;
         $student->lastName = $request->lastName;
         $student->gender = $request->gender;
@@ -37,8 +38,6 @@ class UserController extends Controller
         $student->email = $request->email;
         $student->phone = $request->phone;
         $student->class = $request->class;
-        $student->studentID = $request->studentID;
-        $student->password = bcrypt($request->password);
         $student->save();
         return response()->json(["message" => $student]);
     }
@@ -46,6 +45,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $student = User::find($id);
+        $student->studentID = $request->studentID;
         $student->firstName = $request->firstName;
         $student->lastName = $request->lastName;
         $student->gender = $request->gender;

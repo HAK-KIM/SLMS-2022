@@ -1,6 +1,6 @@
 <template>
     <div style="display: flex;justify-content: space-around;align-items: center; height: 80vh;;">
-        <div style="width: 40%;">
+        <div style="width: 40%;" class="mt-16">
             <LoginComponent @emit-login="loginData" :isNotLogin="isNotValid"/>
         </div>
     </div>
@@ -12,7 +12,7 @@ export default {
     components: { LoginComponent }, 
     data(){
         return {
-            
+            image: 'https://i.pinimg.com/564x/35/8f/c9/358fc916283e21aa785ef5d6fbe56eba.jpg',
         }
     },
     methods: {
@@ -55,13 +55,13 @@ export default {
         },
         logout() {
             if (this.$route.meta.logout) {
-                // axios.post('logout')
-                // .then((response) => {
-                //     console.log(response.data);
+                axios.post('logout')
+                .then((response) => {
+                    console.log(response.data);
                     localStorage.removeItem("Authorization");
                     localStorage.removeItem("id");
                     localStorage.removeItem("user");
-                // })
+                })
             }
         }
     },
@@ -70,3 +70,11 @@ export default {
     }
 }
 </script>
+<style>
+    
+    .login{
+        width:30%;
+        margin: 5% auto;
+    }
+    
+</style>
