@@ -38,6 +38,7 @@ class UserController extends Controller
         $student->email = $request->email;
         $student->phone = $request->phone;
         $student->class = $request->class;
+        $student->password = bcrypt($request->password);
         $student->save();
         return response()->json(["message" => $student]);
     }
