@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/profile-user',
     name: 'profile-user',
-    component: () => import('../components/Profiles/ProfilesComponent.vue'),
+    component: () => import('../views/ProfileUser.vue'),
     meta: {
       Auth: true,
       user:'student'
@@ -19,7 +19,7 @@ const routes = [
   {
     path: '/profile-admin',
     name: 'profile-admin',
-    component: () => import('@/components/Profiles/ProfilesComponent.vue'),
+    component: () => import('../views/ProfileAdmin.vue'),
     meta: {
       isAdmin: true,
       Auth: true,
